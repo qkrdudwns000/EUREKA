@@ -6,7 +6,9 @@ public class PlayerController : CharacterProperty
 {
     public float smoothMoveSpeed = 10.0f;
     public Vector2 targetDir = Vector2.zero;
-    
+    public bool isForward = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class PlayerController : CharacterProperty
     {
         PlayerMovement();
         Rolling();
+        Shield();
     }
 
     private void PlayerMovement()
@@ -32,18 +35,32 @@ public class PlayerController : CharacterProperty
 
         myAnim.SetFloat("x", x);
         myAnim.SetFloat("y", y);
+
+
+        
+        if(y > 0.1f)
+        {
+            isForward = true;
+        }
+        else
+        {
+            isForward = false;
+        }
         
     }
     private void Rolling()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && targetDir != Vector2.zero && !myAnim.GetBool("IsRolling")) 
+        if (Input.GetKey(KeyCode.Space) && targetDir != Vector2.zero && !myAnim.GetBool("IsRolling")) 
         {
-            if (targetDir.y < 0.0f)
-            {
-                transform.Rotate(Vector3.up * 180.0f);
-                myAnim.SetTrigger("Rolling");
-            }
-            //myAnim.SetTrigger("Rolling");
+            myAnim.SetTrigger("Rolling");
+        }
+    }
+    private void Shield()
+    {
+        if (Input.GetKey(KeyCode.Space) && -0.1 < targetDir.x && 0.1 > targetDir.x && -0.1 < targetDir.y && 0.1 > targetDir.y 
+            && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling"))
+        {
+            myAnim.SetTrigger("Block");
         }
     }
 }

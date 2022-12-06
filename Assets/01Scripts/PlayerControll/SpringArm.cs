@@ -10,13 +10,13 @@ public class SpringArm : MonoBehaviour
     public float lookupSpeedY = 1.0f;
     public float zoomSpeed = 3.0f;
     public float offSet = 0.5f;
-    private bool isClick = false;
     Vector3 curRot = Vector3.zero;
     public Vector2 lookupRange = new Vector2(-60.0f, 80.0f);
     public Vector2 ZoomRange = new Vector2(-8, -1);
     Vector3 camPos = Vector3.zero;
     float desireDistance = 0.0f;
 
+    public GameObject thePlayer;
     [SerializeField]private PlayerController theController;
  
     // Start is called before the first frame update
@@ -46,18 +46,13 @@ public class SpringArm : MonoBehaviour
         curRot.y += Input.GetAxisRaw("Mouse X") * lookupSpeedX;
 
         transform.localRotation = Quaternion.Euler(curRot.x, 0, 0);
-        if(Input.GetMouseButton(1))
+        if(theController.isForward)
         {
-            if (!isClick)
-            {
-                curRot.y = 0.0f;
-                isClick = true;
-            }
-            transform.localRotation = Quaternion.Euler(curRot.x, curRot.y, 0);
+            thePlayer.transform.localRotation = Quaternion.Lerp(thePlayer.transform.localRotation, Quaternion.Euler(0.0f, curRot.y, 0.0f), Time.deltaTime * 10.0f);
+            transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
         }
         else
         {
-            isClick = false;
             transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
         }
 
