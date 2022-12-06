@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : CharacterProperty
 {
     public float smoothMoveSpeed = 10.0f;
-    Vector2 targetDir = Vector2.zero;
+    public Vector2 targetDir = Vector2.zero;
     
     // Start is called before the first frame update
     void Start()
