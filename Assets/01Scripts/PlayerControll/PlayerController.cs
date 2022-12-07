@@ -6,9 +6,10 @@ public class PlayerController : CharacterProperty
 {
     public float smoothMoveSpeed = 10.0f;
     public Vector2 targetDir = Vector2.zero;
+    public GameObject theCam;
     public bool isForward = false;
-
-
+    private bool IsCombable = false;
+    private int clickCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,8 @@ public class PlayerController : CharacterProperty
     void Update()
     {
         PlayerMovement();
-        Rolling();
-        Shield();
+        RollingAndBlock();
+        ComboAttack();
     }
 
     private void PlayerMovement()
@@ -37,8 +38,8 @@ public class PlayerController : CharacterProperty
         myAnim.SetFloat("y", y);
 
 
-        
-        if(y > 0.1f)
+
+        if (y > 0.1f && !myAnim.GetBool("IsRolling")) 
         {
             isForward = true;
         }
@@ -48,19 +49,54 @@ public class PlayerController : CharacterProperty
         }
         
     }
-    private void Rolling()
+    private void RollingAndBlock()
     {
+        Vector3 dir = Vector3.zero;
+        dir.x = Input.GetAxis("Horizontal");
+        dir.z = Input.GetAxis("Vertical");
         if (Input.GetKey(KeyCode.Space) && targetDir != Vector2.zero && !myAnim.GetBool("IsRolling")) 
         {
+            dir.Normalize();
+
+            transform.rotation = Quaternion.LookRotation(theCam.transform.rotation * dir);
+
             myAnim.SetTrigger("Rolling");
+            
         }
-    }
-    private void Shield()
-    {
-        if (Input.GetKey(KeyCode.Space) && -0.1 < targetDir.x && 0.1 > targetDir.x && -0.1 < targetDir.y && 0.1 > targetDir.y 
+        else if (Input.GetKey(KeyCode.Space) && -0.2 < targetDir.x && 0.2 > targetDir.x && -0.2 < targetDir.y && 0.2 > targetDir.y
             && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling"))
         {
             myAnim.SetTrigger("Block");
+        }
+    }
+    private void ComboAttack()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            myAnim.SetTrigger("ComboAttack");
+        }
+        if(IsCombable)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                clickCount++;
+            }
+        }
+    }
+    public void ComboCheck(bool v)
+    {
+        if (v)
+        {
+            IsCombable = true;
+            clickCount = 0;
+        }
+        else
+        {
+            IsCombable = false;
+            if(clickCount == 0)
+            {
+                myAnim.SetTrigger("ComboFail");
+            }
         }
     }
 }
