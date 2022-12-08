@@ -11,7 +11,7 @@ public class EnemyCotroller : EnemyMovement
 
     public enum STATE
     {
-        Create, Idle,  StartPos, Battle, Dead
+        Create, Idle, StartPos, Battle, Dead
     }
     public STATE myState = STATE.Create;
     void ChangeState(STATE s)
@@ -25,8 +25,10 @@ public class EnemyCotroller : EnemyMovement
             case STATE.Idle:
                 break;
             case STATE.StartPos:
+                MoveToPosition(startPos, () => ChangeState(STATE.Idle));
                 break;
             case STATE.Battle:
+                AttackTarget(myTarget);
                 break;
             case STATE.Dead:
                 break;
@@ -40,8 +42,7 @@ public class EnemyCotroller : EnemyMovement
                 break;
             case STATE.Idle:
                 break;
-            case STATE.StartPos:
-                MoveToPosition(startPos, () => ChangeState(STATE.Idle));
+            case STATE.StartPos: 
                 break;
             case STATE.Battle:
                 break;

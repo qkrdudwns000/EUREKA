@@ -80,23 +80,67 @@ public class EnemyMovement : CharacterProperty
         {
             rotDir = -rotDir;
         }
-        while(Angle > 0.0f)
+        while (Angle > 0.0f)
         {
             if (!myAnim.GetBool("IsAttacking"))
             {
                 float delta = myStat.RotSpeed * Time.deltaTime;
-                if(delta > Angle)
+                if (delta > Angle)
                 {
                     delta = Angle;
                 }
                 Angle -= delta;
                 transform.Rotate(Vector3.up * rotDir * delta, Space.World);
             }
+            yield return null;
         }
-        yield return null;
     }
     IEnumerator AttackingTarget(Transform target, float AttackRange, float AttackDelay)
     {
-        yield return null;
+        float playTime = 0.0f;
+        float delta = 0.0f;
+        while(target != null)
+        {
+            if (!myAnim.GetBool("IsAttacking"))
+                playTime += Time.deltaTime;
+
+            Vector3 dir = target.position - transform.position; // 플레이어로향하는 방향
+            float dist = dir.magnitude;
+            dir.Normalize();
+            if(dist > AttackRange)
+            {
+                myAnim.SetBool("IsMoving", true);
+                delta = myStat.MoveSpeed * Time.deltaTime;
+                if(delta > dist)
+                {
+                    delta = dist;
+                }
+                transform.Translate(dir * delta, Space.World);
+            }
+            else
+            {
+                myAnim.SetBool("IsMoving", false);
+                if(playTime >= AttackDelay) // 딜레이 충족되면 공격.
+                {
+                    playTime = 0.0f;
+                    myAnim.SetTrigger("Attack1");
+                }
+            }
+            //회전
+            delta = myStat.RotSpeed * Time.deltaTime;
+            float Angle = Vector3.Angle(dir, transform.forward);
+            float rotDir = 1.0f;
+            if(Vector3.Dot(transform.right, dir) < 0.0f)
+            {
+                rotDir = -rotDir;
+            }
+            if(delta > Angle)
+            {
+                delta = Angle;
+            }
+            transform.Rotate(Vector3.up * delta * rotDir, Space.World);
+            yield return null;
+        }
+        myAnim.SetBool("IsMoving", false);
     }
 }
