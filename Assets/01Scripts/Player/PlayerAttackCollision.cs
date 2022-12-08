@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class PlayerAttackCollision : MonoBehaviour
 {
+    int count;
     private void OnEnable()
     {
+        count = 0;
         StartCoroutine("AutoDisable");
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && count == 0)
         {
             other.GetComponent<EnemyCotroller>().TakeDamage(10);
+            count++;
         }
     }
     private IEnumerator AutoDisable()
