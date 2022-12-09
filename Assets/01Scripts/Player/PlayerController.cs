@@ -58,7 +58,7 @@ public class PlayerController : CharacterProperty
         Vector3 dir = Vector3.zero;
         dir.x = Input.GetAxis("Horizontal");
         dir.z = Input.GetAxis("Vertical");
-        if (Input.GetKeyDown(KeyCode.Space) && targetDir != Vector2.zero && !myAnim.GetBool("IsRolling"))
+        if (Input.GetKeyDown(KeyCode.Space) && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting")) 
         {
             dir.Normalize();
 
@@ -66,8 +66,7 @@ public class PlayerController : CharacterProperty
 
             myAnim.SetTrigger("Rolling");
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && -0.2 < targetDir.x && 0.2 > targetDir.x && -0.2 < targetDir.y && 0.2 > targetDir.y
-            && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling"))
+        else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting"))
         {
             myAnim.SetTrigger("Block");
         }
@@ -107,5 +106,18 @@ public class PlayerController : CharacterProperty
     public void RollingEnd()
     {
         transform.rotation = Quaternion.LookRotation(theCam.transform.forward); // 구르기 후 정면주시를위함.
+    }
+    public void TakeDamage(int damage)
+    {
+        if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking"))
+        {
+            Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
+            myStat.HP -= damage;
+            myAnim.SetTrigger("OnHit");
+        }
+        else if (myAnim.GetBool("IsBlock"))
+        {
+            myAnim.SetTrigger("Blocking");
+        }
     }
 }

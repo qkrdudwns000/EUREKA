@@ -5,9 +5,10 @@ using UnityEngine;
 public class RootMotion : MonoBehaviour
 {
     public bool DontMove = false;
+    
     float Speed = 2.0f;
-    float walkSpeed = 2.0f;
-    float runSpeed = 3.0f;
+    public float walkSpeed = 2.0f;
+    public float runSpeed = 3.0f;
     Vector3 deltaPosition = Vector3.zero;
     Quaternion deltaRotation = Quaternion.identity;
 

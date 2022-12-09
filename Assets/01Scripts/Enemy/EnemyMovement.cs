@@ -107,7 +107,7 @@ public class EnemyMovement : CharacterProperty
             Vector3 dir = target.position - transform.position; // 플레이어로향하는 방향
             float dist = dir.magnitude;
             dir.Normalize();
-            if(dist > AttackRange)
+            if (dist > AttackRange && !myAnim.GetBool("IsAttacking"))
             {
                 myAnim.SetBool("IsMoving", true);
                 delta = myStat.MoveSpeed * Time.deltaTime;
@@ -127,18 +127,21 @@ public class EnemyMovement : CharacterProperty
                 }
             }
             //회전
-            delta = myStat.RotSpeed * Time.deltaTime;
-            float Angle = Vector3.Angle(dir, transform.forward);
-            float rotDir = 1.0f;
-            if(Vector3.Dot(transform.right, dir) < 0.0f)
+            if (!myAnim.GetBool("IsAttacking"))
             {
-                rotDir = -rotDir;
+                delta = myStat.RotSpeed * Time.deltaTime;
+                float Angle = Vector3.Angle(dir, transform.forward);
+                float rotDir = 1.0f;
+                if (Vector3.Dot(transform.right, dir) < 0.0f)
+                {
+                    rotDir = -rotDir;
+                }
+                if (delta > Angle)
+                {
+                    delta = Angle;
+                }
+                transform.Rotate(Vector3.up * delta * rotDir, Space.World);
             }
-            if(delta > Angle)
-            {
-                delta = Angle;
-            }
-            transform.Rotate(Vector3.up * delta * rotDir, Space.World);
             yield return null;
         }
         myAnim.SetBool("IsMoving", false);

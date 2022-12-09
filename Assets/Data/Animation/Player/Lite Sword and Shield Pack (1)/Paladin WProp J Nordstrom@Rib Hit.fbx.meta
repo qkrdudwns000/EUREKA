@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: c75daca7d9f31d54ebeacd2afdf98582
+guid: bb81b4384ff20114797e7e16d1c3f8ae
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: ShieldBlocking
+    second: Hit
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: ShieldBlocking
+      name: Hit
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 23
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

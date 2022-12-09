@@ -86,6 +86,7 @@ public class EnemyCotroller : EnemyMovement
     public void TakeDamage(int damage)
     {
         Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
+        myStat.HP -= damage;
         myAnim.SetTrigger("OnHit");
         StartCoroutine("OnHitColor");
     }

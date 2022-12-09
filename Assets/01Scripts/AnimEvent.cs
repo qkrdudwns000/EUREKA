@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class AnimEvent : MonoBehaviour
 {
     public UnityEvent<bool> ComboCheck = default;
-    [SerializeField] GameObject attackCollision;
+    [SerializeField] GameObject playerAttackCollision;
     
     
     // 콤보어택 시작 이벤트
@@ -28,6 +28,6 @@ public class AnimEvent : MonoBehaviour
     // 어택 collision 활성화 이벤트
     public void OnAttackCollision()
     {
-        attackCollision.SetActive(true);
+        playerAttackCollision.SetActive(true);
     }
 }
