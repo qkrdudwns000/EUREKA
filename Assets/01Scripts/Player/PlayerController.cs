@@ -11,6 +11,10 @@ public class PlayerController : CharacterProperty
     private bool IsCombable = false;
     public bool IsCombo = false; // 다른 스크립트에 알리는용도.
     private int clickCount;
+
+    [SerializeField] private Transform guardPos;
+    [SerializeField] private GameObject guardEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +30,13 @@ public class PlayerController : CharacterProperty
             RollingAndBlock();
         }
         ComboAttack();
+        if (myAnim.GetBool("IsBlocking") && !myAnim.GetBool("InCounter"))
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                myAnim.SetTrigger("Counter");
+            }
+        }
     }
 
     private void PlayerMovement()
@@ -109,7 +120,7 @@ public class PlayerController : CharacterProperty
     }
     public void TakeDamage(int damage)
     {
-        if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking"))
+        if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking") && !myAnim.GetBool("IsCounter"))
         {
             Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
             myStat.HP -= damage;
@@ -118,6 +129,19 @@ public class PlayerController : CharacterProperty
         else if (myAnim.GetBool("IsBlock"))
         {
             myAnim.SetTrigger("Blocking");
+            EffectCase("Guard");
+        }
+        
+    }
+
+    private void EffectCase(string s)
+    {
+        switch (s)
+        {
+            case "Guard":
+                Instantiate(guardEffect, guardPos.transform.position, Quaternion.identity);
+                ShakeCamera.inst.OnShakeCamera(0.3f, 0.1f);
+                break;
         }
     }
 }
