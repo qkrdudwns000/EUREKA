@@ -20,6 +20,7 @@ public class RollingState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("IsRolling", false);
+        animator.ResetTrigger("ComboAttack");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

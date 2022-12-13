@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 174229482}
   - component: {fileID: 174229484}
   - component: {fileID: 174229483}
+  - component: {fileID: 174229485}
   m_Layer: 7
   m_Name: Ogre
   m_TagString: Enemy
@@ -251,6 +252,22 @@ MonoBehaviour:
     attackDelay: 2
   theMeshRenderer: {fileID: 137000010956694455}
   myState: 0
+--- !u!54 &174229485
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174229481}
+  serializedVersion: 2
+  m_Mass: 5
+  m_Drag: 1
+  m_AngularDrag: 1000
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &289641482
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +311,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 12
+  m_Radius: 16
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &489054414
 GameObject:
@@ -653,12 +670,19 @@ MonoBehaviour:
     attackRange: 0
     attackDelay: 0
   smoothMoveSpeed: 15
+  targettingArea: 16
   targetDir: {x: 0, y: 0}
   theCam: {fileID: 721396128}
   isForward: 0
+  isTargetting: 0
   IsCombo: 0
   guardPos: {fileID: 2893053556771086533}
   guardEffect: {fileID: 2955623459812423943, guid: f5507a8c6a22c404ab324980c4e8a11b, type: 3}
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 128
+  outline: {fileID: 0}
+  theSwordTtrail: {fileID: 2131874494}
 --- !u!136 &814419582
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1163,7 +1187,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.25365877, b: 1, a: 1}
+      key0: {r: 0.6814251, g: 0, b: 1, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 0.38235295}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -3161,8 +3185,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000010393546807}
-  m_LocalRotation: {x: -0.70710695, y: -0.00000016858735, z: -0.00000016858743, w: 0.7071066}
-  m_LocalPosition: {x: 0.09220958, y: 0.96333677, z: 0.05588146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

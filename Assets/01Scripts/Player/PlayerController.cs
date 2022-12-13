@@ -5,35 +5,63 @@ using UnityEngine;
 public class PlayerController : CharacterProperty
 {
     public float smoothMoveSpeed = 10.0f;
-    public float targettingAread = 14.0f;
+    public float targettingArea;
 
     public Vector2 targetDir = Vector2.zero;
     public GameObject theCam;
+    private Transform Target; // 타겟팅설정할때 적트랜스폼
     public bool isForward = false;
     private bool isCombable = false;
-    private bool isTargetting = false;
+    [SerializeField] private bool isTargetting = false;
 
     public bool IsCombo = false; // 다른 스크립트에 알리는용도.
     private int clickCount;
 
     [SerializeField] private Transform guardPos;
-    [SerializeField] private GameObject guardEffect;
+    [SerializeField] private GameObject guardEffect; // 가드이펙트 프리팹
+    [SerializeField] private LayerMask enemyMask; // 적 레이어
+    private Material outline; // 아웃라인 쉐이더매터리얼
+    [SerializeField] private GameObject theSwordTtrail; // 검기 잔상
+
+    Renderer renderers;
+    int rendererCount = 0;
+    List<Material> materialList = new List<Material>();
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        outline = new Material(Shader.Find("Draw/OutlineShader"));
     }
 
     // Update is called once per frame
     void Update()
     {
+        SwordTrail();
+        FindTargetting();
+        if(Input.GetMouseButtonDown(2) && Target != null)
+        {
+            isTargetting = !isTargetting;
+        }
+        else if(Target == null)
+        {
+            isTargetting = false;
+        }
+
+        if (isTargetting)
+        {
+            Targetting();
+        }
+        Outline();
+
         if (!myAnim.GetBool("IsComboAttacking"))
         {
             PlayerMovement();
             RollingAndBlock();
         }
+
         ComboAttack();
+
+
         if (myAnim.GetBool("IsBlocking") && !myAnim.GetBool("InCounter"))
         {
             if (Input.GetMouseButtonDown(1))
@@ -41,6 +69,7 @@ public class PlayerController : CharacterProperty
                 myAnim.SetTrigger("Counter");
             }
         }
+        
     }
 
     private void PlayerMovement()
@@ -88,6 +117,7 @@ public class PlayerController : CharacterProperty
     }
     private void ComboAttack()
     {
+
         IsCombo = myAnim.GetBool("IsComboAttacking");
         if (Input.GetMouseButtonDown(0) && !myAnim.GetBool("IsComboAttacking"))
         {
@@ -122,15 +152,63 @@ public class PlayerController : CharacterProperty
     {
         transform.rotation = Quaternion.LookRotation(theCam.transform.forward); // 구르기 후 정면주시를위함.
     }
-    public void Targetting()
+    private void FindTargetting()
     {
-        //if(Physics.OverlapSphere(transform.position, 12.0f, ))
+        Collider[] _target = Physics.OverlapSphere(transform.position, targettingArea, enemyMask);
 
-        transform.rotation = Quaternion.LookRotation(theCam.transform.forward);
+        if(_target.Length > 0)
+        {
+            for(int i = 0; i < _target.Length; i++)
+            {
+                 if (_target[i].transform.CompareTag("Enemy"))
+                 {
+                     Target = _target[i].transform;
+                 }
+            }
+        }
+        else
+        {
+            Target = null;
+        }
     }
+    private void Targetting()
+    {
+        Vector3 dir = (Target.position - transform.position).normalized;
+        if (Target != null && !myAnim.GetBool("IsRolling"))
+        {
+            transform.rotation = Quaternion.LookRotation(dir);
+        }
+        theCam.transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+    private void Outline()
+    {
+        if (isTargetting && rendererCount == 0)
+        {
+            rendererCount++;
+            renderers = Target.GetComponentInChildren<Renderer>();
+
+            materialList.Clear();
+            materialList.AddRange(renderers.sharedMaterials);
+            materialList.Add(outline);
+
+            renderers.materials = materialList.ToArray();
+        }
+        else if(!isTargetting && renderers != null && rendererCount == 1)
+        {
+            rendererCount = 0;
+            materialList.Clear();
+            materialList.AddRange(renderers.sharedMaterials);
+            materialList.Remove(outline);
+
+            renderers.materials = materialList.ToArray();
+        }
+    }
+
+
     public void TakeDamage(int damage)
     {
-        if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking") && !myAnim.GetBool("IsCounter"))
+          if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking") && !myAnim.GetBool("IsCounter"))
         {
             Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
             myStat.HP -= damage;
@@ -152,6 +230,22 @@ public class PlayerController : CharacterProperty
                 Instantiate(guardEffect, guardPos.transform.position, Quaternion.identity);
                 ShakeCamera.inst.OnShakeCamera(0.3f, 0.1f);
                 break;
+        }
+    }
+    private void SwordTrail()
+    {
+        if (myAnim.GetBool("IsComboAttacking"))
+        {
+            theSwordTtrail.SetActive(true);
+        }
+        else if (myAnim.GetBool("IsCounter"))
+        {
+            //theSwordTtrail.GetComponent<TrailRenderer>().startColor = 
+            theSwordTtrail.SetActive(true);
+        }
+        else
+        {
+            theSwordTtrail.SetActive(false);
         }
     }
 }

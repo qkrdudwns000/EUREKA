@@ -8,6 +8,7 @@ public class BlockingState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("IsBlocking", true);
+        animator.ResetTrigger("Counter");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,6 +21,7 @@ public class BlockingState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("IsBlocking", false);
+        animator.ResetTrigger("Block");
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
