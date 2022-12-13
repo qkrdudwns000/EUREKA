@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerController : CharacterProperty
 {
     public float smoothMoveSpeed = 10.0f;
+    public float targettingAread = 14.0f;
+
     public Vector2 targetDir = Vector2.zero;
     public GameObject theCam;
     public bool isForward = false;
-    private bool IsCombable = false;
+    private bool isCombable = false;
+    private bool isTargetting = false;
+
     public bool IsCombo = false; // 다른 스크립트에 알리는용도.
     private int clickCount;
 
@@ -90,7 +94,7 @@ public class PlayerController : CharacterProperty
             //transform.rotation = Quaternion.LookRotation(theCam.transform.forward);
             myAnim.SetTrigger("ComboAttack");
         }
-        if(IsCombable)
+        if(isCombable)
         {
             if (Input.GetMouseButton(0))
             {
@@ -102,12 +106,12 @@ public class PlayerController : CharacterProperty
     {
         if (v)
         {
-            IsCombable = true;
+            isCombable = true;
             clickCount = 0;
         }
         else
         {
-            IsCombable = false;
+            isCombable = false;
             if(clickCount == 0) // 콤보타이밍에 좌클릭안했을경우엔 combofail실행.
             {
                 myAnim.SetTrigger("ComboFail");
@@ -117,6 +121,12 @@ public class PlayerController : CharacterProperty
     public void RollingEnd()
     {
         transform.rotation = Quaternion.LookRotation(theCam.transform.forward); // 구르기 후 정면주시를위함.
+    }
+    public void Targetting()
+    {
+        //if(Physics.OverlapSphere(transform.position, 12.0f, ))
+
+        transform.rotation = Quaternion.LookRotation(theCam.transform.forward);
     }
     public void TakeDamage(int damage)
     {
