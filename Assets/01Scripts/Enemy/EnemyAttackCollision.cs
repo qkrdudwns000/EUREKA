@@ -5,6 +5,11 @@ using UnityEngine;
 public class EnemyAttackCollision : MonoBehaviour
 {
     int count;
+    EnemyController theEnemy;
+    private void Start()
+    {
+        theEnemy = GetComponentInParent<EnemyController>();
+    }
     private void OnEnable()
     {
         count = 0;
@@ -14,7 +19,7 @@ public class EnemyAttackCollision : MonoBehaviour
     {
         if (other.CompareTag("Player") && count == 0)
         {
-            other.GetComponent<PlayerController>().TakeDamage(10);
+            other.GetComponent<PlayerController>().TakeDamage(theEnemy.myStat.AP);
             count++;
         }
     }

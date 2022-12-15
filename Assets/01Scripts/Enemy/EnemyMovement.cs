@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyMovement : CharacterProperty
+public class EnemyMovement : EnemyCharacterProperty
 {
     // Start is called before the first frame update
 
