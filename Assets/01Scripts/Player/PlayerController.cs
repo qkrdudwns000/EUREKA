@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : CharacterProperty
+public class PlayerController : PlayerCharacterProperty
 {
     public float smoothMoveSpeed = 10.0f;
     public float targettingArea;
@@ -16,6 +16,7 @@ public class PlayerController : CharacterProperty
 
     public bool IsCombo = false; // 다른 스크립트에 알리는용도.
     private int clickCount;
+    private int staminaCount = 0;
 
     [SerializeField] private Transform guardPos;
     [SerializeField] private GameObject guardEffect; // 가드이펙트 프리팹
@@ -38,11 +39,11 @@ public class PlayerController : CharacterProperty
     {
         SwordTrail();
         FindTargetting();
-        if(Input.GetMouseButtonDown(2) && Target != null)
+        if (Input.GetMouseButtonDown(2) && Target != null)
         {
             isTargetting = !isTargetting;
         }
-        else if(Target == null)
+        else if (Target == null)
         {
             isTargetting = false;
         }
@@ -69,13 +70,17 @@ public class PlayerController : CharacterProperty
                 myAnim.SetTrigger("Counter");
             }
         }
-        
     }
 
     private void PlayerMovement()
     {
         //shift 키를 안누르면 최대 0.5, shift키를 누르면 최대 1까지 값이바뀜,
-        float offSet = 0.5f + Input.GetAxis("Sprint") * 0.5f;
+        float offSet = 0.5f;
+        if (myStat.SP > 0.0f)
+        {
+            offSet += Input.GetAxis("Sprint") * 0.5f;
+        }
+        
         targetDir.x = Input.GetAxis("Horizontal") * offSet;
         targetDir.y = Input.GetAxis("Vertical") * offSet;
 
@@ -85,9 +90,12 @@ public class PlayerController : CharacterProperty
         myAnim.SetFloat("x", x);
         myAnim.SetFloat("y", y);
 
+        if (offSet > 0.6f)
+        {
+            myStat.SP -= Time.deltaTime * 20.0f;
+        }
 
-
-        if (y > 0.1f && !myAnim.GetBool("IsRolling")) 
+        if (y > 0.1f && !myAnim.GetBool("IsRolling"))
         {
             isForward = true;
         }
@@ -95,22 +103,29 @@ public class PlayerController : CharacterProperty
         {
             isForward = false;
         }
-        
+
+    }
+    public void StaminaControl()
+    {
+        if (myAnim.GetBool("IsComboAttacking") && clickCount > 0)
+        {
+            myStat.SP -= 10.0f;
+        }
     }
     private void RollingAndBlock()
     {
         Vector3 dir = Vector3.zero;
         dir.x = Input.GetAxis("Horizontal");
         dir.z = Input.GetAxis("Vertical");
-        if (Input.GetKeyDown(KeyCode.Space) && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting")) 
+        if (Input.GetKeyDown(KeyCode.Space) && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f) 
         {
             dir.Normalize();
 
             transform.rotation = Quaternion.LookRotation(theCam.transform.rotation * dir);
-
+            myStat.SP -= 15;
             myAnim.SetTrigger("Rolling");
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting"))
+        else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f)
         {
             myAnim.SetTrigger("Block");
         }
@@ -206,7 +221,7 @@ public class PlayerController : CharacterProperty
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
           if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking") && !myAnim.GetBool("IsCounter"))
         {
