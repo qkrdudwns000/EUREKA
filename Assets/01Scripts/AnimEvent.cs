@@ -7,7 +7,7 @@ public class AnimEvent : MonoBehaviour
 {
     public UnityEvent<bool> ComboCheck = default;
     [SerializeField] GameObject playerAttackCollision;
-    [SerializeField] PlayerController thePlayer;
+    private PlayerController thePlayer;
     private void Start()
     {
         thePlayer = GetComponentInParent<PlayerController>();

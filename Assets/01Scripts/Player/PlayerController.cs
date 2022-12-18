@@ -6,12 +6,16 @@ public class PlayerController : PlayerCharacterProperty
 {
     public float smoothMoveSpeed = 10.0f;
     public float targettingArea;
+    private float currentSpRechargeTime = 0.0f;
+    public float spRechargeTime = 0.0f;
+    public float spIncreaseSpeed = 1.0f;
 
     public Vector2 targetDir = Vector2.zero;
     public GameObject theCam;
     private Transform Target; // 타겟팅설정할때 적트랜스폼
     public bool isForward = false;
     private bool isCombable = false;
+    private bool spUsed = false; // sp 사용중인지 아닌지.
     [SerializeField] private bool isTargetting = false;
 
     public bool IsCombo = false; // 다른 스크립트에 알리는용도.
@@ -22,7 +26,7 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private GameObject guardEffect; // 가드이펙트 프리팹
     [SerializeField] private LayerMask enemyMask; // 적 레이어
     private Material outline; // 아웃라인 쉐이더매터리얼
-    [SerializeField] private GameObject theSwordTtrail; // 검기 잔상
+    [SerializeField] private GameObject theSwordTrail; // 검기 잔상
 
     Renderer renderers;
     int rendererCount = 0;
@@ -61,15 +65,9 @@ public class PlayerController : PlayerCharacterProperty
         }
 
         ComboAttack();
-
-
-        if (myAnim.GetBool("IsBlocking") && !myAnim.GetBool("InCounter"))
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                myAnim.SetTrigger("Counter");
-            }
-        }
+        CounterAttack();
+        SPRechargeTime();
+        SPRecover();
     }
 
     private void PlayerMovement()
@@ -92,7 +90,7 @@ public class PlayerController : PlayerCharacterProperty
 
         if (offSet > 0.6f)
         {
-            myStat.SP -= Time.deltaTime * 20.0f;
+            DecreaseStamina(0.5f);
         }
 
         if (y > 0.1f && !myAnim.GetBool("IsRolling"))
@@ -105,11 +103,38 @@ public class PlayerController : PlayerCharacterProperty
         }
 
     }
-    public void StaminaControl()
+    public void DecreaseStamina(float _count)
     {
-        if (myAnim.GetBool("IsComboAttacking") && clickCount > 0)
+        spUsed = true;
+        currentSpRechargeTime = 0;
+
+        if (myStat.SP > 0.0f)
+            myStat.SP -= _count;
+        else
+            myStat.SP = 0;
+    }
+    private void SPRechargeTime()
+    {
+        if(spUsed)
         {
-            myStat.SP -= 10.0f;
+            if (currentSpRechargeTime < spRechargeTime)
+                currentSpRechargeTime++;
+            else
+                spUsed = false;
+        }
+    }
+    private void SPRecover()
+    {
+        if(!spUsed && myStat.SP < myStat.maxSP)
+        {
+            myStat.SP += spIncreaseSpeed;
+        }
+    }
+    public void StaminaControl() // 콤보어택시 animevent에서 호출되는 함수.
+    {
+        if (myAnim.GetBool("IsComboAttacking") && staminaCount > 0)
+        {
+            DecreaseStamina(10.0f);
         }
     }
     private void RollingAndBlock()
@@ -122,10 +147,11 @@ public class PlayerController : PlayerCharacterProperty
             dir.Normalize();
 
             transform.rotation = Quaternion.LookRotation(theCam.transform.rotation * dir);
-            myStat.SP -= 15;
+            DecreaseStamina(15.0f);
             myAnim.SetTrigger("Rolling");
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f)
+        else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") 
+            && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f)
         {
             myAnim.SetTrigger("Block");
         }
@@ -134,16 +160,29 @@ public class PlayerController : PlayerCharacterProperty
     {
 
         IsCombo = myAnim.GetBool("IsComboAttacking");
-        if (Input.GetMouseButtonDown(0) && !myAnim.GetBool("IsComboAttacking"))
+        if (Input.GetMouseButtonDown(0) && !myAnim.GetBool("IsComboAttacking") && myStat.SP > 0)
         {
             //transform.rotation = Quaternion.LookRotation(theCam.transform.forward);
             myAnim.SetTrigger("ComboAttack");
+            ++staminaCount;
         }
         if(isCombable)
         {
             if (Input.GetMouseButton(0))
             {
-                clickCount++;
+                ++clickCount;
+                ++staminaCount;
+            }
+        }
+    }
+    private void CounterAttack()
+    {
+        if (myAnim.GetBool("IsBlocking") && !myAnim.GetBool("InCounter"))
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                DecreaseStamina(10.0f);
+                myAnim.SetTrigger("Counter");
             }
         }
     }
@@ -153,6 +192,7 @@ public class PlayerController : PlayerCharacterProperty
         {
             isCombable = true;
             clickCount = 0;
+            staminaCount = 0;
         }
         else
         {
@@ -251,16 +291,16 @@ public class PlayerController : PlayerCharacterProperty
     {
         if (myAnim.GetBool("IsComboAttacking"))
         {
-            theSwordTtrail.SetActive(true);
+            theSwordTrail.SetActive(true);
         }
         else if (myAnim.GetBool("IsCounter"))
         {
             //theSwordTtrail.GetComponent<TrailRenderer>().startColor = 
-            theSwordTtrail.SetActive(true);
+            theSwordTrail.SetActive(true);
         }
         else
         {
-            theSwordTtrail.SetActive(false);
+            theSwordTrail.SetActive(false);
         }
     }
 }
