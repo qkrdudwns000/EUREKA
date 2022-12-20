@@ -49,11 +49,11 @@ public class Inventory : MonoBehaviour
     private void CloseInventory()
     {
         go_InventoryBase.SetActive(false);
-        go_EquipBase.SetActive(true);
+        go_EquipBase.SetActive(false);
     }
     public void AcquireItem(Item _item, int _count)
     {
-        if(Item.ItemType.Equipment != _item.itemType)
+        if(Item.ItemType.Equipment != _item.itemType )
         {
             for (int i = 0; i < slots.Length; i++)
             {

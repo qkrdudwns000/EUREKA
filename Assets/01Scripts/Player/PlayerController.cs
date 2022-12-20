@@ -42,30 +42,33 @@ public class PlayerController : PlayerCharacterProperty
     void Update()
     {
         SwordTrail();
-        FindTargetting();
-        if (Input.GetMouseButtonDown(2) && Target != null)
+        if (!Inventory.inventoryActivated)
         {
-            isTargetting = !isTargetting;
-        }
-        else if (Target == null)
-        {
-            isTargetting = false;
-        }
+            FindTargetting();
+            if (Input.GetMouseButtonDown(2) && Target != null)
+            {
+                isTargetting = !isTargetting;
+            }
+            else if (Target == null)
+            {
+                isTargetting = false;
+            }
 
-        if (isTargetting)
-        {
-            Targetting();
-        }
-        Outline();
+            if (isTargetting)
+            {
+                Targetting();
+            }
+            Outline();
 
-        if (!myAnim.GetBool("IsComboAttacking"))
-        {
-            PlayerMovement();
-            RollingAndBlock();
-        }
+            if (!myAnim.GetBool("IsComboAttacking"))
+            {
+                PlayerMovement();
+                RollingAndBlock();
+            }
 
-        ComboAttack();
-        CounterAttack();
+            ComboAttack();
+            CounterAttack();
+        }
         SPRechargeTime();
         SPRecover();
     }

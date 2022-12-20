@@ -18,6 +18,10 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     private TMPro.TMP_Text text_Count;
     [SerializeField]
     private GameObject go_CountImage;
+    [SerializeField]
+    private Equipment theWeaponEquip;
+    [SerializeField]
+    private Equipment theShieldEquip;
 
     private void Start()
     {
@@ -78,9 +82,18 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
         {
             if(item != null)
             {
-                if(item.itemType == Item.ItemType.Equipment)
+                if (item.itemType == Item.ItemType.Equipment)
                 {
                     //ÀåÂø.
+                    if (item.weaponType == Item.WeaponType.Weapon)
+                    {
+                        theWeaponEquip.WeaponEquip(item);
+                    }
+                    else if(item.weaponType == Item.WeaponType.Shield)
+                    {
+                        theShieldEquip.ShieldEquip(item);
+                    }
+
                 }
                 else
                 {
@@ -123,6 +136,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
         {
             ChangeSlot();
         }
+
     }
 
     private void ChangeSlot()
