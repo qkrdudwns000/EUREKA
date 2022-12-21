@@ -11,13 +11,16 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
 
     public Item item; //획득한 아이템
     public int itemCount; // 획득한 아이템의 갯수
+    public bool isEquip = false;
     public Image itemImage; // 아이템이미지
+    public SlotCollector theSlotCollector;
 
     //필요한 컴퍼넌트
     [SerializeField]
     private TMPro.TMP_Text text_Count;
     [SerializeField]
-    private GameObject go_CountImage;
+    private GameObject go_CountImage; // 아이템 카운팅 이미지
+    public GameObject go_EquipImage; // 아이템 장착 이미지
     [SerializeField]
     private Equipment theWeaponEquip;
     [SerializeField]
@@ -26,6 +29,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     private void Start()
     {
         originPos = transform.position;
+        
     }
 
     // 이미지 투명도 조절
@@ -36,7 +40,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
         itemImage.color = color;
     }
     // 아이템 획득시
-    public void AddItem(Item _item, int _count = 1)
+    public void AddItem(Item _item, int _count = 1, bool _isEquip = false)
     {
         item = _item;
         itemCount = _count;
@@ -51,6 +55,16 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
             text_Count.text = "0";
             go_CountImage.SetActive(false);
         }
+        //if (_isEquip)
+        //{
+        //    go_EquipImage.SetActive(true);
+        //    isEquip = true;
+        //}
+        //else
+        //{
+        //    go_EquipImage.SetActive(false);
+        //    isEquip = false;
+        //}
 
         SetColor(1);
     }
@@ -72,6 +86,8 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
         itemCount = 0;
         itemImage.sprite = null;
         SetColor(0);
+        isEquip = false;
+        go_EquipImage.SetActive(false);
         text_Count.text = "0";
         go_CountImage.SetActive(false);
     }
@@ -84,6 +100,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
             {
                 if (item.itemType == Item.ItemType.Equipment)
                 {
+                    item.isEquip = !item.isEquip;
                     //장착.
                     if (item.weaponType == Item.WeaponType.Weapon)
                     {
@@ -93,7 +110,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
                     {
                         theShieldEquip.ShieldEquip(item);
                     }
-
                 }
                 else
                 {
@@ -104,6 +120,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
             }
         }
     }
+    
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -111,7 +128,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
         {
             DragSlot.inst.dragSlot = this;
             DragSlot.inst.DragSetImage(itemImage);
-
             DragSlot.inst.transform.position = eventData.position;
         }
     }
@@ -143,12 +159,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     {
         Item _tempItem = item;
         int _tempItemCount = itemCount;
+        bool _tempisEquip = isEquip;
 
-        AddItem(DragSlot.inst.dragSlot.item, DragSlot.inst.dragSlot.itemCount);
+        AddItem(DragSlot.inst.dragSlot.item, DragSlot.inst.dragSlot.itemCount, DragSlot.inst.dragSlot.isEquip);
 
         if(_tempItem != null)
         {
-            DragSlot.inst.dragSlot.AddItem(_tempItem, _tempItemCount);
+            DragSlot.inst.dragSlot.AddItem(_tempItem, _tempItemCount, _tempisEquip);
         }
         else
         {

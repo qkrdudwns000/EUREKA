@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DemonSword
   m_EditorClassIdentifier: 
   itemName: "\uB370\uBAA8\uB2C9\uC18C\uB4DC"
+  isEquip: 0
   itemType: 0
   weaponType: 0
   itemImage: {fileID: 1005208190, guid: 382fd1dc28fc0794691beb64ed947678, type: 3}

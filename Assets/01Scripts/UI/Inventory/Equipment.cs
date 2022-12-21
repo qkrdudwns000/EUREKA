@@ -27,6 +27,7 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
             }
             else
             {
+                equipItem.isEquip = !equipItem.isEquip;
                 equipItem = item;
                 equipItemImage.sprite = item.itemImage;
             }
@@ -48,6 +49,7 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
             }
             else
             {
+                equipItem.isEquip = !equipItem.isEquip;
                 equipItem = item;
                 equipItemImage.sprite = item.itemImage;
             }
@@ -61,6 +63,7 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
     }
     private void ClearSlot()
     {
+        equipItem.isEquip = false;
         equipItem = null;
         equipItemImage.sprite = null;
         SetColor(0);
@@ -85,6 +88,7 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
         Item item = eventData.pointerDrag.transform.GetComponent<Slot>().item;
         if(item.itemType == Item.ItemType.Equipment)
         {
+            item.isEquip = true;
             if(item.weaponType == Item.WeaponType.Weapon && transform.name == "WeaponSlot")
             {
                 WeaponEquip(item);

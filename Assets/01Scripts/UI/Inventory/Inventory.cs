@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public static bool inventoryActivated = false;
+    
 
     // ÇÊ¿äÇÑ ÄÄÆÛ³ÍÆ®
     [SerializeField]
@@ -13,10 +14,14 @@ public class Inventory : MonoBehaviour
     private GameObject go_EquipBase;
     [SerializeField]
     private GameObject go_SlotsParent;
+    [SerializeField]
+    private Equipment theWeaponEquip;
+    [SerializeField]
+    private Equipment theShieldEquip;
+
 
     // ½½·Ôµé
     private Slot[] slots;
-
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +33,9 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         TryOpenInventory();
+        
+        CheckEquip();
+        
     }
     private void TryOpenInventory()
     {
@@ -74,6 +82,23 @@ public class Inventory : MonoBehaviour
             {
                 slots[i].AddItem(_item, _count);
                 return;
+            }
+        }
+    }
+    public void CheckEquip()
+    {
+        for(int i = 0; i< slots.Length; i++)
+        {
+            if (slots[i].item != null)
+            {
+                if (slots[i].item.isEquip)
+                {
+                    slots[i].go_EquipImage.SetActive(true);
+                }
+                else
+                {
+                    slots[i].go_EquipImage.SetActive(false);
+                }
             }
         }
     }
