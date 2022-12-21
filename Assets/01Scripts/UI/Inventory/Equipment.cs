@@ -10,7 +10,7 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
 {
     public Item equipItem;
     public Image equipItemImage;
-    
+    //public bool isEquip = false;
     public void WeaponEquip(Item item)
     {
         if (equipItem == null)
