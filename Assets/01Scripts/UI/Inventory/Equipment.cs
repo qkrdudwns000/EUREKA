@@ -9,14 +9,16 @@ using static UnityEditor.Progress;
 public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
 {
     public Item equipItem;
+    public Slot equipSlot;
     public Image equipItemImage;
     //public bool isEquip = false;
-    public void WeaponEquip(Item item)
+    public void WeaponEquip(Item item, Slot slot)
     {
         if (equipItem == null)
         {
             SetColor(1);
             equipItem = item;
+            equipSlot = slot;
             equipItemImage.sprite = item.itemImage;
         }
         else
@@ -24,21 +26,24 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
             if(equipItem.itemName == item.itemName)
             {
                 ClearSlot();
+                equipSlot = slot;
             }
             else
             {
-                equipItem.isEquip = !equipItem.isEquip;
+                equipSlot.isEquip = !equipSlot.isEquip;
                 equipItem = item;
+                equipSlot = slot;
                 equipItemImage.sprite = item.itemImage;
             }
         }
     }
-    public void ShieldEquip(Item item)
+    public void ShieldEquip(Item item, Slot slot)
     {
         if (equipItem == null)
         {
             SetColor(1);
             equipItem = item;
+            equipSlot = slot;
             equipItemImage.sprite = item.itemImage;
         }
         else
@@ -46,11 +51,13 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
             if (equipItem.itemName == item.itemName)
             {
                 ClearSlot();
+                equipSlot = slot;
             }
             else
             {
-                equipItem.isEquip = !equipItem.isEquip;
+                equipSlot.isEquip = !equipSlot.isEquip;
                 equipItem = item;
+                equipSlot = slot;
                 equipItemImage.sprite = item.itemImage;
             }
         }
@@ -63,7 +70,7 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
     }
     private void ClearSlot()
     {
-        equipItem.isEquip = false;
+        equipSlot.isEquip = false;
         equipItem = null;
         equipItemImage.sprite = null;
         SetColor(0);
@@ -86,16 +93,18 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         Item item = eventData.pointerDrag.transform.GetComponent<Slot>().item;
+        Slot slot = eventData.pointerDrag.transform.GetComponent<Slot>();
         if(item.itemType == Item.ItemType.Equipment)
         {
-            item.isEquip = true;
             if(item.weaponType == Item.WeaponType.Weapon && transform.name == "WeaponSlot")
             {
-                WeaponEquip(item);
+                slot.isEquip = !slot.isEquip;
+                WeaponEquip(item, slot);
             }
             else if(item.weaponType == Item.WeaponType.Shield && transform.name == "ShieldSlot")
             {
-                ShieldEquip(item);
+                slot.isEquip = !slot.isEquip;
+                ShieldEquip(item, slot);
             }
         }
     }

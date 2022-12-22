@@ -55,16 +55,16 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
             text_Count.text = "0";
             go_CountImage.SetActive(false);
         }
-        //if (_isEquip)
-        //{
-        //    go_EquipImage.SetActive(true);
-        //    isEquip = true;
-        //}
-        //else
-        //{
-        //    go_EquipImage.SetActive(false);
-        //    isEquip = false;
-        //}
+        if (_isEquip)
+        {
+            go_EquipImage.SetActive(true);
+            isEquip = true;
+        }
+        else
+        {
+            go_EquipImage.SetActive(false);
+            isEquip = false;
+        }
 
         SetColor(1);
     }
@@ -100,15 +100,15 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
             {
                 if (item.itemType == Item.ItemType.Equipment)
                 {
-                    item.isEquip = !item.isEquip;
+                    isEquip = !isEquip;
                     //ÀåÂø.
                     if (item.weaponType == Item.WeaponType.Weapon)
                     {
-                        theWeaponEquip.WeaponEquip(item);
+                        theWeaponEquip.WeaponEquip(item, this);
                     }
                     else if(item.weaponType == Item.WeaponType.Shield)
                     {
-                        theShieldEquip.ShieldEquip(item);
+                        theShieldEquip.ShieldEquip(item, this);
                     }
                 }
                 else

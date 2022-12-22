@@ -6,7 +6,6 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName; //아이템 이름.
-    public bool isEquip; // 장착여부
     public ItemType itemType;
     public WeaponType weaponType;
     public Sprite itemImage; // 아이템의 이미지.

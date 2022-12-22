@@ -33,8 +33,10 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         TryOpenInventory();
-        
-        CheckEquip();
+        if (inventoryActivated)
+        {
+            CheckEquip();
+        }
         
     }
     private void TryOpenInventory()
@@ -91,7 +93,7 @@ public class Inventory : MonoBehaviour
         {
             if (slots[i].item != null)
             {
-                if (slots[i].item.isEquip)
+                if (slots[i].isEquip)
                 {
                     slots[i].go_EquipImage.SetActive(true);
                 }
