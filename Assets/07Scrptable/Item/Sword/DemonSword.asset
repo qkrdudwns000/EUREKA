@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e6697f17e98e2940bb38069f661ebb9, type: 3}
-  m_Name: BaseSword
+  m_Name: DemonSword
   m_EditorClassIdentifier: 
-  itemName: "\uCCA0\uAC80"
-  isEquip: 0
+  itemName: "\uADC0\uAC80"
   itemType: 0
   weaponType: 0
-  itemImage: {fileID: -731936432, guid: 15bbbfdfa172f0048b3e3ba8ceab6e6d, type: 3}
-  itemPrefab: {fileID: 0}
+  itemImage: {fileID: 1005208190, guid: 382fd1dc28fc0794691beb64ed947678, type: 3}
+  itemPrefab: {fileID: 4524901337919733377, guid: 463fe44bcb4a7be44aaf00ed31582d97, type: 3}

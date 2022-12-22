@@ -27,6 +27,8 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private LayerMask enemyMask; // 적 레이어
     private Material outline; // 아웃라인 쉐이더매터리얼
     [SerializeField] private GameObject theSwordTrail; // 검기 잔상
+    
+
 
     Renderer renderers;
     int rendererCount = 0;

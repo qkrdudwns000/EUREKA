@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ab18b7d2c4a998418254f2501f6b544
+guid: 60f88edad3bc90c4cbaf8ef71a175be9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,28 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: w_020_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 5
+        width: 257
+        height: 286
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70d91a81108c1be4bbbf7a5b68c17aa8
+      internalID: 1717208211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +147,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      w_020_0: 1717208211
   spritePackingTag: Sword
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

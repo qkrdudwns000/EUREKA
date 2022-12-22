@@ -18,6 +18,8 @@ public class Inventory : MonoBehaviour
     private Equipment theWeaponEquip;
     [SerializeField]
     private Equipment theShieldEquip;
+    [SerializeField]
+    private PlayerEquipment thePlayerEquipment;
 
 
     // ½½·Ôµé
@@ -36,6 +38,7 @@ public class Inventory : MonoBehaviour
         if (inventoryActivated)
         {
             CheckEquip();
+            thePlayerEquipment.WeaponSwap();
         }
         
     }

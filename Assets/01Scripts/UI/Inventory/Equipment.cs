@@ -11,7 +11,8 @@ public class Equipment : MonoBehaviour, IPointerClickHandler, IDropHandler
     public Item equipItem;
     public Slot equipSlot;
     public Image equipItemImage;
-    //public bool isEquip = false;
+    
+    
     public void WeaponEquip(Item item, Slot slot)
     {
         if (equipItem == null)

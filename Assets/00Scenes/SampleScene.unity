@@ -3320,6 +3320,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 461740, guid: 564e49f56923de148b581d811733f251, type: 3}
   m_PrefabInstance: {fileID: 2080443068}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &270748067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5332159032104335278, guid: 23c26368181452846a1cfc7e91999f65, type: 3}
+  m_PrefabInstance: {fileID: 1809860940639614454}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &274110024 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 444700, guid: 0decf664aa10e334dac700e1299b0eed, type: 3}
@@ -5724,6 +5729,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f4b137e447fb8d449da53d5bf77a303, type: 3}
+--- !u!1 &515868454 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3533218266961927004, guid: 398b073adb4d3d943ba989bf3927a11e, type: 3}
+  m_PrefabInstance: {fileID: 7704444622261457853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &521379599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10386,6 +10396,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 878d7e0f03b4d6f409b7329916c086fd, type: 3}
+--- !u!1 &943659001 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7002699014993116942, guid: 7477f945fa0f1ca44a4fa1c34f74908e, type: 3}
+  m_PrefabInstance: {fileID: 7390949563721388857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &943783719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14316,6 +14331,7 @@ MonoBehaviour:
   go_SlotsParent: {fileID: 640373060}
   theWeaponEquip: {fileID: 1322377119}
   theShieldEquip: {fileID: 966371808}
+  thePlayerEquipment: {fileID: 1918585773215222760}
 --- !u!1001 &1272145267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15403,6 +15419,10 @@ PrefabInstance:
       value: Slot (7)
       objectReference: {fileID: 0}
     - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 44ff648d85eef8f4aaac09ead2e6e430, type: 2}
+    - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
       propertyPath: go_EquipImage
       value: 
       objectReference: {fileID: 339600897}
@@ -15414,6 +15434,14 @@ PrefabInstance:
       propertyPath: theWeaponEquip
       value: 
       objectReference: {fileID: 1322377119}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1257250273, guid: bb7e4326062e6d041a141c5ee367950e, type: 3}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
 --- !u!224 &1325303843 stripped
@@ -17998,6 +18026,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9828322339fa41458b2c471d0e967e7, type: 3}
+--- !u!1 &1522613473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2790979919199891074, guid: 367f367401e8fc641afdb0aa0df83b17, type: 3}
+  m_PrefabInstance: {fileID: 2790979920655372899}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1522613474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2790979919199891073, guid: 367f367401e8fc641afdb0aa0df83b17, type: 3}
@@ -19556,6 +19589,10 @@ PrefabInstance:
       value: Slot (8)
       objectReference: {fileID: 0}
     - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: e79d383c06d621b4393d96bd6176092b, type: 2}
+    - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
       propertyPath: go_EquipImage
       value: 
       objectReference: {fileID: 1981828260}
@@ -19567,6 +19604,14 @@ PrefabInstance:
       propertyPath: theWeaponEquip
       value: 
       objectReference: {fileID: 1322377119}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -83026707, guid: 6f17dec212717e64880adceb68e0e395, type: 3}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
 --- !u!224 &1640326401 stripped
@@ -19631,6 +19676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98ea3f81640ee854ca16574a1b280d2c, type: 3}
+--- !u!1 &1661213800 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4524901337919733377, guid: 463fe44bcb4a7be44aaf00ed31582d97, type: 3}
+  m_PrefabInstance: {fileID: 8978565636778177768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1662484973 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 458024, guid: d2522dcf0fb8d6b4aa4ddd10c405746a, type: 3}
@@ -20595,6 +20645,10 @@ PrefabInstance:
       value: Slot (5)
       objectReference: {fileID: 0}
     - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 5d7029bda4a71ab43b23e5e91bfa36e4, type: 2}
+    - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
       propertyPath: go_EquipImage
       value: 
       objectReference: {fileID: 513307374}
@@ -20606,6 +20660,14 @@ PrefabInstance:
       propertyPath: theWeaponEquip
       value: 
       objectReference: {fileID: 1322377119}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1424929158, guid: 3504e40025ef10e45ae5cdca13dbe299, type: 3}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
 --- !u!224 &1725634500 stripped
@@ -21251,6 +21313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f4b137e447fb8d449da53d5bf77a303, type: 3}
+--- !u!1 &1778317686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6640050068749904463, guid: 83463222bf6834d40b8087feed68f62e, type: 3}
+  m_PrefabInstance: {fileID: 6640050067285447481}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1778317687 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6640050068749904462, guid: 83463222bf6834d40b8087feed68f62e, type: 3}
@@ -22535,6 +22602,10 @@ PrefabInstance:
       value: Slot (6)
       objectReference: {fileID: 0}
     - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: 12a45830d8445a84a990b8bb505e8652, type: 2}
+    - target: {fileID: 4070369832132922911, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
       propertyPath: go_EquipImage
       value: 
       objectReference: {fileID: 1673710991}
@@ -22546,6 +22617,14 @@ PrefabInstance:
       propertyPath: theWeaponEquip
       value: 
       objectReference: {fileID: 1322377119}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1283143072, guid: 0ab18b7d2c4a998418254f2501f6b544, type: 3}
+    - target: {fileID: 8566624744011524648, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67144a264638b7f49976dfb0e63a1c2c, type: 3}
 --- !u!224 &1857278987 stripped
@@ -26715,6 +26794,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124463427}
   m_CullTransparentMesh: 1
+--- !u!1 &2133330466 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1313695309672288235, guid: f51ac69a82780a94bbdbdf829ef70a9c, type: 3}
+  m_PrefabInstance: {fileID: 1313695311670347209}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2133330467 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1313695309672288234, guid: f51ac69a82780a94bbdbdf829ef70a9c, type: 3}
@@ -30032,6 +30116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1918585773215222759}
   - component: {fileID: 1918585773215222758}
+  - component: {fileID: 1918585773215222760}
   - component: {fileID: 1918585773215222756}
   - component: {fileID: 1918585773215222757}
   m_Layer: 6
@@ -30121,6 +30206,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1918585773215222760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918585773215222752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a404afbac3a68204eb455b83511c26c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapons:
+  - {fileID: 515868454}
+  - {fileID: 943659001}
+  - {fileID: 1778317686}
+  - {fileID: 270748067}
+  - {fileID: 1522613473}
+  - {fileID: 1661213800}
+  - {fileID: 2133330466}
+  EquipWeapon: {fileID: 1322377119}
+  EquipShield: {fileID: 966371808}
 --- !u!1 &2085171111628338189
 GameObject:
   m_ObjectHideFlags: 0
@@ -30233,6 +30340,10 @@ PrefabInstance:
     - target: {fileID: 2790979919199891074, guid: 367f367401e8fc641afdb0aa0df83b17, type: 3}
       propertyPath: m_Name
       value: MoonSword
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790979919199891074, guid: 367f367401e8fc641afdb0aa0df83b17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 367f367401e8fc641afdb0aa0df83b17, type: 3}
