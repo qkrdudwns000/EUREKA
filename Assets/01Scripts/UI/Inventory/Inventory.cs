@@ -39,6 +39,7 @@ public class Inventory : MonoBehaviour
         {
             CheckEquip();
             thePlayerEquipment.WeaponSwap();
+            thePlayerEquipment.ShieldSwap();
         }
         
     }

@@ -27,7 +27,7 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private LayerMask enemyMask; // 적 레이어
     private Material outline; // 아웃라인 쉐이더매터리얼
     [SerializeField] private GameObject theSwordTrail; // 검기 잔상
-    
+    [SerializeField] private PlayerEquipment theEquipment;
 
 
     Renderer renderers;
@@ -67,9 +67,12 @@ public class PlayerController : PlayerCharacterProperty
                 PlayerMovement();
                 RollingAndBlock();
             }
-
-            ComboAttack();
-            CounterAttack();
+            if (theEquipment.isEquipWeapon)
+            {
+                ComboAttack();
+                CounterAttack();
+            }
+            
         }
         SPRechargeTime();
         SPRecover();
@@ -156,7 +159,7 @@ public class PlayerController : PlayerCharacterProperty
             myAnim.SetTrigger("Rolling");
         }
         else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") 
-            && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f)
+            && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f && theEquipment.isEquipShield)
         {
             myAnim.SetTrigger("Block");
         }
