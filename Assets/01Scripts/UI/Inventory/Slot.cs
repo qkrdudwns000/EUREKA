@@ -13,7 +13,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     public int itemCount; // 획득한 아이템의 갯수
     public bool isEquip = false;
     public Image itemImage; // 아이템이미지
-    public SlotCollector theSlotCollector;
 
     //필요한 컴퍼넌트
     [SerializeField]
