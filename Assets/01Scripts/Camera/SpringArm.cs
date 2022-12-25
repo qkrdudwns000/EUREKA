@@ -33,7 +33,7 @@ public class SpringArm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Inventory.inventoryActivated)
+        if (!Inventory.inventoryActivated && !Shop.isShopping)
         {
             CameraMovement();
         }
@@ -76,7 +76,7 @@ public class SpringArm : MonoBehaviour
 
     private void OnCursor()
     {
-        if (Input.GetKey(KeyCode.LeftAlt) || Inventory.inventoryActivated)
+        if (Input.GetKey(KeyCode.LeftAlt) || Inventory.inventoryActivated || Shop.isShopping)
         {
             Cursor.lockState = CursorLockMode.None;
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public static bool inventoryActivated = false;
+    public static bool enoughSlot = true;
     
 
     // « ø‰«— ƒƒ∆€≥Õ∆Æ
@@ -34,12 +35,15 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TryOpenInventory();
-        if (inventoryActivated)
+        if (!Shop.isShopping)
         {
-            CheckEquip();
-            thePlayerEquipment.WeaponSwap();
-            thePlayerEquipment.ShieldSwap();
+            TryOpenInventory();
+            if (inventoryActivated)
+            {
+                CheckEquip();
+                thePlayerEquipment.WeaponSwap();
+                thePlayerEquipment.ShieldSwap();
+            }
         }
         
     }
@@ -86,10 +90,12 @@ public class Inventory : MonoBehaviour
         {
             if (slots[i].item == null)
             {
+                enoughSlot = true;
                 slots[i].AddItem(_item, _count);
                 return;
             }
         }
+        enoughSlot = false; // ¿Œ∫• ≤À√°¿ª∂ß
     }
     public void CheckEquip()
     {

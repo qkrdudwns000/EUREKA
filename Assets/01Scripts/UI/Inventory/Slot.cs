@@ -28,7 +28,6 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     private void Start()
     {
         originPos = transform.position;
-        
     }
 
     // 이미지 투명도 조절
@@ -95,26 +94,48 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            if(item != null)
+            if (!Shop.isShopping)
             {
-                if (item.itemType == Item.ItemType.Equipment)
+                if (item != null)
                 {
-                    isEquip = !isEquip;
-                    //장착.
-                    if (item.weaponType == Item.WeaponType.Weapon)
+                    if (item.itemType == Item.ItemType.Equipment)
                     {
-                        theWeaponEquip.WeaponEquip(item, this);
+                        isEquip = true;
+                        //장착.
+                        if (item.weaponType == Item.WeaponType.Weapon)
+                        {
+                            theWeaponEquip.WeaponEquip(item, this);
+                        }
+                        else if (item.weaponType == Item.WeaponType.Shield)
+                        {
+                            theShieldEquip.ShieldEquip(item, this);
+                        }
                     }
-                    else if(item.weaponType == Item.WeaponType.Shield)
+                    else
                     {
-                        theShieldEquip.ShieldEquip(item, this);
+                        //소모.
+                        Debug.Log(item.itemName + "을 사용했습니다.");
+                        SetSlotCount(-1);
                     }
                 }
-                else
+            }
+            else
+            {
+                if (item != null)
                 {
-                    //소모.
-                    Debug.Log(item.itemName + "을 사용했습니다.");
-                    SetSlotCount(-1);
+                    if (item.itemType == Item.ItemType.Equipment)
+                    {
+                        if (!isEquip)
+                        {
+                            GameManager.Inst.Gold += item.itemPrice / 2;
+                            ClearSlot();
+                        }
+                    }
+                    else
+                    {
+                        GameManager.Inst.Gold += item.itemPrice / 2;
+                        SetSlotCount(-1);
+                    }
                 }
             }
         }
