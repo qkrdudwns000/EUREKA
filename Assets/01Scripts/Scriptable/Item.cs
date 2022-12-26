@@ -6,6 +6,8 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public string itemName; //아이템 이름.
+    [TextArea]
+    public string itemDesc; //아이템 설명.
     public ItemType itemType;
     public WeaponType weaponType;
     public Sprite itemImage; // 아이템의 이미지.

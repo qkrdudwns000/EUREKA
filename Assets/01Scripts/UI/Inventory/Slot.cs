@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
+public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler,
     IDragHandler, IEndDragHandler, IDropHandler
 {
     private Vector3 originPos;
@@ -24,10 +24,12 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     private Equipment theWeaponEquip;
     [SerializeField]
     private Equipment theShieldEquip;
+    private Inventory theInven;
 
     private void Start()
     {
         originPos = transform.position;
+        theInven = FindObjectOfType<Inventory>();
     }
 
     // 이미지 투명도 조절
@@ -94,7 +96,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            if (!Shop.isShopping)
+            if (!Shop.isShopping) // 상점 UI 꺼져있을경우.
             {
                 if (item != null)
                 {
@@ -119,25 +121,29 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
                     }
                 }
             }
-            else
+            else // 상점 ui 켜져있을경우
             {
-                if (item != null)
+                if (item != null && !isEquip)
                 {
-                    if (item.itemType == Item.ItemType.Equipment)
-                    {
-                        if (!isEquip)
-                        {
-                            GameManager.Inst.Gold += item.itemPrice / 2;
-                            ClearSlot();
-                        }
-                    }
-                    else
-                    {
-                        GameManager.Inst.Gold += item.itemPrice / 2;
-                        SetSlotCount(-1);
-                    }
+                    StoreManager.Inst.SellPopupOpen(this);
                 }
             }
+        }
+    }
+    public void SellItem()
+    {
+        if (item.itemType == Item.ItemType.Equipment)
+        {
+            if (!isEquip)
+            {
+                GameManager.Inst.Gold += item.itemPrice / 2;
+                ClearSlot();
+            }
+        }
+        else
+        {
+            GameManager.Inst.Gold += item.itemPrice / 2;
+            SetSlotCount(-1);
         }
     }
     
@@ -191,5 +197,19 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler,
         {
             DragSlot.inst.dragSlot.ClearSlot();
         }
+    }
+    // 마우스가 슬롯에 들어갈 때 발동
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            theInven.ShowToolTip(item);
+        }
+    }
+
+    // 마우스가 슬롯에서 나갈 때 발동.
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        theInven.HideToolTip();
     }
 }

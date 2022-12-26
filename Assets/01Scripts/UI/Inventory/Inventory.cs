@@ -21,6 +21,8 @@ public class Inventory : MonoBehaviour
     private Equipment theShieldEquip;
     [SerializeField]
     private PlayerEquipment thePlayerEquipment;
+    [SerializeField]
+    private SlotToolTip theSlotToolTip;
 
 
     // ½½·Ôµé
@@ -47,6 +49,15 @@ public class Inventory : MonoBehaviour
         }
         
     }
+    public void ShowToolTip(Item _item)
+    {
+        theSlotToolTip.ShowToolTip(_item);
+    }
+    public void HideToolTip()
+    {
+        theSlotToolTip.HideToolTip();
+    }
+
     private void TryOpenInventory()
     {
         if(Input.GetKeyDown(KeyCode.I))

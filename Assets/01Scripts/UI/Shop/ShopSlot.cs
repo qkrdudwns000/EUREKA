@@ -10,6 +10,7 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler
 
     public Item item;
     public Image itemImage;
+
     public TMPro.TMP_Text itemPrice;
     public TMPro.TMP_Text itemName;
 
@@ -17,10 +18,10 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            Buy();
+            StoreManager.Inst.BuyPopupOpen(this);
         }
     }
-    private void Buy()
+    public void Buy()
     {
         if ((GameManager.Inst.Gold - item.itemPrice) < 0)
         {
@@ -33,6 +34,11 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler
             {
                 GameManager.Inst.Gold -= item.itemPrice;
             }
+        }
+        StoreManager.Inst.go_buyPopup.SetActive(false);
+        if(!Inventory.enoughSlot)
+        {
+            StoreManager.Inst.go_dontEnough.SetActive(true);
         }
     }
 }
