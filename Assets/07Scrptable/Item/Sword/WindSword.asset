@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: WindSword
   m_EditorClassIdentifier: 
   itemName: "\uBC14\uB78C\uAC80"
+  itemDesc: "\uC5D8\uD504\uB4E4\uC774 \uC0AC\uC6A9\uD55C\uB2E4\uB294 \uAC80\uC774\uB2E4. 
+    \uAC80\uC790\uCCB4\uAC00 \uB9E4\uC6B0 \uAC00\uBCBC\uC6CC\uC11C \uD718\uB450\uB974\uAE30
+    \uD3B8\uD558\uB2E4."
   itemType: 0
   weaponType: 0
   itemImage: {fileID: 1717208211, guid: 60f88edad3bc90c4cbaf8ef71a175be9, type: 3}

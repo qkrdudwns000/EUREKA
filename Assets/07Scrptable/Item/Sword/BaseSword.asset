@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: BaseSword
   m_EditorClassIdentifier: 
   itemName: "\uCCA0\uAC80"
+  itemDesc: "\uCCA0\uB85C \uB9CC\uB4E0\uAC80. \uADF8\uB7ED\uC800\uB7ED \uD2BC\uD2BC\uD574
+    \uBCF4\uC778\uB2E4."
   itemType: 0
   weaponType: 0
   itemImage: {fileID: -731936432, guid: 15bbbfdfa172f0048b3e3ba8ceab6e6d, type: 3}

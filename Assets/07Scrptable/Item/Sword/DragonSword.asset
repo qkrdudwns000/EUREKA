@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DragonSword
   m_EditorClassIdentifier: 
   itemName: "\uC6A9\uAC80"
+  itemDesc: "\uC6A9\uBB38\uC591\uC774 \uADF8\uB7EC\uC838 \uC788\uB2E4. \uC190\uC7A1\uC774\uC758
+    \uADF8\uB9BD\uAC10\uC774 \uD6CC\uB96D\uD558\uB2E4."
   itemType: 0
   weaponType: 0
   itemImage: {fileID: -1257250273, guid: bb7e4326062e6d041a141c5ee367950e, type: 3}

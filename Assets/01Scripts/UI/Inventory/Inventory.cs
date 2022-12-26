@@ -49,9 +49,9 @@ public class Inventory : MonoBehaviour
         }
         
     }
-    public void ShowToolTip(Item _item)
+    public void ShowToolTip(Item _item, Vector3 _pos)
     {
-        theSlotToolTip.ShowToolTip(_item);
+        theSlotToolTip.ShowToolTip(_item, _pos);
     }
     public void HideToolTip()
     {
@@ -79,6 +79,7 @@ public class Inventory : MonoBehaviour
     {
         go_InventoryBase.SetActive(false);
         go_EquipBase.SetActive(false);
+        HideToolTip();
     }
     public void AcquireItem(Item _item, int _count)
     {

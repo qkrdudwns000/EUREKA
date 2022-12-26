@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: DemonSword
   m_EditorClassIdentifier: 
   itemName: "\uADC0\uAC80"
+  itemDesc: "\uADC0\uC2E0\uC774 \uB4E4\uB838\uB2E4\uB294 \uAC80. \uB2E4\uAC00\uC11C\uAE30\uB9CC
+    \uD574\uB3C4 \uC624\uD55C\uC774 \uB5A8\uB9B0\uB2E4. \uB300\uB300\uB85C \uC774\uAC80\uC744
+    \uC0AC\uC6A9\uD55C \uC790\uB4E4\uC740 \uCC28\uCC28 \uBBF8\uCCD0\uBC84\uB9B0\uB2E4\uACE0
+    \uD55C\uB2E4."
   itemType: 0
   weaponType: 0
   itemImage: {fileID: 1005208190, guid: 382fd1dc28fc0794691beb64ed947678, type: 3}

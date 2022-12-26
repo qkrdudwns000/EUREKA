@@ -203,7 +203,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     {
         if (item != null)
         {
-            theInven.ShowToolTip(item);
+            theInven.ShowToolTip(item, transform.position);
         }
     }
 

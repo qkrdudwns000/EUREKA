@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: MoonSword
   m_EditorClassIdentifier: 
   itemName: "\uB2EC\uC758\uAC80"
+  itemDesc: "\uB2EC\uC758 \uAE30\uC6B4\uC744 \uBC1B\uC544 \uC131\uC2A4\uB7FD\uAC8C
+    \uBE5B\uB098\uB294 \uAC80. \uC0B4\uC9DD \uAC80\uC5D0\uC11C \uC300\uC300\uD55C
+    \uAE30\uC6B4\uC774 \uB9F4\uB3C8\uB2E4."
   itemType: 0
   weaponType: 0
   itemImage: {fileID: 1424929158, guid: 3504e40025ef10e45ae5cdca13dbe299, type: 3}
