@@ -80,7 +80,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         }
     }
     // 슬롯 초기화.
-    private void ClearSlot()
+    public void ClearSlot()
     {
         item = null;
         itemCount = 0;
@@ -96,37 +96,41 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     {
         if(eventData.button == PointerEventData.InputButton.Right)
         {
-            if (!Shop.isShopping) // 상점 UI 꺼져있을경우.
+            Excute();
+        }
+    }
+    public void Excute()
+    {
+        if (!Shop.isShopping) // 상점 UI 꺼져있을경우.
+        {
+            if (item != null)
             {
-                if (item != null)
+                if (item.itemType == Item.ItemType.Equipment)
                 {
-                    if (item.itemType == Item.ItemType.Equipment)
+                    isEquip = true;
+                    //장착.
+                    if (item.weaponType == Item.WeaponType.Weapon)
                     {
-                        isEquip = true;
-                        //장착.
-                        if (item.weaponType == Item.WeaponType.Weapon)
-                        {
-                            theWeaponEquip.WeaponEquip(item, this);
-                        }
-                        else if (item.weaponType == Item.WeaponType.Shield)
-                        {
-                            theShieldEquip.ShieldEquip(item, this);
-                        }
+                        theWeaponEquip.WeaponEquip(item, this);
                     }
-                    else
+                    else if (item.weaponType == Item.WeaponType.Shield)
                     {
-                        //소모.
-                        Debug.Log(item.itemName + "을 사용했습니다.");
-                        SetSlotCount(-1);
+                        theShieldEquip.ShieldEquip(item, this);
                     }
+                }
+                else
+                {
+                    //소모.
+                    Debug.Log(item.itemName + "을 사용했습니다.");
+                    SetSlotCount(-1);
                 }
             }
-            else // 상점 ui 켜져있을경우
+        }
+        else // 상점 ui 켜져있을경우
+        {
+            if (item != null && !isEquip)
             {
-                if (item != null && !isEquip)
-                {
-                    StoreManager.Inst.SellPopupOpen(this);
-                }
+                StoreManager.Inst.SellPopupOpen(this);
             }
         }
     }
