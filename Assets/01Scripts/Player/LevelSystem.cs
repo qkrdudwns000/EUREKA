@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelSystem
 {
+    public event EventHandler OnExperienceChanged;
+    public event EventHandler OnLevelChanged;
+
     private int level;
     private int experience;
     private int experienceToNextLevel;
@@ -18,11 +22,23 @@ public class LevelSystem
     public void AddExperience(int _amount)
     {
         experience += _amount;
-        if(experience >= experienceToNextLevel)
+        while(experience >= experienceToNextLevel)
         {
             //레벨업
             level++;
             experience -= experienceToNextLevel;
+            if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
         }
+        if (OnExperienceChanged != null) OnExperienceChanged(this, EventArgs.Empty);
+    }
+
+    public int GetLevelNumber()
+    {
+        return level;
+    }
+
+    public float GetExperienceNormalized()
+    {
+        return (float)experience / experienceToNextLevel; // 노멀라이즈화
     }
 }

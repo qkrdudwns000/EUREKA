@@ -11,6 +11,7 @@ public class PlayerController : PlayerCharacterProperty
 
     public Vector2 targetDir = Vector2.zero;
     public GameObject theCam;
+    private LevelSystem levelSystem;
     
     public bool isForward = false;
     private bool isCombable = false;

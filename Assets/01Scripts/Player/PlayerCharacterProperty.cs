@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCharacterProperty : MonoBehaviour
 {
     public PlayerStat myStat;
+
     Animator _anim = null;
     protected Animator myAnim
     {
