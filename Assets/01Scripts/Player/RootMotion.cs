@@ -6,9 +6,6 @@ public class RootMotion : MonoBehaviour
 {
     public bool DontMove = false;
     
-    float Speed = 2.0f;
-    public float walkSpeed = 2.0f;
-    public float runSpeed = 3.0f;
     Vector3 deltaPosition = Vector3.zero;
     Quaternion deltaRotation = Quaternion.identity;
 
@@ -17,21 +14,15 @@ public class RootMotion : MonoBehaviour
     {
         if (DontMove) return;
 
-        Speed = walkSpeed;
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Speed = runSpeed;
-        }
-
         transform.parent.Translate(deltaPosition, Space.World);
         deltaPosition = Vector3.zero;
         transform.parent.rotation *= deltaRotation;
         deltaRotation = Quaternion.identity;
     }
 
-    private void OnAnimatorMove()
-    {
-        deltaPosition += GetComponent<Animator>().deltaPosition * Speed;
-        deltaRotation *= GetComponent<Animator>().deltaRotation;
-    }
+    //private void OnAnimatorMove()
+    //{
+    //    deltaPosition += GetComponent<Animator>().deltaPosition * Speed;
+    //    deltaRotation *= GetComponent<Animator>().deltaRotation;
+    //}
 }

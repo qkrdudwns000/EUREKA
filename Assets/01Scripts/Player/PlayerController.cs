@@ -11,8 +11,15 @@ public class PlayerController : PlayerCharacterProperty
 
     public Vector2 targetDir = Vector2.zero;
     public GameObject theCam;
-    private LevelSystem levelSystem;
-    
+
+    private bool isRun = false;
+    private float currentSpeed;
+    private Camera _camera;
+    public float smoothness = 10.0f;
+    [SerializeField] private float runSpeed;
+    [SerializeField] private float walkSpeed;
+    CharacterController _controller;
+
     public bool isForward = false;
     private bool isCombable = false;
     private bool spUsed = false; // sp 사용중인지 아닌지.
@@ -31,7 +38,11 @@ public class PlayerController : PlayerCharacterProperty
 
 
     // Start is called before the first frame update
-    
+    private void Start()
+    {
+        _controller = this.GetComponent<CharacterController>();
+        _camera = Camera.main;
+    }
 
     // Update is called once per frame
     void Update()
@@ -55,6 +66,10 @@ public class PlayerController : PlayerCharacterProperty
         SPRechargeTime();
         SPRecover();
     }
+    private void LateUpdate()
+    {
+        PlayerRotate();
+    }
     public void Targetting(Transform target)
     {
         Vector3 dir = (target.position - transform.position).normalized;
@@ -74,28 +89,29 @@ public class PlayerController : PlayerCharacterProperty
 
     private void PlayerMovement()
     {
-        //shift 키를 안누르면 최대 0.5, shift키를 누르면 최대 1까지 값이바뀜,
-        float offSet = 0.5f;
-        if (myStat.SP > 0.0f)
-        {
-            offSet += Input.GetAxis("Sprint") * 0.5f;
-        }
-        
-        targetDir.x = Input.GetAxis("Horizontal") * offSet;
-        targetDir.y = Input.GetAxis("Vertical") * offSet;
+        if (Input.GetKey(KeyCode.LeftShift))
+            isRun = true;
+        else
+            isRun = false;
 
-        float x = Mathf.Lerp(myAnim.GetFloat("x"), targetDir.x, Time.deltaTime * smoothMoveSpeed);
-        float y = Mathf.Lerp(myAnim.GetFloat("y"), targetDir.y, Time.deltaTime * smoothMoveSpeed);
+        currentSpeed = (isRun) ? runSpeed : walkSpeed;
 
-        myAnim.SetFloat("x", x);
-        myAnim.SetFloat("y", y);
-
-        if (offSet > 0.6f)
+        if(isRun)
         {
             DecreaseStamina(0.5f);
         }
 
-        if (y > 0.1f && !myAnim.GetBool("IsRolling"))
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+
+        Vector3 moveDirection = forward * Input.GetAxisRaw("Vertical") + right * Input.GetAxisRaw("Horizontal");
+
+        _controller.Move(moveDirection.normalized * currentSpeed * Time.deltaTime);
+
+        float percent = ((isRun) ? 1 : 0.5f) * moveDirection.magnitude;
+        myAnim.SetFloat("x", percent, 0.1f, Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.W) && !myAnim.GetBool("IsRolling"))
         {
             isForward = true;
         }
@@ -103,7 +119,14 @@ public class PlayerController : PlayerCharacterProperty
         {
             isForward = false;
         }
-
+    }
+    private void PlayerRotate()
+    {
+        if (isForward)
+        {
+            Vector3 playerRotate = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1));
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerRotate), Time.deltaTime * smoothness);
+        }
     }
     public void DecreaseStamina(float _count)
     {

@@ -5,29 +5,32 @@ using UnityEngine;
 public class SpringArm : MonoBehaviour
 {
     public LayerMask crashMask;
-    public Transform myCam;
-    public float lookupSpeedX = 10.0f;
-    public float lookupSpeedY = 1.0f;
-    public float zoomSpeed = 3.0f;
-    public float offSet = 0.5f;
-    Vector3 curRot = Vector3.zero;
-    public Vector2 lookupRange = new Vector2(-60.0f, 80.0f);
-    public Vector2 ZoomRange = new Vector2(-8, -1);
-    Vector3 camPos = Vector3.zero;
-    float desireDistance = 0.0f;
+    public Transform objectTofollow;
+    public float followSpeed = 10.0f;
+    public float sensitivity = 100.0f;
+    public Vector2 clampAngle = new Vector2(70.0f, -10.0f);
 
-    public GameObject thePlayer;
+    private float rotX;
+    private float rotY;
+
+    public Transform realCamera;
+    public Vector3 dirNormalized;
+    public Vector3 finalDir;
+    public float minDistance;
+    public float maxDistance;
+    public float finalDistace;
+    public float smoothness;
+    
     [SerializeField]private PlayerController theController;
  
     // Start is called before the first frame update
     void Start()
     {
-        curRot.x = transform.localRotation.eulerAngles.x;
-        curRot.y = transform.parent.localRotation.eulerAngles.y;
+        rotX = transform.localRotation.eulerAngles.x;
+        rotY = transform.localRotation.eulerAngles.y;
 
-        camPos = myCam.localPosition;
-
-        desireDistance = camPos.z;
+        dirNormalized = realCamera.localPosition.normalized;
+        finalDistace = realCamera.localPosition.magnitude;
     }
 
     // Update is called once per frame
@@ -43,35 +46,40 @@ public class SpringArm : MonoBehaviour
 
     private void CameraMovement()
     {
-        curRot.x -= Input.GetAxisRaw("Mouse Y") * lookupSpeedY;
-        curRot.x = Mathf.Clamp(curRot.x, lookupRange.x, lookupRange.y);
+        rotX += Input.GetAxis("Mouse Y") * -sensitivity * Time.deltaTime;
+        rotY += Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
 
-        curRot.y += Input.GetAxisRaw("Mouse X") * lookupSpeedX;
+        rotX = Mathf.Clamp(rotX, -clampAngle.x, clampAngle.y);
 
-        transform.localRotation = Quaternion.Euler(curRot.x, 0, 0);
-        if(theController.isForward)
+        Quaternion rot = Quaternion.Euler(rotX, rotY, 0);
+        transform.rotation = rot;
+
+        //if (theController.isForward)
+        //{
+        //    thePlayer.transform.localRotation = Quaternion.Lerp(thePlayer.transform.localRotation, Quaternion.Euler(0.0f, curRot.y, 0.0f), Time.deltaTime * 10.0f);
+        //    transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
+        //}
+        //else
+        //{
+        //    transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
+        //}
+    }
+    private void LateUpdate()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, objectTofollow.position, followSpeed * Time.deltaTime);
+
+        finalDir = transform.TransformPoint(dirNormalized * maxDistance);
+
+        RaycastHit hit;
+        if(Physics.Linecast(transform.position, finalDir, out hit, crashMask))
         {
-            thePlayer.transform.localRotation = Quaternion.Lerp(thePlayer.transform.localRotation, Quaternion.Euler(0.0f, curRot.y, 0.0f), Time.deltaTime * 10.0f);
-            transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
+            finalDistace = Mathf.Clamp(hit.distance, minDistance, maxDistance);
         }
         else
         {
-            transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
+            finalDistace = maxDistance;
         }
-
-
-        desireDistance += Input.GetAxisRaw("Mouse ScrollWheel") * zoomSpeed;
-        desireDistance = Mathf.Clamp(desireDistance, ZoomRange.x, ZoomRange.y);
-
-        if (Physics.Raycast(transform.position, -transform.forward, out RaycastHit hit, -camPos.z + offSet + 0.1f, crashMask))
-        {
-            camPos.z = -hit.distance + offSet;
-        }
-        else
-        {
-            camPos.z = Mathf.Lerp(camPos.z, desireDistance, Time.deltaTime * 3.0f);
-        }
-        myCam.localPosition = camPos;
+        realCamera.localPosition = Vector3.Lerp(realCamera.localPosition, dirNormalized * finalDistace, Time.deltaTime * smoothness);
     }
 
     private void OnCursor()
