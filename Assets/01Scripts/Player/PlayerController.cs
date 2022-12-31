@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class PlayerController : PlayerCharacterProperty
 {
-    public float smoothMoveSpeed = 10.0f;
     private float currentSpRechargeTime = 0.0f;
     public float spRechargeTime = 0.0f;
     public float spIncreaseSpeed = 1.0f;
 
     public Vector2 targetDir = Vector2.zero;
-    public GameObject theCam;
+    public bool isAutoTarget = false;
+    private Vector3 autoTargetDir;
     [SerializeField]
     private Transform CameraArm;
+    [SerializeField]
+    private Transform RealCam;
 
     private bool isRun = false;
     private float currentSpeed;
     public float smoothness = 10.0f;
     [SerializeField] private float runSpeed;
     [SerializeField] private float walkSpeed;
+    [SerializeField] private float rotaeSpeed = 15.0f;
 
     public bool isForward = false;
     private bool isCombable = false;
@@ -50,7 +53,7 @@ public class PlayerController : PlayerCharacterProperty
         SwordTrail();
         if (!Inventory.inventoryActivated && !Shop.isShopping)
         {
-            if (!myAnim.GetBool("IsComboAttacking"))
+            if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting"))
             {
                 PlayerMovement();
                 LookAround();
@@ -66,14 +69,24 @@ public class PlayerController : PlayerCharacterProperty
         SPRechargeTime();
         SPRecover();
     }
+    private void FixedUpdate()
+    {
+        
+    }
     public void Targetting(Transform target)
     {
-        Vector3 dir = (target.position - transform.position).normalized;
-        if (target != null && !myAnim.GetBool("IsRolling"))
+        autoTargetDir = (target.position - transform.position).normalized;
+        isAutoTarget = true;
+
+        CameraArm.rotation = Quaternion.LookRotation(autoTargetDir);
+        
+    }
+    private void AutoTargeting()
+    {
+        if (isAutoTarget)
         {
-            transform.rotation = Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.LookRotation(autoTargetDir);
         }
-        theCam.transform.rotation = Quaternion.LookRotation(dir);
     }
     private void Interaction()
     {
@@ -90,17 +103,26 @@ public class PlayerController : PlayerCharacterProperty
         else
             isRun = false;
 
-        currentSpeed = (isRun) ? runSpeed : walkSpeed;
 
-        if (isRun)
+        if (isRun && myStat.SP > Mathf.Epsilon)
         {
             DecreaseStamina(0.5f);
             myAnim.SetBool("IsRun", true);
+            currentSpeed = runSpeed;
         }
         else
+        {
             myAnim.SetBool("IsRun", false);
+            currentSpeed = walkSpeed;
+        }
 
-        if (Input.GetKey(KeyCode.W) && !myAnim.GetBool("IsRolling"))
+        
+
+
+        Vector2 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        bool isMove = moveInput.magnitude != 0;
+
+        if ((moveInput.x < 0.5f && moveInput.x >-0.5f) && moveInput.y > 0.5f)
         {
             isForward = true;
         }
@@ -109,18 +131,18 @@ public class PlayerController : PlayerCharacterProperty
             isForward = false;
         }
 
-
-        Vector2 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        bool isMove = moveInput.magnitude != 0;
-        if(isMove)
+        if (isMove)
         {
             Vector3 lookForward = new Vector3(CameraArm.forward.x, 0f, CameraArm.forward.z).normalized;
             Vector3 lookRight = new Vector3(CameraArm.right.x, 0f, CameraArm.right.z).normalized;
             Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
             if (isForward)
-                transform.forward = lookForward;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(lookForward),
+                    Time.deltaTime * rotaeSpeed);
             else
-                transform.forward = moveDir;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir)
+                    , Time.deltaTime * rotaeSpeed);
+
 
             transform.position += moveDir * Time.deltaTime * currentSpeed;
             myAnim.SetBool("IsWalk", true);
@@ -128,10 +150,7 @@ public class PlayerController : PlayerCharacterProperty
         else
         {
             myAnim.SetBool("IsWalk", false) ;
-        }
-
-
-        
+        }  
     }
     private void LookAround()
     {
@@ -193,7 +212,7 @@ public class PlayerController : PlayerCharacterProperty
         {
             dir.Normalize();
 
-            transform.rotation = Quaternion.LookRotation(theCam.transform.rotation * dir);
+            //transform.rotation = Quaternion.LookRotation(CameraArm.transform.rotation * dir);
             DecreaseStamina(15.0f);
             myAnim.SetTrigger("Rolling");
         }
@@ -209,7 +228,7 @@ public class PlayerController : PlayerCharacterProperty
         IsCombo = myAnim.GetBool("IsComboAttacking");
         if (Input.GetMouseButtonDown(0) && !myAnim.GetBool("IsComboAttacking") && myStat.SP > 0)
         {
-            //transform.rotation = Quaternion.LookRotation(theCam.transform.forward);
+            AutoTargeting();
             myAnim.SetTrigger("ComboAttack");
             ++staminaCount;
         }
@@ -228,6 +247,7 @@ public class PlayerController : PlayerCharacterProperty
         {
             if (Input.GetMouseButtonDown(1))
             {
+                AutoTargeting();
                 DecreaseStamina(10.0f);
                 myAnim.SetTrigger("Counter");
             }
@@ -252,7 +272,7 @@ public class PlayerController : PlayerCharacterProperty
     }
     public void RollingEnd()
     {
-        transform.rotation = Quaternion.LookRotation(theCam.transform.forward); // 구르기 후 정면주시를위함.
+        //transform.rotation = Quaternion.LookRotation(forwardDir); // 구르기 후 정면주시를위함.
     }
     
 
@@ -291,7 +311,6 @@ public class PlayerController : PlayerCharacterProperty
         }
         else if (myAnim.GetBool("IsCounter"))
         {
-            //theSwordTtrail.GetComponent<TrailRenderer>().startColor = 
             theSwordTrail.SetActive(true);
         }
         else

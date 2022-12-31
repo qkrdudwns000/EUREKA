@@ -34,6 +34,10 @@ public class TargettingArea : MonoBehaviour
             {
                 thePlayer.Targetting(Target);
             }
+            if(!isTargetting)
+            {
+                thePlayer.isAutoTarget = false;
+            }
             Outline();
         }
     }

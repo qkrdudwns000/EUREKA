@@ -13,6 +13,7 @@ public class Shop : MonoBehaviour
     private PlayerController thePlayer;
     public bool isShop = false;
 
+
     public void ZoneEnter()
     {
         anim.SetTrigger("Hello");

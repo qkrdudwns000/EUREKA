@@ -47,6 +47,8 @@ public class Inventory : MonoBehaviour
                 thePlayerEquipment.ShieldSwap();
             }
         }
+        if(Input.GetKeyDown(KeyCode.Escape))
+            CloseInventory();
         
     }
     public void ShowToolTip(Item _item, Vector3 _pos)
@@ -62,8 +64,7 @@ public class Inventory : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            inventoryActivated = !inventoryActivated;
-            if (inventoryActivated)
+            if (!inventoryActivated)
                 OpenInventory();
             else
                 CloseInventory();
@@ -72,11 +73,13 @@ public class Inventory : MonoBehaviour
 
     private void OpenInventory()
     {
+        inventoryActivated = true;
         go_InventoryBase.SetActive(true);
         go_EquipBase.SetActive(true);
     }
     private void CloseInventory()
     {
+        inventoryActivated = false;
         go_InventoryBase.SetActive(false);
         go_EquipBase.SetActive(false);
         HideToolTip();
