@@ -5,83 +5,79 @@ using UnityEngine;
 public class SpringArm : MonoBehaviour
 {
     public LayerMask crashMask;
-    public Transform objectTofollow;
-    public float followSpeed = 10.0f;
-    public float sensitivity = 100.0f;
-    public Vector2 clampAngle = new Vector2(70.0f, -10.0f);
+    public Transform myCam;
+    public float LookupSpeed = 10.0f;
+    public float ZoomSpeed = 3.0f;
+    public float Offset = 0.5f;
+    Vector3 curRot = Vector3.zero;
+    public Vector2 LookupRange = new Vector2(-60.0f, 80.0f);
+    public Vector2 ZoomRange = new Vector2(-8, -1);
 
-    private float rotX;
-    private float rotY;
+    Vector3 camPos = Vector3.zero;
+    float desireDistance = 0.0f;
 
-    public Transform realCamera;
-    public Vector3 dirNormalized;
-    public Vector3 finalDir;
-    public float minDistance;
-    public float maxDistance;
-    public float finalDistace;
-    public float smoothness;
-    
-    [SerializeField]private PlayerController theController;
+    [SerializeField]
+    private PlayerController theController;
+    [SerializeField]
+    private Transform thePlayer;
  
     // Start is called before the first frame update
     void Start()
     {
-        rotX = transform.localRotation.eulerAngles.x;
-        rotY = transform.localRotation.eulerAngles.y;
+        //curRot.x = transform.localRotation.eulerAngles.x;
+        //curRot.y = thePlayer.localRotation.eulerAngles.y;
 
-        dirNormalized = realCamera.localPosition.normalized;
-        finalDistace = realCamera.localPosition.magnitude;
+        //camPos = myCam.localPosition;
+
+        //desireDistance = camPos.z;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!Inventory.inventoryActivated && !Shop.isShopping)
-        {
-            CameraMovement();
-        }
+        //if (!Inventory.inventoryActivated && !Shop.isShopping)
+        //{
+        //    CameraMovement();
+        //}
         OnCursor();
 
     }
 
-    private void CameraMovement()
-    {
-        rotX += Input.GetAxis("Mouse Y") * -sensitivity * Time.deltaTime;
-        rotY += Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+    //private void CameraMovement()
+    //{
 
-        rotX = Mathf.Clamp(rotX, -clampAngle.x, clampAngle.y);
+    //    curRot.x -= Input.GetAxisRaw("Mouse Y") * LookupSpeed;
+    //    curRot.x = Mathf.Clamp(curRot.x, LookupRange.x, LookupRange.y);
 
-        Quaternion rot = Quaternion.Euler(rotX, rotY, 0);
-        transform.rotation = rot;
+    //    curRot.y += Input.GetAxisRaw("Mouse X") * LookupSpeed;
 
-        //if (theController.isForward)
-        //{
-        //    thePlayer.transform.localRotation = Quaternion.Lerp(thePlayer.transform.localRotation, Quaternion.Euler(0.0f, curRot.y, 0.0f), Time.deltaTime * 10.0f);
-        //    transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
-        //}
-        //else
-        //{
-        //    transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
-        //}
-    }
-    private void LateUpdate()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, objectTofollow.position, followSpeed * Time.deltaTime);
+    //    transform.localRotation = Quaternion.Euler(curRot.x, 0, 0);
+    //    transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
 
-        finalDir = transform.TransformPoint(dirNormalized * maxDistance);
 
-        RaycastHit hit;
-        if(Physics.Linecast(transform.position, finalDir, out hit, crashMask))
-        {
-            finalDistace = Mathf.Clamp(hit.distance, minDistance, maxDistance);
-        }
-        else
-        {
-            finalDistace = maxDistance;
-        }
-        realCamera.localPosition = Vector3.Lerp(realCamera.localPosition, dirNormalized * finalDistace, Time.deltaTime * smoothness);
-    }
+    //    desireDistance += Input.GetAxisRaw("Mouse ScrollWheel") * ZoomSpeed;
+    //    desireDistance = Mathf.Clamp(desireDistance, ZoomRange.x, ZoomRange.y);
 
+    //    if (Physics.Raycast(transform.position, -transform.forward, out RaycastHit hit, -camPos.z + Offset + 0.1f, crashMask))
+    //    {
+    //        camPos.z = -hit.distance + Offset;
+    //    }
+    //    else
+    //    {
+    //        camPos.z = Mathf.Lerp(camPos.z, desireDistance, Time.deltaTime * 3.0f);
+    //    }
+    //    myCam.localPosition = camPos;
+
+    //    //if (theController.isForward)
+    //    //{
+    //    //    thePlayer.transform.localRotation = Quaternion.Lerp(thePlayer.transform.localRotation, Quaternion.Euler(0.0f, curRot.y, 0.0f), Time.deltaTime * 10.0f);
+    //    //    transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
+    //    //}
+    //    //else
+    //    //{
+    //    //    transform.parent.localRotation = Quaternion.Euler(0, curRot.y, 0);
+    //    //}
+    //}
     private void OnCursor()
     {
         if (Input.GetKey(KeyCode.LeftAlt) || Inventory.inventoryActivated || Shop.isShopping)

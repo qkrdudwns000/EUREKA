@@ -20,9 +20,9 @@ public class RootMotion : MonoBehaviour
         deltaRotation = Quaternion.identity;
     }
 
-    //private void OnAnimatorMove()
-    //{
-    //    deltaPosition += GetComponent<Animator>().deltaPosition * Speed;
-    //    deltaRotation *= GetComponent<Animator>().deltaRotation;
-    //}
+    private void OnAnimatorMove()
+    {
+        deltaPosition += GetComponent<Animator>().deltaPosition;
+        deltaRotation *= GetComponent<Animator>().deltaRotation;
+    }
 }

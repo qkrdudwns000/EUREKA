@@ -11,14 +11,14 @@ public class PlayerController : PlayerCharacterProperty
 
     public Vector2 targetDir = Vector2.zero;
     public GameObject theCam;
+    [SerializeField]
+    private Transform CameraArm;
 
     private bool isRun = false;
     private float currentSpeed;
-    private Camera _camera;
     public float smoothness = 10.0f;
     [SerializeField] private float runSpeed;
     [SerializeField] private float walkSpeed;
-    CharacterController _controller;
 
     public bool isForward = false;
     private bool isCombable = false;
@@ -40,8 +40,7 @@ public class PlayerController : PlayerCharacterProperty
     // Start is called before the first frame update
     private void Start()
     {
-        _controller = this.GetComponent<CharacterController>();
-        _camera = Camera.main;
+
     }
 
     // Update is called once per frame
@@ -54,6 +53,7 @@ public class PlayerController : PlayerCharacterProperty
             if (!myAnim.GetBool("IsComboAttacking"))
             {
                 PlayerMovement();
+                LookAround();
                 RollingAndBlock();
             }
             if (theEquipment.isEquipWeapon)
@@ -65,10 +65,6 @@ public class PlayerController : PlayerCharacterProperty
         }
         SPRechargeTime();
         SPRecover();
-    }
-    private void LateUpdate()
-    {
-        PlayerRotate();
     }
     public void Targetting(Transform target)
     {
@@ -96,20 +92,13 @@ public class PlayerController : PlayerCharacterProperty
 
         currentSpeed = (isRun) ? runSpeed : walkSpeed;
 
-        if(isRun)
+        if (isRun)
         {
             DecreaseStamina(0.5f);
+            myAnim.SetBool("IsRun", true);
         }
-
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 right = transform.TransformDirection(Vector3.right);
-
-        Vector3 moveDirection = forward * Input.GetAxisRaw("Vertical") + right * Input.GetAxisRaw("Horizontal");
-
-        _controller.Move(moveDirection.normalized * currentSpeed * Time.deltaTime);
-
-        float percent = ((isRun) ? 1 : 0.5f) * moveDirection.magnitude;
-        myAnim.SetFloat("x", percent, 0.1f, Time.deltaTime);
+        else
+            myAnim.SetBool("IsRun", false);
 
         if (Input.GetKey(KeyCode.W) && !myAnim.GetBool("IsRolling"))
         {
@@ -119,14 +108,47 @@ public class PlayerController : PlayerCharacterProperty
         {
             isForward = false;
         }
-    }
-    private void PlayerRotate()
-    {
-        if (isForward)
+
+
+        Vector2 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        bool isMove = moveInput.magnitude != 0;
+        if(isMove)
         {
-            Vector3 playerRotate = Vector3.Scale(_camera.transform.forward, new Vector3(1, 0, 1));
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(playerRotate), Time.deltaTime * smoothness);
+            Vector3 lookForward = new Vector3(CameraArm.forward.x, 0f, CameraArm.forward.z).normalized;
+            Vector3 lookRight = new Vector3(CameraArm.right.x, 0f, CameraArm.right.z).normalized;
+            Vector3 moveDir = lookForward * moveInput.y + lookRight * moveInput.x;
+            if (isForward)
+                transform.forward = lookForward;
+            else
+                transform.forward = moveDir;
+
+            transform.position += moveDir * Time.deltaTime * currentSpeed;
+            myAnim.SetBool("IsWalk", true);
         }
+        else
+        {
+            myAnim.SetBool("IsWalk", false) ;
+        }
+
+
+        
+    }
+    private void LookAround()
+    {
+        Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        Vector3 camAngle = CameraArm.rotation.eulerAngles;
+        float x = camAngle.x - mouseDelta.y;
+        if(x < 180f)
+        {
+            x = Mathf.Clamp(x, -20f, 10f);
+        }
+        else
+        {
+            x = Mathf.Clamp(x, 335f, 361f);
+        }
+
+
+        CameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseDelta.x, camAngle.z);
     }
     public void DecreaseStamina(float _count)
     {
