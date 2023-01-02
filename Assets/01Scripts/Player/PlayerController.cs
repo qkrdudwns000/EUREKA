@@ -35,7 +35,6 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private Transform guardPos;
     [SerializeField] private GameObject guardEffect; // ∞°µÂ¿Ã∆Â∆Æ «¡∏Æ∆’
 
-    [SerializeField] private GameObject theSwordTrail; // ∞À±‚ ¿‹ªÛ
     [SerializeField] private PlayerEquipment theEquipment;
     [SerializeField] private Shop theShop;
 
@@ -50,7 +49,6 @@ public class PlayerController : PlayerCharacterProperty
     void Update()
     {
         Interaction();
-        SwordTrail();
         if (!Inventory.inventoryActivated && !Shop.isShopping)
         {
             if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting"))
@@ -301,21 +299,6 @@ public class PlayerController : PlayerCharacterProperty
                 Instantiate(guardEffect, guardPos.transform.position, Quaternion.identity);
                 ShakeCamera.inst.OnShakeCamera(0.3f, 0.1f);
                 break;
-        }
-    }
-    private void SwordTrail()
-    {
-        if (myAnim.GetBool("IsComboAttacking"))
-        {
-            theSwordTrail.SetActive(true);
-        }
-        else if (myAnim.GetBool("IsCounter"))
-        {
-            theSwordTrail.SetActive(true);
-        }
-        else
-        {
-            theSwordTrail.SetActive(false);
         }
     }
 }

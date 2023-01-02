@@ -24620,7 +24620,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.1333334
+        time: 1.1333333
         value: -0.21791175
         inSlope: -0.7193354
         outSlope: -0.7193354
@@ -24629,7 +24629,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.1666667
+        time: 1.1666666
         value: -0.24050777
         inSlope: -0.5620181
         outSlope: -0.5620181
@@ -98077,7 +98077,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.1333334
+        time: 1.1333333
         value: -0.21791175
         inSlope: -0.7193354
         outSlope: -0.7193354
@@ -98086,7 +98086,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1.1666667
+        time: 1.1666666
         value: -0.24050777
         inSlope: -0.5620181
         outSlope: -0.5620181
@@ -146002,6 +146002,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.8
+    functionName: InstantiateEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 6
+    messageOptions: 0
   - time: 0.8666667
     functionName: ComboCheckStart
     data: 
@@ -146031,6 +146038,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.6
+    functionName: InstantiateEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 7
+    messageOptions: 0
+  - time: 1.6
     functionName: StaminaDecrease
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -146057,6 +146071,13 @@ AnimationClip:
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
+    messageOptions: 0
+  - time: 2.3333333
+    functionName: InstantiateEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 8
     messageOptions: 0
   - time: 2.6666667
     functionName: OnAttackCollision
