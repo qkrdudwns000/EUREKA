@@ -5,4 +5,5 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     public Item item;
+    public Skill skill;
 }
