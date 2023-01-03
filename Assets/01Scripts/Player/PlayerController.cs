@@ -38,13 +38,6 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private PlayerEquipment theEquipment;
     [SerializeField] private Shop theShop;
 
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -268,9 +261,9 @@ public class PlayerController : PlayerCharacterProperty
             }
         }
     }
-    public void RollingEnd()
+    public void SkillPlay(Skill _skill)
     {
-        //transform.rotation = Quaternion.LookRotation(forwardDir); // 구르기 후 정면주시를위함.
+        myAnim.SetTrigger(_skill.animeName);
     }
     
 

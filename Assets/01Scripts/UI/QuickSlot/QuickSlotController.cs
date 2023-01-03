@@ -67,9 +67,9 @@ public class QuickSlotController : MonoBehaviour
             if (quickSlots[selectedSlot].quickItem.itemType == Item.ItemType.used)
                 quickSlots[selectedSlot].PotionUsed(-1);
         }
-        else
+        else if (quickSlots[selectedSlot].quickSkill != null)
         {
-            
+            quickSlots[selectedSlot].SkillUsed();
         }
     }
     public void AcquireItem(Item _item, int _count)

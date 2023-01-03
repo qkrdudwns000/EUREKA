@@ -7,8 +7,6 @@ using UnityEngine.EventSystems;
 public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IBeginDragHandler,
     IDragHandler, IEndDragHandler, IDropHandler
 {
-    private Vector3 originPos;
-
     public Item item; //»πµÊ«— æ∆¿Ã≈€
     public int itemCount; // »πµÊ«— æ∆¿Ã≈€¿« ∞πºˆ
     public bool isEquip = false;
@@ -28,7 +26,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     private void Start()
     {
-        originPos = transform.position;
         theInven = FindObjectOfType<Inventory>();
     }
 

@@ -50,6 +50,7 @@ public class Inventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
             CloseInventory();
         
+        
     }
     public void ShowToolTip(Item _item, Vector3 _pos)
     {
@@ -86,7 +87,7 @@ public class Inventory : MonoBehaviour
     }
     public void AcquireItem(Item _item, int _count)
     {
-        if(Item.ItemType.Equipment != _item.itemType )
+        if(Item.ItemType.Equipment != _item.itemType)
         {
             for (int i = 0; i < slots.Length; i++)
             {

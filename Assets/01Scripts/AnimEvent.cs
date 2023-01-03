@@ -27,11 +27,6 @@ public class AnimEvent : MonoBehaviour
     {
         thePlayer.StaminaControl();
     }
-    // 구르기모션 끝 이벤트
-    public void RollingEnd()
-    {
-        thePlayer.RollingEnd();
-    }
     // 어택 collision 활성화 이벤트
     public void OnAttackCollision()
     {

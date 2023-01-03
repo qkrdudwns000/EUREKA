@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2190befc6bbc34d40a2f05e97db0e7e8, type: 3}
-  m_Name: ButterflyDance
+  m_Name: SnakeDance
   m_EditorClassIdentifier: 
-  skillID: 1001
-  skillName: "\uB098\uBE44\uC758 \uCDA4"
-  animeName: Skill1
-  skillImage: {fileID: 21300000, guid: 0c136515f7aa49e43ba0840df48c1f4d, type: 3}
-  skillCoolTime: 5
-  skillValue: 5
-  requireSkillPoint: 1
+  skillID: 1003
+  skillName: "\uBC40\uC758 \uCDA4"
+  animeName: Skill3
+  skillImage: {fileID: 21300000, guid: 8a1680ec09858bc4aa7b4e3ad474dd89, type: 3}
+  skillCoolTime: 10
+  skillValue: 30
+  requireSkillPoint: 3
   useSpAmount: 20
-  prevSkill: {fileID: 0}
-  nextSkill: {fileID: 11400000, guid: 1ce949c86aa2e3a4d83c388c3e084d32, type: 2}
-  skillDesc: "\uC124\uBA85."
+  prevSkill: {fileID: 11400000, guid: 1ce949c86aa2e3a4d83c388c3e084d32, type: 2}
+  nextSkill: {fileID: 0}
+  skillDesc: 

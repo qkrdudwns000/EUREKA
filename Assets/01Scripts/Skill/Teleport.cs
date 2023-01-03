@@ -5,17 +5,18 @@ using UnityEngine;
 public class Teleport : MonoBehaviour {
 
     public Vector3 Range = new Vector3();
+    [SerializeField]
+    private Transform thePlayer;
     Vector3 startPos;
 
     // Use this for initialization
     void Awake () {
-        startPos = transform.position;
-
+        startPos = thePlayer.transform.position;
 	}
 	
 	// Update is called once per frame
 	void OnEnable() {
-        transform.position = startPos;
+        thePlayer.transform.position = startPos;
 	}
 
     public void CustomTeleport(){
@@ -23,7 +24,7 @@ public class Teleport : MonoBehaviour {
         foreach (var rend in renderers) {
             rend.enabled = false;
         }
-        transform.position += Range;
+        //thePlayer.transform.position += Range;
 
         foreach (var rend in renderers)
         {

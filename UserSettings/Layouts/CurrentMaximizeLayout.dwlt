@@ -397,9 +397,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.1397815, y: 0.40288043, z: 10.194517}
+    m_Target: {x: -22.058783, y: 0.7990166, z: 9.521408}
     speed: 2
-    m_Value: {x: -1.1397815, y: 0.40288043, z: 10.194517}
+    m_Value: {x: -22.058783, y: 0.7990166, z: 9.521408}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -446,13 +446,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.18566512, y: 0.3946817, z: -0.08185673, w: -0.89623344}
+    m_Target: {x: -0.24440856, y: 0.34080917, z: -0.09232831, w: -0.9032006}
     speed: 2
-    m_Value: {x: -0.1856651, y: 0.3946817, z: -0.08185673, w: -0.8962334}
+    m_Value: {x: -0.24438627, y: 0.34077808, z: -0.09231989, w: -0.90311825}
   m_Size:
-    m_Target: 6.4000874
+    m_Target: 0.9055384
     speed: 2
-    m_Value: 6.4000874
+    m_Value: 0.9055384
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -631,11 +631,11 @@ MonoBehaviour:
     - e00: 0.8501814
       e01: 0
       e02: 0
-      e03: -5.695944
+      e03: -322.21045
       e10: 0
       e11: 0.8501814
       e12: 0
-      e13: 185.02873
+      e13: 6.418396
       e20: 0
       e21: 0
       e22: 1
@@ -813,7 +813,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -102642
+  m_LastSelectedObjectID: 47760
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -870,10 +870,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 58}
-      m_SelectedIDs: 0e6ffeff
-      m_LastClickedID: -102642
-      m_ExpandedIDs: 0e6ffeffb01affff3459ffff4059ffff4c59ffff728dffffc08fffff46e2ffff52e2ffff86e2ffff90e2ffff2efbffffe8af0000ecb0000042b1000074b1000032b3000058b4000074b40000c8b4000062b500001ab7000040b8000008ba0000febb0000
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: feb10000
+      m_LastClickedID: 45566
+      m_ExpandedIDs: 2efbffff7cac0000f2ae000092b10000eeb2000060b4000094b4000064b500008cb500009ab8000090ba0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -964,22 +964,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Skill icon
+    - Assets/07Scrptable/Skill
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Skill icon
+  - Assets/07Scrptable/Skill
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\qkrdu\Documents\GitHub\EUREKA
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 461}
-    m_SelectedIDs: 6a4e0100
-    m_LastClickedID: 85610
-    m_ExpandedIDs: 00000000d2cd0000d4cd0000d6cd0000d8cd0000dacd0000dccd0000decd0000e0cd0000e2cd0000e4cd0000e6cd0000e8cd0000eacd0000eccd0000eecd0000f0cd0000f2cd0000f4cd0000f6cd0000f8cd0000facd0000fccd0000fecd000000ce000002ce000004ce000006ce000008ce00000ace00000cce00000ece000010ce000012ce000014ce000016ce000018ce00001ace00001cce00001ece000020ce000022ce000024ce000026ce000028ce00002ace00002cce00002ece000030ce000032ce000034ce000036ce000038ce00003ace00003cce00003ece000040ce000042ce000044ce000046ce000048ce00008011010000ca9a3b
+    scrollPos: {x: 0, y: 245}
+    m_SelectedIDs: 9ece0000
+    m_LastClickedID: 52894
+    m_ExpandedIDs: 00000000fccc0000fecc000000cd000002cd000004cd000006cd000008cd00000acd00000ccd00000ecd000010cd000012cd000014cd000016cd000018cd00001acd00001ccd00001ecd000020cd000022cd000024cd000026cd000028cd00002acd00002ccd00002ecd000030cd000032cd000034cd000036cd000038cd00003acd00003ccd00003ecd000040cd000042cd000044cd000046cd000048cd00004acd00004ccd00004ecd000050cd000052cd000054cd000056cd000058cd00005acd00005ccd00005ecd000060cd000062cd000064cd000066cd000068cd00006acd00006ccd00006ecd000070cd000072cd000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1007,7 +1007,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d2cd0000d4cd0000d6cd0000d8cd0000dacd0000dccd0000decd0000e0cd0000e2cd0000e4cd0000e6cd0000e8cd0000eacd0000eccd0000eecd0000f0cd0000f2cd0000f4cd0000f6cd0000f8cd0000facd0000fccd0000fecd000000ce000002ce000004ce000006ce000008ce00000ace00000cce00000ece000010ce000012ce000014ce000016ce000018ce00001ace00001cce00001ece000020ce000022ce000024ce000026ce000028ce00002ace00002cce00002ece000030ce000032ce000034ce000036ce000038ce00003ace00003cce00003ece000040ce000042ce000044ce000046ce000048ce00008011010000ca9a3b
+    m_ExpandedIDs: 00000000fccc0000fecc000000cd000002cd000004cd000006cd000008cd00000acd00000ccd00000ecd000010cd000012cd000014cd000016cd000018cd00001acd00001ccd00001ecd000020cd000022cd000024cd000026cd000028cd00002acd00002ccd00002ecd000030cd000032cd000034cd000036cd000038cd00003acd00003ccd00003ecd000040cd000042cd000044cd000046cd000048cd00004acd00004ccd00004ecd000050cd000052cd000054cd000056cd000058cd00005acd00005ccd00005ecd000060cd000062cd000064cd000066cd000068cd00006acd00006ccd00006ecd000070cd000072cd0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1032,24 +1032,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 0e6ffeff
-    m_LastClickedInstanceID: -102642
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: feb10000
+    m_LastClickedInstanceID: 45566
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 225e0000fa5d0000125e0000265e0000025e0000da5b000040a2000066ad000086ae0000a4ce00009ece0000aace000098ce0000ea5d0000e25d0000e65d0000d65d00004ed9000002850000ba7d000006240000e48e000070600000c85f0000dc7d0000407e0000dc8b00008c9b0000067e0000b28400002c93000052550b001e510b0030510b002a510b00f4500b000c510b00e8500b0042510b0046550b003c550b002a550b0020550b00be9e0a0018510b00ae5c0b00da9e0a00ac9e0a00e29e0a00f29e0a0072a804003e8b0000228b00007679020062370200707902007e3d01007a7a0000807a0000a2380200b8380200b6380200c0950200363d01005c3e01002e3f0100843e0100423f01006a3f0100703e0100563f0100c4890500ae89050022110100a8360100283a00001c0a010000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Skill
+      m_OriginalName: Skill
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 52894
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 12}
     m_CreateAssetUtility:

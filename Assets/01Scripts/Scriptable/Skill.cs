@@ -7,8 +7,10 @@ public class Skill : ScriptableObject
 {
     public int skillID;
     public string skillName;
+    public string animeName;
     public Sprite skillImage;
-    public float skillCollTime;
+    public float skillCoolTime;
+    public float skillValue;
     public int requireSkillPoint;
     public float useSpAmount;
 

@@ -7,9 +7,11 @@ using UnityEngine.EventSystems;
 public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
 {
     public Item quickItem;
+    public Skill quickSkill;
     public Image quickItemImage;
     private Slot orgSlot;
     private QuickSlotController quickSlotController;
+    private PlayerController thePlayer;
     public int quickItemCount;
 
     private float currentCoolTime;
@@ -25,6 +27,7 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
     private void Start()
     {
         quickSlotController = GetComponentInParent<QuickSlotController>();
+        thePlayer = FindObjectOfType<PlayerController>();
     }
     private void Update()
     {
@@ -36,7 +39,11 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
         if (isCoolTime)
         {
             currentCoolTime -= Time.deltaTime;
-            img_CoolTime.fillAmount = currentCoolTime / quickItem.itemCoolTime;
+            if(quickItem != null)
+                img_CoolTime.fillAmount = currentCoolTime / quickItem.itemCoolTime;
+            else if(quickSkill != null)
+                img_CoolTime.fillAmount = currentCoolTime / quickSkill.skillCoolTime;
+
 
             if (currentCoolTime <= 0)
                 isCoolTime = false;
@@ -54,6 +61,12 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
         text_Count.text = quickItemCount.ToString();
         orgSlot.ClearSlot();
     }
+    private void SettingSkill(Skill _skill)
+    {
+        SetColor(1);
+        quickSkill = _skill;
+        quickItemImage.sprite = _skill.skillImage;
+    }
 
     private void SetColor(float _alpha)
     {
@@ -69,6 +82,12 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
         text_Count.text = "0";
         go_CountImage.SetActive(false);
 
+        SetColor(0);
+    }
+    private void ClearSkillSlot()
+    {
+        quickSkill = null;
+        quickItemImage.sprite = null;
         SetColor(0);
     }
     public void PotionUsed(int _count)
@@ -89,40 +108,99 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
                 ClearSlot();
             }
         }
-        
+    }
+    public void SkillUsed()
+    {
+        if(!isCoolTime)
+        {
+            currentCoolTime = quickSkill.skillCoolTime;
+            isCoolTime = true;
+            thePlayer.SkillPlay(quickSkill);
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        Item item = eventData.pointerDrag.transform.GetComponent<Slot>().item;
         Slot slot = eventData.pointerDrag.transform.GetComponent<Slot>();
-        if (quickItem == null)
+        Item item = null;
+        if(slot != null)
         {
-            if (item.itemType == Item.ItemType.used)
+            item = eventData.pointerDrag.transform.GetComponent<Slot>().item;
+        }
+        
+        SkillSlot skillSlot = eventData.pointerDrag.transform.GetComponent<SkillSlot>();
+        Skill skill = null;
+        if (skillSlot != null)
+        {
+            skill = eventData.pointerDrag.transform.GetComponent<SkillSlot>().skill;
+        }
+
+        if (slot != null)
+        {
+            if (quickItem == null && quickSkill == null)
             {
-                SettingUsed(item, slot);
+                if (item.itemType == Item.ItemType.used)
+                {
+                    SettingUsed(item, slot);
+                }
+            }
+            else
+            {
+                if (item.itemType == Item.ItemType.used)
+                {
+                    if (quickItem != null)
+                    {
+                        quickSlotController.AcquireItem(quickItem, quickItemCount);
+                    }
+                    SettingUsed(item, slot);
+                }
             }
         }
-        else
+        else if(skillSlot != null)
         {
-            if (item.itemType == Item.ItemType.used)
+            if(quickSkill == null && quickItem == null)
             {
-                quickSlotController.AcquireItem(quickItem, quickItemCount);
-                SettingUsed(item, slot);
+                SettingSkill(skill);
+            }
+            else
+            {
+                if(quickItem.itemType == Item.ItemType.used)
+                {
+                    if (quickItem != null)
+                    {
+                        quickSlotController.AcquireItem(quickItem, quickItemCount);
+                        ClearSlot();
+                    }
+                    SettingSkill(skill);
+                }
             }
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (quickItem != null)
+        if (!isCoolTime)
         {
-            if (eventData.button == PointerEventData.InputButton.Left)
-                PotionUsed(-1);
-            else if (eventData.button == PointerEventData.InputButton.Right)
+            if (quickItem != null)
             {
-                quickSlotController.AcquireItem(quickItem, quickItemCount);
-                ClearSlot();
+                if (eventData.button == PointerEventData.InputButton.Left)
+                    PotionUsed(-1);
+                else if (eventData.button == PointerEventData.InputButton.Right)
+                {
+                    quickSlotController.AcquireItem(quickItem, quickItemCount);
+                    ClearSlot();
+                }
+            }
+            else if(quickSkill != null)
+            {
+                if (eventData.button == PointerEventData.InputButton.Left)
+                {
+                    SkillUsed();
+                }
+                else if (eventData.button == PointerEventData.InputButton.Right)
+                {
+                    ClearSkillSlot();
+                }
             }
         }
     }
