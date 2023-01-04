@@ -164,13 +164,21 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
             }
             else
             {
-                if(quickItem.itemType == Item.ItemType.used)
+                if (quickItem != null)
                 {
-                    if (quickItem != null)
+                    if (quickItem.itemType == Item.ItemType.used)
                     {
+
                         quickSlotController.AcquireItem(quickItem, quickItemCount);
                         ClearSlot();
+
+                        SettingSkill(skill);
                     }
+                }
+                else if(quickSkill != null)
+                {
+                    ClearSlot();
+
                     SettingSkill(skill);
                 }
             }

@@ -109228,3 +109228,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 12
     messageOptions: 0
+  - time: 1.5
+    functionName: Skill_3_CollisionStart
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

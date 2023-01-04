@@ -8256,7 +8256,7 @@ AnimationClip:
     intParameter: 10
     messageOptions: 0
   - time: 0.06666667
-    functionName: CustomTeleport
+    functionName: Skill_2_CollisionStart
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

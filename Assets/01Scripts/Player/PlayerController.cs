@@ -266,6 +266,19 @@ public class PlayerController : PlayerCharacterProperty
         myAnim.SetTrigger(_skill.animeName);
     }
     
+    public void Skill_3_AttackCollision()
+    {
+        Collider[] _target = Physics.OverlapSphere(transform.position, 5.0f, 1 << LayerMask.NameToLayer("Enemy"));
+        if(_target.Length > 0)
+        {
+            for(int i = 0; i < _target.Length; i++)
+            {
+                Debug.Log(_target[i]);
+                _target[i].GetComponent<EnemyController>().TakeDamage(20.0f);
+            }
+        }
+         
+    }
 
 
     public void TakeDamage(float damage)
