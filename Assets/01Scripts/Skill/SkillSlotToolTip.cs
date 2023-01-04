@@ -12,6 +12,7 @@ public class SkillSlotToolTip : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text txt_SkillUseSp;
     [SerializeField] private TMPro.TMP_Text txt_SkillCoolTime;
     [SerializeField] private TMPro.TMP_Text txt_SkillDesc;
+    [SerializeField] private TMPro.TMP_Text txt_SkillPoint;
     [SerializeField] private Image img_SkillImage;
 
 
@@ -27,6 +28,7 @@ public class SkillSlotToolTip : MonoBehaviour
         txt_SkillUseSp.text = _skill.useSpAmount.ToString();
         txt_SkillCoolTime.text = _skill.skillCoolTime.ToString();
         txt_SkillDesc.text = _skill.skillDesc;
+        txt_SkillPoint.text = _skill.requireSkillPoint.ToString();
         img_SkillImage.sprite = _skill.skillImage;
     }
     public void HideToolTip()

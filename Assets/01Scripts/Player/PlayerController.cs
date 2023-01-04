@@ -42,20 +42,19 @@ public class PlayerController : PlayerCharacterProperty
     void Update()
     {
         Interaction();
-        if (!Inventory.inventoryActivated && !Shop.isShopping)
+        if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting)
         {
-            if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting"))
+            LookAround();
+            if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
             {
                 PlayerMovement();
-                LookAround();
                 RollingAndBlock();
             }
-            if (theEquipment.isEquipWeapon)
+            if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill)
             {
                 ComboAttack();
                 CounterAttack();
             }
-            
         }
         SPRechargeTime();
         SPRecover();
@@ -106,8 +105,6 @@ public class PlayerController : PlayerCharacterProperty
             myAnim.SetBool("IsRun", false);
             currentSpeed = walkSpeed;
         }
-
-        
 
 
         Vector2 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -196,14 +193,8 @@ public class PlayerController : PlayerCharacterProperty
     }
     private void RollingAndBlock()
     {
-        Vector3 dir = Vector3.zero;
-        dir.x = Input.GetAxis("Horizontal");
-        dir.z = Input.GetAxis("Vertical");
         if (Input.GetKeyDown(KeyCode.Space) && !myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f) 
         {
-            dir.Normalize();
-
-            //transform.rotation = Quaternion.LookRotation(CameraArm.transform.rotation * dir);
             DecreaseStamina(15.0f);
             myAnim.SetTrigger("Rolling");
         }
@@ -263,6 +254,7 @@ public class PlayerController : PlayerCharacterProperty
     }
     public void SkillPlay(Skill _skill)
     {
+        AutoTargeting();
         myAnim.SetTrigger(_skill.animeName);
     }
     
@@ -283,13 +275,14 @@ public class PlayerController : PlayerCharacterProperty
 
     public void TakeDamage(float damage)
     {
-          if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking") && !myAnim.GetBool("IsCounter"))
+        if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking") && !myAnim.GetBool("IsCounter")
+            && !SkillSetManager.isSkill)
         {
             Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
             myStat.HP -= damage;
             myAnim.SetTrigger("OnHit");
         }
-        else if (myAnim.GetBool("IsBlock"))
+        else if (myAnim.GetBool("IsBlock") && !SkillSetManager.isSkill)
         {
             myAnim.SetTrigger("Blocking");
             EffectCase("Guard");

@@ -8,7 +8,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Inst = null;
 
     [SerializeField] int _gold = 0;
-    public TMPro.TMP_Text text_gold;
+    [SerializeField] int _skillPoint = 0;
+
+    [SerializeField]
+    private TMPro.TMP_Text text_gold;
+    [SerializeField]
+    private TMPro.TMP_Text text_skillPoint;
 
     [SerializeField] private TMPro.TMP_Text levelText;
     [SerializeField] private Image experienceBar;
@@ -22,6 +27,11 @@ public class GameManager : MonoBehaviour
     {
         get => _gold;
         set => _gold = value;
+    }
+    public int SkillPoint
+    {
+        get => _skillPoint;
+        set => _skillPoint = value;
     }
     // Start is called before the first frame update
     private void Awake()
@@ -38,6 +48,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GoldManager();
+        SkillPointManager();
     }
 
     private void GoldManager()
@@ -45,6 +56,13 @@ public class GameManager : MonoBehaviour
         if(Shop.isShopping || Inventory.inventoryActivated)
         {
             text_gold.text = Gold.ToString();
+        }
+    }
+    private void SkillPointManager()
+    {
+        if(SkillSetManager.isSkillSetting)
+        {
+            text_skillPoint.text = SkillPoint.ToString();
         }
     }
 

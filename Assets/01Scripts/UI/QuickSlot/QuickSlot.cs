@@ -6,12 +6,14 @@ using UnityEngine.EventSystems;
 
 public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
 {
+
     public Item quickItem;
     public Skill quickSkill;
     public Image quickItemImage;
     private Slot orgSlot;
     private QuickSlotController quickSlotController;
     private PlayerController thePlayer;
+    private PlayerEquipment theEquipment;
     public int quickItemCount;
 
     private float currentCoolTime;
@@ -28,6 +30,7 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
     {
         quickSlotController = GetComponentInParent<QuickSlotController>();
         thePlayer = FindObjectOfType<PlayerController>();
+        theEquipment = FindObjectOfType<PlayerEquipment>();
     }
     private void Update()
     {
@@ -111,8 +114,9 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
     }
     public void SkillUsed()
     {
-        if(!isCoolTime)
+        if(!isCoolTime && !SkillSetManager.isSkill && theEquipment.isEquipWeapon)
         {
+            SkillSetManager.isSkill = true;
             currentCoolTime = quickSkill.skillCoolTime;
             isCoolTime = true;
             thePlayer.SkillPlay(quickSkill);
@@ -130,6 +134,7 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
         
         SkillSlot skillSlot = eventData.pointerDrag.transform.GetComponent<SkillSlot>();
         Skill skill = null;
+
         if (skillSlot != null)
         {
             skill = eventData.pointerDrag.transform.GetComponent<SkillSlot>().skill;

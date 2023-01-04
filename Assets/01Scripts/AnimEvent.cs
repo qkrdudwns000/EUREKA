@@ -30,6 +30,11 @@ public class AnimEvent : MonoBehaviour
     {
         thePlayer.StaminaControl();
     }
+    public void SkillEnd()
+    {
+        SkillSetManager.isSkill = false;
+    }
+
     // 어택 collision 활성화 이벤트
     public void OnAttackCollision()
     {
@@ -52,4 +57,5 @@ public class AnimEvent : MonoBehaviour
     {
         skill4AttackCollision.SetActive(false);
     }
+
 }

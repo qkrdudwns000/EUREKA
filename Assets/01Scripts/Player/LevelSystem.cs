@@ -18,7 +18,7 @@ public class LevelSystem
         experience = 0;
         experienceToNextLevel = 100;
     }
-
+    
     public void AddExperience(int _amount)
     {
         experience += _amount;
@@ -26,6 +26,7 @@ public class LevelSystem
         {
             //·¹º§¾÷
             level++;
+            GameManager.Inst.SkillPoint++;
             experience -= experienceToNextLevel;
             if (OnLevelChanged != null) OnLevelChanged(this, EventArgs.Empty);
         }
