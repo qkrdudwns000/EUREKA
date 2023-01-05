@@ -18,9 +18,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text levelText;
     [SerializeField] private Image experienceBar;
     [SerializeField] private PlayerController thePlayer;
+    [SerializeField] private TalkManager talkManager;
     [SerializeField] private GameObject levelUpEffect;
 
     private LevelSystem levelSystem;
+
+    [SerializeField] GameObject talkPanel;
+    [SerializeField] private TMPro.TMP_Text talkText;
+    public GameObject scanObject;
+    static public bool isAction;
+    public int talkIndex;
 
 
     public int Gold
@@ -49,6 +56,36 @@ public class GameManager : MonoBehaviour
     {
         GoldManager();
         SkillPointManager();
+    }
+
+    public void Action(GameObject scanObj)
+    {
+        scanObject = scanObj;
+        ObjData objData = scanObject.GetComponent<ObjData>();
+        Talk(objData.id, objData.isNpc);
+
+        talkPanel.SetActive(isAction);
+    }
+    private void Talk(int id, bool isNpc)
+    {
+        string talkData = talkManager.GetTalk(id, talkIndex);
+
+        if(talkData == null)
+        {
+            isAction = false;
+            talkIndex = 0;
+            return;
+        }
+        if(isNpc)
+        {
+            talkText.text = talkData;
+        }
+        else
+        {
+            talkText.text = talkData;
+        }
+        isAction = true;
+        talkIndex++;
     }
 
     private void GoldManager()

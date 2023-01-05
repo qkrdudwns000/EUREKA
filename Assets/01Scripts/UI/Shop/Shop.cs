@@ -7,30 +7,32 @@ public class Shop : MonoBehaviour
     public static bool isShopping = false;
     public GameObject theShop;
     public GameObject inventoryBase;
+    [SerializeField] private GameObject go_EnabelInteration;
 
     public Animator anim;
 
-    private PlayerController thePlayer;
     public bool isShop = false;
 
 
     public void ZoneEnter()
     {
         anim.SetTrigger("Hello");
+        go_EnabelInteration.SetActive(true);
     }
-    public void Enter(PlayerController player)
+    public void Enter()
     {
-        thePlayer = player;
         OpenShopUI();
     }
     public void Exit()
     {
         anim.SetTrigger("Hello");
+        go_EnabelInteration.SetActive(false);
         CloseShopUI();
     }
     public void Interaction()
     {
-        Enter(thePlayer);
+        go_EnabelInteration.SetActive(false);
+        GameManager.Inst.Action(this.gameObject);
     }
     private void OpenShopUI()
     {

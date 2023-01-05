@@ -36,13 +36,16 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private GameObject guardEffect; // ∞°µÂ¿Ã∆Â∆Æ «¡∏Æ∆’
 
     [SerializeField] private PlayerEquipment theEquipment;
+    [SerializeField] private GameManager theManager;
     [SerializeField] private Shop theShop;
+    [SerializeField] private QuestNPC theQuest;
 
     // Update is called once per frame
     void Update()
     {
         Interaction();
-        if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting)
+        if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting
+            && !GameManager.isAction)
         {
             LookAround();
             if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
@@ -56,12 +59,13 @@ public class PlayerController : PlayerCharacterProperty
                 CounterAttack();
             }
         }
+        else
+        {
+            myAnim.SetBool("IsWalk", false);
+            myAnim.SetBool("IsRun", false);
+        }
         SPRechargeTime();
         SPRecover();
-    }
-    private void FixedUpdate()
-    {
-        
     }
     public void Targetting(Transform target)
     {
@@ -80,9 +84,12 @@ public class PlayerController : PlayerCharacterProperty
     }
     private void Interaction()
     {
-        if(Input.GetKeyDown(KeyCode.E) && theShop.isShop)
+        if(Input.GetKeyDown(KeyCode.E) && (theShop.isShop || theQuest.isQuest))
         {
-            theShop.Interaction();
+            if (theShop.isShop)
+                theShop.Interaction();
+            else if (theQuest.isQuest)
+                theQuest.Interaction();
         }
     }
 
@@ -108,6 +115,7 @@ public class PlayerController : PlayerCharacterProperty
 
 
         Vector2 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        
         bool isMove = moveInput.magnitude != 0;
 
         if ((moveInput.x < 0.5f && moveInput.x >-0.5f) && moveInput.y > 0.5f)
@@ -137,7 +145,7 @@ public class PlayerController : PlayerCharacterProperty
         }
         else
         {
-            myAnim.SetBool("IsWalk", false) ;
+            myAnim.SetBool("IsWalk", false);
         }  
     }
     private void LookAround()
