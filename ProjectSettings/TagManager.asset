@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Portrait
+    uniqueID: 3790759555
+    locked: 0

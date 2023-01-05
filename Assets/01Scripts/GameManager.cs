@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private LevelSystem levelSystem;
 
     [SerializeField] GameObject talkPanel;
+    [SerializeField] Image portraitImg;
     [SerializeField] private TMPro.TMP_Text talkText;
     public GameObject scanObject;
     static public bool isAction;
@@ -78,11 +79,16 @@ public class GameManager : MonoBehaviour
         }
         if(isNpc)
         {
-            talkText.text = talkData;
+            talkText.text = talkData.Split(':')[0];
+
+            portraitImg.sprite = talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
+            portraitImg.color = new Color(1, 1, 1, 1);
         }
         else
         {
             talkText.text = talkData;
+
+            portraitImg.color = new Color(1, 1, 1, 0);
         }
         isAction = true;
         talkIndex++;
