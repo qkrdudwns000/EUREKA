@@ -95,7 +95,7 @@ public class EnemyController : EnemyMovement
     {
         theMeshRenderer.material.color = Color.red;
         // 맞았을경우 0.1초동안 색변경.
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
 
         theMeshRenderer.material.color = originColor;
     }

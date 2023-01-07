@@ -32,9 +32,6 @@ public class PlayerController : PlayerCharacterProperty
     private int clickCount;
     private int staminaCount = 0;
 
-    [SerializeField] private Transform guardPos;
-    [SerializeField] private GameObject guardEffect; // ∞°µÂ¿Ã∆Â∆Æ «¡∏Æ∆’
-
     [SerializeField] private PlayerEquipment theEquipment;
     [SerializeField] private GameManager theManager;
     [SerializeField] private Shop theShop;
@@ -277,7 +274,6 @@ public class PlayerController : PlayerCharacterProperty
                 _target[i].GetComponent<EnemyController>().TakeDamage(20.0f);
             }
         }
-         
     }
 
 
@@ -290,22 +286,10 @@ public class PlayerController : PlayerCharacterProperty
             myStat.HP -= damage;
             myAnim.SetTrigger("OnHit");
         }
-        else if (myAnim.GetBool("IsBlock") && !SkillSetManager.isSkill)
+        else if ((myAnim.GetBool("IsBlock") || myAnim.GetBool("IsBlocking")) && !SkillSetManager.isSkill)
         {
+            myAnim.ResetTrigger("Blocking");
             myAnim.SetTrigger("Blocking");
-            EffectCase("Guard");
-        }
-        
-    }
-
-    private void EffectCase(string s)
-    {
-        switch (s)
-        {
-            case "Guard":
-                Instantiate(guardEffect, guardPos.transform.position, Quaternion.identity);
-                ShakeCamera.inst.OnShakeCamera(0.3f, 0.1f);
-                break;
         }
     }
 }
