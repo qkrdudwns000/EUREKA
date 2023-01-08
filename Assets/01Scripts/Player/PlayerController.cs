@@ -13,6 +13,8 @@ public class PlayerController : PlayerCharacterProperty
     private Vector3 autoTargetDir;
     [SerializeField]
     private Transform CameraArm;
+    private SpringArm theSprignArm;
+    
     [SerializeField]
     private Transform RealCam;
 
@@ -37,12 +39,17 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private Shop theShop;
     [SerializeField] private QuestNPC theQuest;
 
+    private void Start()
+    {
+        theSprignArm = CameraArm.GetComponent<SpringArm>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         Interaction();
         if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting
-            && !GameManager.isAction)
+            && !GameManager.isAction && !theSprignArm.isTargetting)
         {
             LookAround();
             if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)

@@ -7,4 +7,5 @@ public class ObjData : MonoBehaviour
     public int id;
     public string NpcName;
     public bool isNpc;
+    public Transform targetingPos;
 }

@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     static public bool isAction;
     public int talkIndex;
 
+    private SpringArm theCam;
+
 
     public int Gold
     {
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        theCam = FindObjectOfType<SpringArm>();
         Gold = 10000;
         canSkip = false;
     }
@@ -62,7 +65,7 @@ public class GameManager : MonoBehaviour
     {
         GoldManager();
         SkillPointManager();
-        Debug.Log(questManager.CheckQuest());
+       //Debug.Log(questManager.CheckQuest());
     }
 
     public void Action(GameObject scanObj)
@@ -71,6 +74,10 @@ public class GameManager : MonoBehaviour
         ObjData objData = scanObject.GetComponent<ObjData>();
         if (!canSkip)
         {
+            theCam.CameraOriginSetting();
+            if(!theCam.isTargetting)
+                theCam.CameraTargeting(scanObject.transform);
+
             Talk(objData.id, objData.isNpc);
         }
 
@@ -87,6 +94,7 @@ public class GameManager : MonoBehaviour
         {
             isAction = false;
             talkIndex = 0;
+            theCam.CameraTargeting(scanObject.transform);
             Debug.Log(questManager.CheckQuest(id));
             return;
         }
