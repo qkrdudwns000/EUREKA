@@ -7,7 +7,10 @@ public enum BTNtype
     NEW,
     CONTINUE,
     OPTION,
+    SOUND,
+    BACK,
     QUIT
+    
 }
 public class MainUI : MonoBehaviour
 {
