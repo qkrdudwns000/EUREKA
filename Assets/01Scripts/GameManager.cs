@@ -95,6 +95,10 @@ public class GameManager : MonoBehaviour
             isAction = false;
             talkIndex = 0;
             theCam.CameraTargeting(scanObject.transform);
+            if(id == 2000)
+            {
+                scanObject.GetComponent<Shop>().OpenShopUI();
+            }
             Debug.Log(questManager.CheckQuest(id));
             return;
         }

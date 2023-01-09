@@ -14,6 +14,8 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField]
     private Transform CameraArm;
     private SpringArm theSprignArm;
+    [SerializeField]
+    private Animator StatusAnim;
     
     [SerializeField]
     private Transform RealCam;
@@ -42,6 +44,7 @@ public class PlayerController : PlayerCharacterProperty
     private void Start()
     {
         theSprignArm = CameraArm.GetComponent<SpringArm>();
+        
     }
 
     // Update is called once per frame
@@ -292,6 +295,8 @@ public class PlayerController : PlayerCharacterProperty
             Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
             myStat.HP -= damage;
             myAnim.SetTrigger("OnHit");
+            StatusAnim.SetTrigger("Shake");
+            
         }
         else if ((myAnim.GetBool("IsBlock") || myAnim.GetBool("IsBlocking")) && !SkillSetManager.isSkill)
         {

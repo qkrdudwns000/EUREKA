@@ -34,7 +34,7 @@ public class Shop : MonoBehaviour
         go_EnabelInteration.SetActive(false);
         GameManager.Inst.Action(this.gameObject);
     }
-    private void OpenShopUI()
+    public void OpenShopUI()
     {
         theShop.SetActive(true);
         inventoryBase.SetActive(true);

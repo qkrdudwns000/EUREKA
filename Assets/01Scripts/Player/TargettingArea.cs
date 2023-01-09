@@ -43,7 +43,7 @@ public class TargettingArea : MonoBehaviour
     }
     void Start()
     {
-        outline = new Material(Shader.Find("Draw/OutlineShader"));
+        outline = new Material(Shader.Find("Toon/Basic Outline"));
     }
     private void FindTargetting()
     {

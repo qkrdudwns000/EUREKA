@@ -46,6 +46,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         {
             text_Count.text = itemCount.ToString();
             go_CountImage.SetActive(true);
+
         }
         else
         {
