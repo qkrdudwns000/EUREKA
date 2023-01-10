@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+
 public class MapButtonController : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 {
     public MapBtnType curMapType;
@@ -11,6 +13,9 @@ public class MapButtonController : MonoBehaviour, IPointerEnterHandler,IPointerE
     public GameObject go_MapPopup;
     public CanvasGroup mapGroup;
     public TMPro.TMP_Text mapName;
+
+    
+
 
     private void Start()
     {
@@ -29,11 +34,15 @@ public class MapButtonController : MonoBehaviour, IPointerEnterHandler,IPointerE
         }
     }
 
+
     public void GotoBattleScene(int mapNum)
     {
         SceneLoaded.Inst._gold = GameManager.Inst.Gold;
         SceneLoaded.Inst._level = GameManager.Inst.levelSystem.GetLevelNumber();
         SceneLoaded.Inst._experience = GameManager.Inst.levelSystem.experience;
+        SceneLoaded.Inst.SaveData();
+
+
 
         switch (mapNum)
         {

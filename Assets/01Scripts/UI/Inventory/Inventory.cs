@@ -13,8 +13,8 @@ public class Inventory : MonoBehaviour
     private GameObject go_InventoryBase;
     [SerializeField]
     private GameObject go_EquipBase;
-    [SerializeField]
-    private GameObject go_SlotsParent;
+
+    public GameObject go_SlotsParent;
     [SerializeField]
     private Equipment theWeaponEquip;
     [SerializeField]
@@ -26,13 +26,29 @@ public class Inventory : MonoBehaviour
 
 
     // ½½·Ôµé
-    private Slot[] slots;
+    public Slot[] slots;
+
+    public Slot[] GetSlots() { return slots; }
+    [SerializeField] private Item[] item;
+    public void LoadToInven(int _arrayNum, string _itemName, int _itemNum, bool _isEquip)
+    {
+        for (int i = 0; i < item.Length; i++)
+        {
+            if (item[i].itemName == _itemName)
+            {
+                slots[_arrayNum].AddItem(item[i], _itemNum);
+                slots[_arrayNum].isEquip = _isEquip;
+            }
+        }
+    }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
     }
+    
+        
 
     // Update is called once per frame
     void Update()

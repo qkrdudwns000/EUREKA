@@ -32732,9 +32732,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3514ca3cb4bd210458c03013709e36da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
-  level: 0
-  experience: 0
+  _gold: 0
+  _level: 0
+  _experience: 0
 --- !u!4 &1219707533
 Transform:
   m_ObjectHideFlags: 0
@@ -33699,6 +33699,19 @@ MonoBehaviour:
   theShieldEquip: {fileID: 966371808}
   thePlayerEquipment: {fileID: 1918585773215222760}
   theSlotToolTip: {fileID: 1071631386}
+  slots: []
+  item:
+  - {fileID: 11400000, guid: 79ea1771e46ee99409896de66b2ba253, type: 2}
+  - {fileID: 11400000, guid: d45815f537e36e44d91bc3acf77f6404, type: 2}
+  - {fileID: 11400000, guid: 44ff648d85eef8f4aaac09ead2e6e430, type: 2}
+  - {fileID: 11400000, guid: e79d383c06d621b4393d96bd6176092b, type: 2}
+  - {fileID: 11400000, guid: 5d7029bda4a71ab43b23e5e91bfa36e4, type: 2}
+  - {fileID: 11400000, guid: 12a45830d8445a84a990b8bb505e8652, type: 2}
+  - {fileID: 11400000, guid: b5060c7b86a3fec449145c0d1fc3eaaf, type: 2}
+  - {fileID: 11400000, guid: 9d120f412e068af42a5d191529854d65, type: 2}
+  - {fileID: 11400000, guid: 6f24eec02c70eca4c8f91e4548d6dd05, type: 2}
+  - {fileID: 11400000, guid: d319d17dbc34230449fb7a90e2df0c90, type: 2}
+  - {fileID: 11400000, guid: 8fb65c5862c911a4580daa518b4db6aa, type: 2}
 --- !u!1 &1267532756
 GameObject:
   m_ObjectHideFlags: 0
