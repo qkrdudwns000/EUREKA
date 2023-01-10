@@ -157,20 +157,23 @@ public class PlayerController : PlayerCharacterProperty
     }
     private void LookAround()
     {
-        Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        Vector3 camAngle = CameraArm.rotation.eulerAngles;
-        float x = camAngle.x - mouseDelta.y;
-        if(x < 180f)
+        if (!MapZone.isWatchingMap)
         {
-            x = Mathf.Clamp(x, -20f, 10f);
-        }
-        else
-        {
-            x = Mathf.Clamp(x, 335f, 361f);
-        }
+            Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+            Vector3 camAngle = CameraArm.rotation.eulerAngles;
+            float x = camAngle.x - mouseDelta.y;
+            if (x < 180f)
+            {
+                x = Mathf.Clamp(x, -20f, 10f);
+            }
+            else
+            {
+                x = Mathf.Clamp(x, 335f, 361f);
+            }
 
 
-        CameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseDelta.x, camAngle.z);
+            CameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseDelta.x, camAngle.z);
+        }
     }
     public void DecreaseStamina(float _count)
     {

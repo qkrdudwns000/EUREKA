@@ -57,8 +57,8 @@ public class QuestManager : MonoBehaviour
         switch(questId)
         {
             case 10:
-                //if (questActionIndex == 2)
-                //    questObject[0].SetActive(true);
+                if (questActionIndex == 1)
+                    GameManager.Inst.Gold += 10000;
                 break;
             case 20:
                 //if (questActionIndex == 1)

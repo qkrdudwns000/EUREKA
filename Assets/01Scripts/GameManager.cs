@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TalkManager talkManager;
     [SerializeField] private GameObject levelUpEffect;
 
-    private LevelSystem levelSystem;
+    public LevelSystem levelSystem;
 
     [SerializeField] GameObject talkPanel;
     [SerializeField] Image portraitImg;
@@ -51,13 +51,15 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Inst = this;
+        levelSystem = new LevelSystem();
     }
 
     private void Start()
     {
         theCam = FindObjectOfType<SpringArm>();
-        Gold = 10000;
         canSkip = false;
+        
+        SetLevelSystem(levelSystem);
     }
 
     // Update is called once per frame
