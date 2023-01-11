@@ -38,6 +38,9 @@ public class Inventory : MonoBehaviour
             {
                 slots[_arrayNum].AddItem(item[i], _itemNum);
                 slots[_arrayNum].isEquip = _isEquip;
+
+                if (slots[_arrayNum].isEquip)
+                    slots[_arrayNum].EquipCheck();
             }
         }
     }
@@ -47,8 +50,11 @@ public class Inventory : MonoBehaviour
     {
         slots = go_SlotsParent.GetComponentsInChildren<Slot>();
     }
-    
-        
+    private void Start()
+    {
+        thePlayerEquipment.WeaponSwap();
+        thePlayerEquipment.ShieldSwap();
+    }
 
     // Update is called once per frame
     void Update()

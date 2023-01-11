@@ -28,6 +28,17 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     {
         theInven = FindObjectOfType<Inventory>();
     }
+    public void EquipCheck()
+    {
+       if (isEquip)
+       {
+           if (item.weaponType == Item.WeaponType.Weapon)
+               theWeaponEquip.WeaponEquip(item, this);
+           else if (item.weaponType == Item.WeaponType.Shield)
+               theShieldEquip.ShieldEquip(item, this);
+       }
+    
+    }
 
     // 이미지 투명도 조절
     private void SetColor(float _alpha)

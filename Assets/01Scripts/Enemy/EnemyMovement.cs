@@ -122,8 +122,8 @@ public class EnemyMovement : EnemyCharacterProperty
                 myAnim.SetBool("IsMoving", false);
                 if(playTime >= AttackDelay) // 딜레이 충족되면 공격.
                 {
+                    StartCoroutine(ThinkAttack());
                     playTime = 0.0f;
-                    myAnim.SetTrigger("Attack1");
                 }
             }
             //회전
@@ -145,5 +145,23 @@ public class EnemyMovement : EnemyCharacterProperty
             yield return null;
         }
         myAnim.SetBool("IsMoving", false);
+    }
+    IEnumerator ThinkAttack()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        int rndAction = Random.Range(0, 3);
+        switch(rndAction)
+        {
+            case 0:
+                myAnim.SetTrigger("Attack1");
+                break;
+            case 1:
+                myAnim.SetTrigger("Attack2");
+                break;
+            case 2:
+                myAnim.SetTrigger("Attack3");
+                break;
+        }
     }
 }

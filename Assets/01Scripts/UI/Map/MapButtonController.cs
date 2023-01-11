@@ -40,6 +40,7 @@ public class MapButtonController : MonoBehaviour, IPointerEnterHandler,IPointerE
         SceneLoaded.Inst._gold = GameManager.Inst.Gold;
         SceneLoaded.Inst._level = GameManager.Inst.levelSystem.GetLevelNumber();
         SceneLoaded.Inst._experience = GameManager.Inst.levelSystem.experience;
+        SceneLoaded.Inst._skillPoint = GameManager.Inst.SkillPoint;
         SceneLoaded.Inst.SaveData();
 
 

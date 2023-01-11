@@ -8,8 +8,8 @@ public class SkillSetManager : MonoBehaviour
     public static bool isSkillSetting = false;
     public static bool isSkill = false;
 
-    [SerializeField]
-    private SkillSlot[] skillSlots;
+    
+    public SkillSlot[] skillSlots;
     [SerializeField]
     private GameObject go_SkillSetBase;
     [SerializeField]
@@ -23,6 +23,20 @@ public class SkillSetManager : MonoBehaviour
 
     private int skillID;
     public const int Skill1 = 0, Skill2 = 1, Skill3 = 2, Skill4 = 3;
+
+    public SkillSlot[] GetSkillSlots() { return skillSlots; }
+    [SerializeField] private Skill[] skills;
+    public void LoadToSkillset(int _arrayNum, int _skillID, bool _isActivity)
+    {
+        for (int i = 0; i < skills.Length; i++)
+        {
+            if (skills[i].skillID == _skillID)
+            {
+                if(_isActivity)
+                skillSlots[_arrayNum].SkillActivity();
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()

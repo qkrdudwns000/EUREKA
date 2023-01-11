@@ -64,7 +64,16 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
         text_Count.text = quickItemCount.ToString();
         orgSlot.ClearSlot();
     }
-    private void SettingSkill(Skill _skill)
+    public void SettingUsed(Item _item, int _itemCount = 1)
+    {
+        SetColor(1);
+        quickItem = _item;
+        quickItemImage.sprite = _item.itemImage;
+        go_CountImage.SetActive(true);
+        quickItemCount = _itemCount;
+        text_Count.text = quickItemCount.ToString();
+    }
+    public void SettingSkill(Skill _skill)
     {
         SetColor(1);
         quickSkill = _skill;

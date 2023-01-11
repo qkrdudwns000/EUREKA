@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class EnemyController : EnemyMovement
 {
     [SerializeField] private SkinnedMeshRenderer theMeshRenderer;
@@ -87,7 +89,10 @@ public class EnemyController : EnemyMovement
     {
         Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
         myStat.HP -= damage;
-        myAnim.SetTrigger("OnHit");
+        if (!myAnim.GetBool("IsAttacking"))
+        {
+            myAnim.SetTrigger("OnHit");
+        }
         StartCoroutine("OnHitColor");
     }
 

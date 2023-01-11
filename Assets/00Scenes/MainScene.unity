@@ -2800,6 +2800,14 @@ MonoBehaviour:
   tf_parent: {fileID: 1606886937}
   go_SelectedImage: {fileID: 476315061}
   theInven: {fileID: 1263590256}
+  skills:
+  - {fileID: 11400000, guid: 1ce949c86aa2e3a4d83c388c3e084d32, type: 2}
+  - {fileID: 11400000, guid: 371c2cf9bf16c944abe646d5ac923816, type: 2}
+  - {fileID: 11400000, guid: bd4d6608b9679a44f9560b407950054e, type: 2}
+  - {fileID: 11400000, guid: 2aa366d0cb09261479e2a6982d256fa2, type: 2}
+  usedItems:
+  - {fileID: 11400000, guid: d319d17dbc34230449fb7a90e2df0c90, type: 2}
+  - {fileID: 11400000, guid: 8fb65c5862c911a4580daa518b4db6aa, type: 2}
 --- !u!4 &141013477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 479512, guid: 32ec60437affc154daf6bbf3557b1fe3, type: 3}
@@ -32735,6 +32743,7 @@ MonoBehaviour:
   _gold: 0
   _level: 0
   _experience: 0
+  _skillPoint: 0
 --- !u!4 &1219707533
 Transform:
   m_ObjectHideFlags: 0
@@ -36142,6 +36151,11 @@ MonoBehaviour:
   go_dontEnoughStudySkill: {fileID: 1206791163}
   text_dontEnoughPopup: {fileID: 235790972}
   skillSlotTollTip: {fileID: 292442099}
+  skills:
+  - {fileID: 11400000, guid: 1ce949c86aa2e3a4d83c388c3e084d32, type: 2}
+  - {fileID: 11400000, guid: 371c2cf9bf16c944abe646d5ac923816, type: 2}
+  - {fileID: 11400000, guid: bd4d6608b9679a44f9560b407950054e, type: 2}
+  - {fileID: 11400000, guid: 2aa366d0cb09261479e2a6982d256fa2, type: 2}
 --- !u!1001 &1344694090
 PrefabInstance:
   m_ObjectHideFlags: 0

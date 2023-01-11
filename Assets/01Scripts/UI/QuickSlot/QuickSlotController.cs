@@ -16,9 +16,36 @@ public class QuickSlotController : MonoBehaviour
     [SerializeField]
     private Inventory theInven;
 
-    void Start()
+    public QuickSlot[] GetQuickSlots() { return quickSlots; }
+    [SerializeField] private Skill[] skills;
+    [SerializeField] private Item[] usedItems;
+    public void LoadToQuickItem(int _arrayNum, string _itemName, int _itemNum = 1)
+    {
+        for (int i = 0; i < usedItems.Length; i++)
+        {
+            if (usedItems[i].itemName == _itemName)
+            {
+                quickSlots[_arrayNum].SettingUsed(usedItems[i], _itemNum);
+            }
+        }
+    }
+    public void LoadToQuickSkill(int _arrayNum, int _skillID)
+    {
+        for (int i = 0; i < skills.Length; i++)
+        {
+            if (skills[i].skillID == _skillID)
+            {
+                quickSlots[_arrayNum].SettingSkill(skills[i]);
+            }
+        }
+    }
+    private void Awake()
     {
         quickSlots = tf_parent.GetComponentsInChildren<QuickSlot>();
+    }
+
+    void Start()
+    {
         selectedSlot = 0;
     }
 
