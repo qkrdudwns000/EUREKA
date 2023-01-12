@@ -6,9 +6,12 @@ public class TimelineEndSignal : MonoBehaviour
 {
     [SerializeField]
     private Camera cinematicCamera;
+    [SerializeField]
+    private CanvasGroup canvasGroup;
     public void EndSignal()
     {
         cinematicCamera.enabled = false;
+        canvasGroup.alpha = 1;
     }
     void Start()
     {

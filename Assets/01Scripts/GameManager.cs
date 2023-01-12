@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public LevelSystem levelSystem;
 
     [SerializeField] GameObject talkPanel;
+    [SerializeField] CanvasGroup theCanvas;
     [SerializeField] Image portraitImg;
     [SerializeField] private TMPro.TMP_Text talkText;
     [SerializeField] private TMPro.TMP_Text nameText;
@@ -74,11 +75,14 @@ public class GameManager : MonoBehaviour
     {
         scanObject = scanObj;
         ObjData objData = scanObject.GetComponent<ObjData>();
+        theCanvas.alpha = 0;
         if (!canSkip)
         {
             theCam.CameraOriginSetting();
-            if(!theCam.isTargetting)
+            if (!theCam.isTargetting)
+            {
                 theCam.CameraTargeting(scanObject.transform);
+            }
 
             Talk(objData.id, objData.isNpc);
         }
@@ -95,6 +99,7 @@ public class GameManager : MonoBehaviour
         if(talkData == null)
         {
             isAction = false;
+            theCanvas.alpha = 1;
             talkIndex = 0;
             theCam.CameraTargeting(scanObject.transform);
             if(id == 2000)

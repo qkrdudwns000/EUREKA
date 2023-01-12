@@ -10,6 +10,11 @@ public class EnemyController : EnemyMovement
     private Color originColor; // 기본 메터리얼컬러를 저장할변수.
     Vector3 startPos = Vector3.zero; // 시작지점 저장할변수.
     private Transform myTarget;
+    [SerializeField]
+    private Collider myColider;
+
+    private float slowFactor = 0.05f;
+    private float slowLength = 4f;
 
     public enum STATE
     {
@@ -33,6 +38,7 @@ public class EnemyController : EnemyMovement
                 AttackTarget(myTarget);
                 break;
             case STATE.Dead:
+                DeadMonster();
                 break;
         }
     }
@@ -57,6 +63,7 @@ public class EnemyController : EnemyMovement
     private void Awake()
     {
         originColor = theMeshRenderer.material.color;
+        myColider = GetComponent<Collider>();
     }
     private void Start()
     {
@@ -68,6 +75,7 @@ public class EnemyController : EnemyMovement
     void Update()
     {
         StateProcess();
+        SlowMotion();
     }
     public void FindTarget(Transform target)
     {
@@ -88,11 +96,20 @@ public class EnemyController : EnemyMovement
     public void TakeDamage(float damage)
     {
         Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
-        myStat.HP -= damage;
-        if (!myAnim.GetBool("IsAttacking"))
+        if (myStat.HP - damage > 0.0f)
         {
-            myAnim.SetTrigger("OnHit");
+            myStat.HP -= damage;
+            if (!myAnim.GetBool("IsAttacking"))
+            {
+                myAnim.SetTrigger("OnHit");
+            }
         }
+        else
+        {
+            myStat.HP -= damage;
+            ChangeState(STATE.Dead);
+        }
+
         StartCoroutine("OnHitColor");
     }
 
@@ -103,5 +120,25 @@ public class EnemyController : EnemyMovement
         yield return new WaitForSeconds(0.3f);
 
         theMeshRenderer.material.color = originColor;
+    }
+    public void DeadMonster()
+    {
+        StopAllCoroutines();
+        myAnim.SetBool("IsMoving", false);
+        myAnim.SetTrigger("Dead");
+        myTarget = null;
+        myColider.enabled = false;
+        DoSlowMotion();
+    }
+    private void DoSlowMotion()
+    {
+        Time.timeScale = slowFactor;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+    }
+    private void SlowMotion()
+    {
+        Time.timeScale += (1f / slowLength) * Time.unscaledDeltaTime;
+        Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
 }
