@@ -44,8 +44,8 @@ public class SlotToolTip : MonoBehaviour
         }
         else
         {
-            txt_ItemHowtoUsed.text = "";
-            txt_ItemType.text = "";
+            txt_ItemHowtoUsed.text = "판매전용";
+            txt_ItemType.text = "기타";
         }
     }
     public void HideToolTip()

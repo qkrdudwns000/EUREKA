@@ -6,15 +6,4 @@ using UnityEngine.Playables;
 public class TimelineController : MonoBehaviour
 {
     public PlayableDirector playableDirector;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

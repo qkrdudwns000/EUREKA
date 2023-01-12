@@ -14,6 +14,8 @@ public struct MonsterStat
     [SerializeField] float ap;
     [SerializeField] float attackRange;
     [SerializeField] float attackDelay;
+    [SerializeField] int getExperience;
+    [SerializeField] int getGold;
 
     public UnityAction<float> changeHp;
     public float HP
@@ -44,5 +46,13 @@ public struct MonsterStat
     public float AttackDelay
     {
         get => attackDelay;
+    }
+    public int GetGold
+    {
+        get => getGold;
+    }
+    public int GetExperience
+    {
+        get => getExperience;
     }
 }

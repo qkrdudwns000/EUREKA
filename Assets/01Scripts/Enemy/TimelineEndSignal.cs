@@ -13,14 +13,5 @@ public class TimelineEndSignal : MonoBehaviour
         cinematicCamera.enabled = false;
         canvasGroup.alpha = 1;
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

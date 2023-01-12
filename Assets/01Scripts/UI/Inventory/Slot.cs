@@ -57,7 +57,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         {
             text_Count.text = itemCount.ToString();
             go_CountImage.SetActive(true);
-
         }
         else
         {
@@ -127,7 +126,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                         theShieldEquip.ShieldEquip(item, this);
                     }
                 }
-                else
+                else if(item.itemType == Item.ItemType.used)
                 {
                     //소모.
                     Debug.Log(item.itemName + "을 사용했습니다.");

@@ -1,24 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+public enum MONSTERTYPE
+{
+    NORMAL, BOSS
+}
 
 public class EnemyController : EnemyMovement
 {
+    public MONSTERTYPE monsterType;
+
     [SerializeField] private SkinnedMeshRenderer theMeshRenderer;
     private Color originColor; // 기본 메터리얼컬러를 저장할변수.
     Vector3 startPos = Vector3.zero; // 시작지점 저장할변수.
     private Transform myTarget;
     [SerializeField]
     private Collider myColider;
+    [SerializeField]
+    private ResultBgController myResultController;
+    [SerializeField]
+    private Inventory theInven;
+
+    public Item ingredientItem;
 
     private float slowFactor = 0.05f;
     private float slowLength = 4f;
 
     public enum STATE
     {
-        Create, Idle, StartPos, Battle, Dead
+        Create, Idle, StartPos, Battle, Dead, Result
     }
     public STATE myState = STATE.Create;
     void ChangeState(STATE s)
@@ -40,6 +50,10 @@ public class EnemyController : EnemyMovement
             case STATE.Dead:
                 DeadMonster();
                 break;
+            case STATE.Result:
+                StopAllCoroutines();
+                ResultReward();
+                break;
         }
     }
     void StateProcess()
@@ -55,6 +69,8 @@ public class EnemyController : EnemyMovement
             case STATE.Battle:
                 break;
             case STATE.Dead:
+                break;
+            case STATE.Result:
                 break;
         }
     }
@@ -79,14 +95,14 @@ public class EnemyController : EnemyMovement
     }
     public void FindTarget(Transform target)
     {
-        if (myState == STATE.Dead) return;
+        if (myState == STATE.Dead || myState == STATE.Result) return;
         myTarget = target;
         StopAllCoroutines();
         ChangeState(STATE.Battle);
     }
     public void LostTarget()
     {
-        if (myState == STATE.Dead) return;
+        if (myState == STATE.Dead || myState == STATE.Result) return;
         myTarget = null;
         StopAllCoroutines();
         myAnim.SetBool("IsMoving", false);
@@ -129,6 +145,8 @@ public class EnemyController : EnemyMovement
         myTarget = null;
         myColider.enabled = false;
         DoSlowMotion();
+        if(monsterType == MONSTERTYPE.BOSS)
+        StartCoroutine(ChangeResultState());
     }
     private void DoSlowMotion()
     {
@@ -141,4 +159,18 @@ public class EnemyController : EnemyMovement
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
+    IEnumerator ChangeResultState()
+    {
+        yield return new WaitForSeconds(5.0f);
+
+        ChangeState(STATE.Result);
+    }
+    private void ResultReward()
+    {
+        GameManager.Inst.Gold += myStat.GetGold;
+        GameManager.Inst.levelSystem.AddExperience(myStat.GetExperience);
+        theInven.AcquireItem(ingredientItem, 1);
+        myResultController.OpenResult(myStat.GetGold, myStat.GetExperience, ingredientItem);
+    }
+   
 }
