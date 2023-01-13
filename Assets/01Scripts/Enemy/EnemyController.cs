@@ -67,6 +67,11 @@ public class EnemyController : EnemyMovement
             case STATE.StartPos: 
                 break;
             case STATE.Battle:
+                if (myTarget != null)
+                {
+                    if (!myTarget.GetComponent<PlayerController>().isLive)
+                        DeadTarget();
+                }
                 break;
             case STATE.Dead:
                 break;
@@ -107,6 +112,14 @@ public class EnemyController : EnemyMovement
         StopAllCoroutines();
         myAnim.SetBool("IsMoving", false);
         ChangeState(STATE.StartPos);
+    }
+    public void DeadTarget()
+    {
+        if (myState == STATE.Dead || myState == STATE.Result) return;
+        myTarget = null;
+        StopAllCoroutines();
+        myAnim.SetBool("IsMoving", false);
+        myAnim.SetTrigger("Happy");
     }
 
     public void TakeDamage(float damage)

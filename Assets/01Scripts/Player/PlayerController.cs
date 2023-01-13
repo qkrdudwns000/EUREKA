@@ -30,6 +30,8 @@ public class PlayerController : PlayerCharacterProperty
     public bool isForward = false;
     private bool isCombable = false;
     private bool spUsed = false; // sp 사용중인지 아닌지.
+    public bool isLive = true;
+
     
 
     public bool IsCombo = false; // 다른 스크립트에 알리는용도.
@@ -40,39 +42,45 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private GameManager theManager;
     [SerializeField] private Shop theShop;
     [SerializeField] private QuestNPC theQuest;
+    [SerializeField] private ResultBgController myResultController;
+    private Collider myColider;
 
     private void Start()
     {
+        isLive = true;
         theSprignArm = CameraArm.GetComponent<SpringArm>();
-        
+        myColider = GetComponent<Collider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Interaction();
-        if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting
-            && !GameManager.isAction && !theSprignArm.isTargetting)
+        if (isLive)
         {
-            LookAround();
-            if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
+            Interaction();
+            if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting
+                && !GameManager.isAction && !theSprignArm.isTargetting)
             {
-                PlayerMovement();
-                RollingAndBlock();
+                LookAround();
+                if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
+                {
+                    PlayerMovement();
+                    RollingAndBlock();
+                }
+                if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill)
+                {
+                    ComboAttack();
+                    CounterAttack();
+                }
             }
-            if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill)
+            else
             {
-                ComboAttack();
-                CounterAttack();
+                myAnim.SetBool("IsWalk", false);
+                myAnim.SetBool("IsRun", false);
             }
+            SPRechargeTime();
+            SPRecover();
         }
-        else
-        {
-            myAnim.SetBool("IsWalk", false);
-            myAnim.SetBool("IsRun", false);
-        }
-        SPRechargeTime();
-        SPRecover();
     }
     public void Targetting(Transform target)
     {
@@ -296,15 +304,44 @@ public class PlayerController : PlayerCharacterProperty
             && !SkillSetManager.isSkill)
         {
             Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
-            myStat.HP -= damage;
-            myAnim.SetTrigger("OnHit");
-            StatusAnim.SetTrigger("Shake");
-            
+            if(myStat.HP - damage > 0.0f)
+            {
+                myStat.HP -= damage;
+                myAnim.SetTrigger("OnHit");
+            }
+            else
+            {
+                myStat.HP -= damage;
+                DeadPlayer();
+            }
+            StatusAnim.SetTrigger("Shake");   
         }
         else if ((myAnim.GetBool("IsBlock") || myAnim.GetBool("IsBlocking")) && !SkillSetManager.isSkill)
         {
             myAnim.ResetTrigger("Blocking");
             myAnim.SetTrigger("Blocking");
         }
+    }
+    public void DeadPlayer()
+    {
+        StopAllCoroutines();
+        myColider.enabled = false;
+        isLive = false;
+        myAnim.SetBool("IsWalk", false);
+        myAnim.SetBool("IsRun", false);
+        myAnim.SetTrigger("Dead");
+
+        StartCoroutine(ChangeResultState());
+    }
+    IEnumerator ChangeResultState()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        ResultReward();
+    }
+    private void ResultReward()
+    {
+        StopAllCoroutines();
+        myResultController.OpenResult();
     }
 }

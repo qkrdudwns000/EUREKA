@@ -83,6 +83,7 @@ public class SceneLoaded : MonoBehaviour
         GameManager.Inst.levelSystem.experience = _experience;
         GameManager.Inst.SkillPoint = _skillPoint;
         LoadData();
+        ClearData();
     }
 
     public void SaveData()
@@ -124,6 +125,25 @@ public class SceneLoaded : MonoBehaviour
                 saveData.quickSkillID.Add(quickSlots[i].quickSkill.skillID);
             }
         }
+    }
+
+    private void ClearData()
+    {
+        saveData.invenArrayNumber.Clear();
+        saveData.invenItemName.Clear();
+        saveData.invenItemNumber.Clear();
+        saveData.invenItemIsEquip.Clear();
+
+        saveData.skillSetArrayNumber.Clear();
+        saveData.skillSetSkillID.Clear();
+        saveData.skillSetSkillActivity.Clear();
+
+        saveData.quickItemArrayNumber.Clear();
+        saveData.quickUsedItemName.Clear();
+        saveData.quickUsedItemNumber.Clear();
+
+        saveData.quickSkillArrayNumber.Clear();
+        saveData.quickSkillID.Clear();
     }
         
     private void LoadData()
