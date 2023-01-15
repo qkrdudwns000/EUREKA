@@ -47,6 +47,10 @@ public class SkillSetManager : MonoBehaviour
         if (isSkillSetting && Input.GetKeyDown(KeyCode.Escape))
             CloseSkillSet();
     }
+    private void Start()
+    {
+        isSkill = false;
+    }
 
     private void TryOpenSkillSet()
     {

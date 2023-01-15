@@ -15,7 +15,7 @@ public class EnemyAttackCollision : MonoBehaviour
         count = 0;
         StartCoroutine("AutoDisable");
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player") && count == 0)
         {
