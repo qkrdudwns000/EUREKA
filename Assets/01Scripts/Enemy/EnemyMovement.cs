@@ -107,6 +107,7 @@ public class EnemyMovement : EnemyCharacterProperty
             Vector3 dir = target.position - transform.position; // 플레이어로향하는 방향
             float dist = dir.magnitude;
             dir.Normalize();
+            
             if (dist > AttackRange && !myAnim.GetBool("IsAttacking"))
             {
                 myAnim.SetBool("IsMoving", true);
@@ -122,8 +123,8 @@ public class EnemyMovement : EnemyCharacterProperty
                 myAnim.SetBool("IsMoving", false);
                 if(playTime >= AttackDelay) // 딜레이 충족되면 공격.
                 {
-                    StartCoroutine(ThinkAttack());
                     playTime = 0.0f;
+                    StartCoroutine(ThinkAttack());
                 }
             }
             //회전

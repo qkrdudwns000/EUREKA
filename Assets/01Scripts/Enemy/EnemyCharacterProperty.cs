@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyCharacterProperty : MonoBehaviour
 {
     public MonsterStat myStat;
-    Animator _anim = null;
+    public Animator _anim = null;
+
     protected Animator myAnim
     {
         get

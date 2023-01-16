@@ -325,7 +325,6 @@ public class PlayerController : PlayerCharacterProperty
     public void DeadPlayer()
     {
         StopAllCoroutines();
-        myColider.enabled = false;
         isLive = false;
         myAnim.SetBool("IsWalk", false);
         myAnim.SetBool("IsRun", false);
