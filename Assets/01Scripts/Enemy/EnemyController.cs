@@ -188,6 +188,7 @@ public class EnemyController : EnemyMovement
         if (bossID == theQuestManager.questId && !theQuestManager.questComplete)
         {
             theQuestManager.questActionIndex++;
+            theQuestManager.questPopupIndex++;
             theQuestManager.questComplete = true;
         }
         theInven.AcquireItem(ingredientItem, 1);

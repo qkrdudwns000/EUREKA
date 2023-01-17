@@ -57,6 +57,7 @@ public class MapZone : MonoBehaviour
         SceneLoaded.Inst._skillPoint = GameManager.Inst.SkillPoint;
         SceneLoaded.Inst._questId = theQuestManager.questId;
         SceneLoaded.Inst._questActionIndex = theQuestManager.questActionIndex;
+        SceneLoaded.Inst._questPopupIndex = theQuestManager.questPopupIndex;
         SceneLoaded.Inst._questComplete = theQuestManager.questComplete;
         SceneLoaded.Inst.SaveData();
 

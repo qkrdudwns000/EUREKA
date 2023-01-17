@@ -74,6 +74,7 @@ public class SceneLoaded : MonoBehaviour
 
     public int _questId;
     public int _questActionIndex;
+    public int _questPopupIndex;
     public bool _questComplete;
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -97,6 +98,7 @@ public class SceneLoaded : MonoBehaviour
         GameManager.Inst.SkillPoint = _skillPoint;
         theQuestManager.questId = _questId;
         theQuestManager.questActionIndex = _questActionIndex;
+        theQuestManager.questPopupIndex = _questPopupIndex;
         theQuestManager.questComplete = _questComplete;
 
         LoadData();
