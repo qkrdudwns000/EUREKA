@@ -28,6 +28,7 @@ public class SceneLoaded : MonoBehaviour
     private Inventory theInven;
     private SkillSetManager theSkillSetManager;
     private QuickSlotController theQuickSlotController;
+    private QuestManager theQuestManager;
 
     private static SceneLoaded inst = null;
     private void Awake()
@@ -39,6 +40,12 @@ public class SceneLoaded : MonoBehaviour
         }
         else
             Destroy(gameObject);
+
+
+        // √ ±‚»≠
+        _level = 1;
+        _questId = 10;
+        _questComplete = true;
     }
     
     private void OnEnable()
@@ -65,14 +72,20 @@ public class SceneLoaded : MonoBehaviour
     public int _experience;
     public int _skillPoint;
 
+    public int _questId;
+    public int _questActionIndex;
+    public bool _questComplete;
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         theInven = FindObjectOfType<Inventory>();
         theSkillSetManager = FindObjectOfType<SkillSetManager>();
         theQuickSlotController = FindObjectOfType<QuickSlotController>();
+        theQuestManager = FindObjectOfType<QuestManager>();
 
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
+        
         if (!scene.name.Equals("LoadingScene")) { SceneData(); }
     }
 
@@ -82,6 +95,10 @@ public class SceneLoaded : MonoBehaviour
         GameManager.Inst.levelSystem.level = _level;
         GameManager.Inst.levelSystem.experience = _experience;
         GameManager.Inst.SkillPoint = _skillPoint;
+        theQuestManager.questId = _questId;
+        theQuestManager.questActionIndex = _questActionIndex;
+        theQuestManager.questComplete = _questComplete;
+
         LoadData();
         ClearData();
     }

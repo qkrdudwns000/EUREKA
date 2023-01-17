@@ -9,6 +9,7 @@ public enum MONSTERTYPE
 public class EnemyController : EnemyMovement
 {
     public MONSTERTYPE monsterType;
+    public int bossID;
 
     [SerializeField] private SkinnedMeshRenderer theMeshRenderer;
     private Color originColor; // 기본 메터리얼컬러를 저장할변수.
@@ -20,6 +21,8 @@ public class EnemyController : EnemyMovement
     private ResultBgController myResultController;
     [SerializeField]
     private Inventory theInven;
+    [SerializeField]
+    private QuestManager theQuestManager;
 
     public Item ingredientItem;
 
@@ -182,6 +185,11 @@ public class EnemyController : EnemyMovement
     {
         GameManager.Inst.Gold += myStat.GetGold;
         GameManager.Inst.levelSystem.AddExperience(myStat.GetExperience);
+        if (bossID == theQuestManager.questId && !theQuestManager.questComplete)
+        {
+            theQuestManager.questActionIndex++;
+            theQuestManager.questComplete = true;
+        }
         theInven.AcquireItem(ingredientItem, 1);
         myResultController.OpenResult(myStat.GetGold, myStat.GetExperience, ingredientItem);
     }

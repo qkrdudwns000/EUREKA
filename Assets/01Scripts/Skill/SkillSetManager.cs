@@ -42,7 +42,8 @@ public class SkillSetManager : MonoBehaviour
     void Update()
     {
         if(!Shop.isShopping)
-            TryOpenSkillSet();
+            if (Input.GetKeyDown(KeyCode.K))
+                TryOpenSkillSet();
 
         if (isSkillSetting && Input.GetKeyDown(KeyCode.Escape))
             CloseSkillSet();
@@ -52,15 +53,12 @@ public class SkillSetManager : MonoBehaviour
         isSkill = false;
     }
 
-    private void TryOpenSkillSet()
+    public void TryOpenSkillSet()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            if (!isSkillSetting)
-                OpenSkillSet();
-            else
-                CloseSkillSet();
-        }
+        if (!isSkillSetting)
+            OpenSkillSet();
+        else
+            CloseSkillSet();        
     }
 
     private void OpenSkillSet()

@@ -11,6 +11,7 @@ public class ResultBgController : MonoBehaviour
     public TMPro.TMP_Text text_Gold;
     public TMPro.TMP_Text text_Experience;
     [SerializeField] private GameObject go_ResultScreen;
+    [SerializeField] private QuestManager theQuestManager;
 
     const int VICTORY = 1, DEFEAT = 0;
 
@@ -52,6 +53,9 @@ public class ResultBgController : MonoBehaviour
         SceneLoaded.Inst._level = GameManager.Inst.levelSystem.GetLevelNumber();
         SceneLoaded.Inst._experience = GameManager.Inst.levelSystem.experience;
         SceneLoaded.Inst._skillPoint = GameManager.Inst.SkillPoint;
+        SceneLoaded.Inst._questId = theQuestManager.questId;
+        SceneLoaded.Inst._questActionIndex = theQuestManager.questActionIndex;
+        SceneLoaded.Inst._questComplete = theQuestManager.questComplete;
         SceneLoaded.Inst.SaveData();
 
 

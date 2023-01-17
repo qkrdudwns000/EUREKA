@@ -6,12 +6,14 @@ public class QuestManager : MonoBehaviour
 {
     public int questId;
     public int questActionIndex;
+    public bool questComplete = true;
     public GameObject[] questObject;
 
     Dictionary<int, QuestData> questList;
 
     private void Awake()
     {
+        questComplete = true;
         questList = new Dictionary<int, QuestData>();
         GenerateData();
     }
@@ -19,8 +21,9 @@ public class QuestManager : MonoBehaviour
     private void GenerateData()
     {
         questList.Add(10, new QuestData("장비 구매 해보기.", new int[] { 1000, 2000 }));
-        questList.Add(20, new QuestData("첫 헌터 임무", new int[] { 1000 }));
-        questList.Add(30, new QuestData("Test", new int[] { 9999 }));
+        questList.Add(20, new QuestData("첫 헌터 임무", new int[] { 1000, 1000 }));
+        questList.Add(30, new QuestData("두번째 헌터 임무", new int[] { 1000, 1000 }));
+        questList.Add(40, new QuestData("All Clear", new int[] { 9999 }));
     }
 
     public int GetQuestTalkIndex(int id)
@@ -31,7 +34,7 @@ public class QuestManager : MonoBehaviour
     public string  CheckQuest(int id)
     {
         //Next Talk Target
-        if(id == questList[questId].npcId[questActionIndex])
+        if(id == questList[questId].npcId[questActionIndex] && questComplete)
             questActionIndex++;
 
         ControlObject();
@@ -61,8 +64,18 @@ public class QuestManager : MonoBehaviour
                     GameManager.Inst.Gold += 10000;
                 break;
             case 20:
-                //if (questActionIndex == 1)
-                //    questObject[0].SetActive(false);
+                if (questActionIndex == 1)
+                {
+                    questComplete = false;
+                    questActionIndex--;
+                }
+                break;
+            case 30:
+                if(questActionIndex == 1)
+                {
+                    questComplete = false;
+                    questActionIndex--;
+                }
                 break;
         }
     }

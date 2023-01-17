@@ -61,7 +61,9 @@ public class Inventory : MonoBehaviour
     {
         if (!Shop.isShopping)
         {
-            TryOpenInventory();
+            if (Input.GetKeyDown(KeyCode.I))
+                TryOpenInventory();
+
             if (inventoryActivated)
             {
                 CheckEquip();
@@ -83,15 +85,12 @@ public class Inventory : MonoBehaviour
         theSlotToolTip.HideToolTip();
     }
 
-    private void TryOpenInventory()
+    public void TryOpenInventory()
     {
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            if (!inventoryActivated)
-                OpenInventory();
-            else
-                CloseInventory();
-        }
+        if (!inventoryActivated)
+            OpenInventory();
+        else
+            CloseInventory();
     }
 
     private void OpenInventory()

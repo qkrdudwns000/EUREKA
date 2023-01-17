@@ -11,7 +11,13 @@ public class MapZone : MonoBehaviour
     private CanvasGroup theCanvas;
     public GameObject go_MapPopup;
     public CanvasGroup mapGroup;
+    private QuestManager theQuestManager;
     public int mapNum;
+
+    private void Awake()
+    {
+        theQuestManager = FindObjectOfType<QuestManager>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -49,6 +55,9 @@ public class MapZone : MonoBehaviour
         SceneLoaded.Inst._level = GameManager.Inst.levelSystem.GetLevelNumber();
         SceneLoaded.Inst._experience = GameManager.Inst.levelSystem.experience;
         SceneLoaded.Inst._skillPoint = GameManager.Inst.SkillPoint;
+        SceneLoaded.Inst._questId = theQuestManager.questId;
+        SceneLoaded.Inst._questActionIndex = theQuestManager.questActionIndex;
+        SceneLoaded.Inst._questComplete = theQuestManager.questComplete;
         SceneLoaded.Inst.SaveData();
 
 
