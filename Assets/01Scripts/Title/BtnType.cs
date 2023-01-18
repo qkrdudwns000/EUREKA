@@ -2,21 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BtnType : MonoBehaviour
 {
     public BTNtype currentType;
     public CanvasGroup mainGroup;
     public CanvasGroup optionGroup;
+    private string sceneName = "MainScene";
+    [SerializeField] private Title theTitle;
+    [SerializeField] private SaveNLoad theSaveNLoad;
+
     bool isSound;
+
     public void OnBtnClick()
     {
         switch (currentType)
         {
             case BTNtype.NEW:
-                LoadingSceneController.LoadScend("MainScene");
+                LoadingSceneController.LoadScend(sceneName, false);
                 break;
             case BTNtype.CONTINUE:
-                Debug.Log("계속하기");
+                LoadingSceneController.LoadScend(sceneName, true);
                 break;
             case BTNtype.OPTION:
                 CanvasGroupOn(optionGroup);
@@ -35,6 +41,7 @@ public class BtnType : MonoBehaviour
                 break;
         }
     }
+    
     public void CanvasGroupOn(CanvasGroup cg)
     {
         cg.alpha = 1;

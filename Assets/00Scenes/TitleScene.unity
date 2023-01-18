@@ -314,6 +314,8 @@ MonoBehaviour:
   currentType: 5
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
+  theTitle: {fileID: 0}
+  theSaveNLoad: {fileID: 0}
 --- !u!114 &73442334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,6 +679,8 @@ MonoBehaviour:
   currentType: 2
   mainGroup: {fileID: 1293962079}
   optionGroup: {fileID: 1997184691}
+  theTitle: {fileID: 0}
+  theSaveNLoad: {fileID: 0}
 --- !u!114 &361537074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,7 +1252,7 @@ GameObject:
   - component: {fileID: 949233146}
   - component: {fileID: 949233145}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1785,6 +1789,8 @@ MonoBehaviour:
   currentType: 3
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
+  theTitle: {fileID: 0}
+  theSaveNLoad: {fileID: 0}
 --- !u!114 &1681573637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2050,6 +2056,8 @@ MonoBehaviour:
   currentType: 4
   mainGroup: {fileID: 1293962079}
   optionGroup: {fileID: 1997184691}
+  theTitle: {fileID: 0}
+  theSaveNLoad: {fileID: 0}
 --- !u!114 &1790149783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2144,6 +2152,94 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790149780}
   m_CullTransparentMesh: 1
+--- !u!1 &1857918557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1857918559}
+  - component: {fileID: 1857918558}
+  - component: {fileID: 1857918560}
+  m_Layer: 0
+  m_Name: SceneLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1857918558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857918557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3514ca3cb4bd210458c03013709e36da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gold: 0
+  _level: 0
+  _experience: 0
+  _skillPoint: 0
+  _questId: 0
+  _questActionIndex: 0
+  _questPopupIndex: 0
+  _questComplete: 0
+--- !u!4 &1857918559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857918557}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 894.34515, y: 645.0692, z: -74.59949}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1857918560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857918557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c533feef30eaa4285aa1173fc46c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveData:
+    _playerPos: {x: 0, y: 0, z: 0}
+    _playerRot: {x: 0, y: 0, z: 0}
+    _gold: 0
+    _level: 0
+    _experience: 0
+    _skillPoint: 0
+    _questId: 0
+    _questActionIndex: 0
+    _questPopupIndex: 0
+    _questComplete: 0
+    invenArrayNumber: 
+    invenItemName: []
+    invenItemNumber: 
+    invenItemIsEquip: 
+    skillSetArrayNumber: 
+    skillSetSkillID: 
+    skillSetSkillActivity: 
+    quickItemArrayNumber: 
+    quickSkillArrayNumber: 
+    quickUsedItemName: []
+    quickSkillID: 
+    quickUsedItemNumber: 
 --- !u!1 &1962622573
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,6 +2390,8 @@ MonoBehaviour:
   currentType: 0
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
+  theTitle: {fileID: 0}
+  theSaveNLoad: {fileID: 0}
 --- !u!1 &1997184689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2401,6 +2499,8 @@ MonoBehaviour:
   currentType: 1
   mainGroup: {fileID: 0}
   optionGroup: {fileID: 0}
+  theTitle: {fileID: 0}
+  theSaveNLoad: {fileID: 0}
 --- !u!114 &2029562130
 MonoBehaviour:
   m_ObjectHideFlags: 0

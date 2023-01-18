@@ -59,7 +59,7 @@ public class SpringArm : MonoBehaviour
     private void OnCursor()
     {
         if (Input.GetKey(KeyCode.LeftAlt) || Inventory.inventoryActivated || Shop.isShopping
-            || SkillSetManager.isSkillSetting || MapZone.isWatchingMap)
+            || SkillSetManager.isSkillSetting || MapZone.isWatchingMap || GameManager.isPause)
         {
             Cursor.lockState = CursorLockMode.None;
         }

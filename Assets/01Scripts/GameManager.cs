@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
 
     private SpringArm theCam;
 
+    public static bool isPause = false;
+
 
     public int Gold
     {
@@ -51,17 +53,23 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Debug.Log("1");
         Inst = this;
         levelSystem = new LevelSystem();
+    }
+    private void OnEnable()
+    {
+        Debug.Log("2");
     }
 
     private void Start()
     {
+        Debug.Log("3");
         theCam = FindObjectOfType<SpringArm>();
         canSkip = false;
-        
         SetLevelSystem(levelSystem);
     }
+    
 
     // Update is called once per frame
     void Update()

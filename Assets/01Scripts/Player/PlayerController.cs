@@ -59,7 +59,7 @@ public class PlayerController : PlayerCharacterProperty
         {
             Interaction();
             if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting
-                && !GameManager.isAction && !theSprignArm.isTargetting)
+                && !GameManager.isAction && !theSprignArm.isTargetting && !GameManager.isPause)
             {
                 LookAround();
                 if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)

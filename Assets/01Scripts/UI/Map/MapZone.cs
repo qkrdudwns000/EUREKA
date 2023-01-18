@@ -67,11 +67,11 @@ public class MapZone : MonoBehaviour
         {
             case 1:
                 MapZone.isWatchingMap = false;
-                LoadingSceneController.LoadScend("BattleScene_1");
+                LoadingSceneController.LoadScend("BattleScene_1",false);
                 break;
             case 2:
                 MapZone.isWatchingMap = false;
-                LoadingSceneController.LoadScend("BattleScene_2");
+                LoadingSceneController.LoadScend("BattleScene_2", false);
                 break;
         }
     }

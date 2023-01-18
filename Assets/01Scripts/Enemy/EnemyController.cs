@@ -99,6 +99,7 @@ public class EnemyController : EnemyMovement
     void Update()
     {
         StateProcess();
+        
         SlowMotion();
     }
     public void FindTarget(Transform target)

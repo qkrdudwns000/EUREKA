@@ -60,6 +60,6 @@ public class ResultBgController : MonoBehaviour
         SceneLoaded.Inst.SaveData();
 
 
-        LoadingSceneController.LoadScend("MainScene");
+        LoadingSceneController.LoadScend("MainScene", false);
     }
 }

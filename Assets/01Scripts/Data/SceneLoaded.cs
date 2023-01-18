@@ -87,7 +87,7 @@ public class SceneLoaded : MonoBehaviour
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
         
-        if (!scene.name.Equals("LoadingScene")) { SceneData(); }
+        if (!scene.name.Equals("LoadingScene") && !scene.name.Equals("TitleScene")) { SceneData(); }
     }
 
     private void SceneData()

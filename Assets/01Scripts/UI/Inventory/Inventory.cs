@@ -67,8 +67,7 @@ public class Inventory : MonoBehaviour
             if (inventoryActivated)
             {
                 CheckEquip();
-                thePlayerEquipment.WeaponSwap();
-                thePlayerEquipment.ShieldSwap();
+                
             }
         }
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -150,5 +149,7 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+        thePlayerEquipment.WeaponSwap();
+        thePlayerEquipment.ShieldSwap();
     }
 }
