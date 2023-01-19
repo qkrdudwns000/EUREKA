@@ -94,6 +94,7 @@ public class Inventory : MonoBehaviour
 
     private void OpenInventory()
     {
+        SoundManager.inst.SFXPlay("MenuPopup");
         inventoryActivated = true;
         go_InventoryBase.SetActive(true);
         go_EquipBase.SetActive(true);

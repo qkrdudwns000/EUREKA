@@ -120,16 +120,19 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                     if (item.weaponType == Item.WeaponType.Weapon)
                     {
                         theWeaponEquip.WeaponEquip(item, this);
+                        SoundManager.inst.SFXPlay("SwordEquip");
                     }
                     else if (item.weaponType == Item.WeaponType.Shield)
                     {
                         theShieldEquip.ShieldEquip(item, this);
+                        SoundManager.inst.SFXPlay("ShieldEquip");
                     }
                 }
                 else if(item.itemType == Item.ItemType.used)
                 {
                     //소모.
                     Debug.Log(item.itemName + "을 사용했습니다.");
+                    SoundManager.inst.SFXPlay("Drink");
                     SetSlotCount(-1);
                 }
             }

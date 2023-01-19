@@ -1,19 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class MainSettingBtnType : MonoBehaviour
+public class MainSettingBtnType : MonoBehaviour, IPointerEnterHandler
 {
     public SetBTNtype currentType;
     public CanvasGroup mainGroup;
     public CanvasGroup optionGroup;
+    [SerializeField]private GameObject go_SoundMenu;
 
     private string sceneName = "MainScene";
     [SerializeField] private PauseMenu thePaseMenu;
+    public Slider BgmSlider;
 
     bool isSound;
+    private void Start()
+    {
+        
+    }
     public void OnBtnClick()
     {
+        SoundManager.inst.SFXPlay("TitleConfirm");
         switch (currentType)
         {
             case SetBTNtype.SAVE:
@@ -33,7 +42,7 @@ public class MainSettingBtnType : MonoBehaviour
                 thePaseMenu.CloseMenu();
                 break;
             case SetBTNtype.SOUND:
-                Debug.Log("SOUND");
+                OpenSoundMenu();
                 break;
             case SetBTNtype.BACK:
                 CanvasGroupOn(mainGroup);
@@ -56,5 +65,20 @@ public class MainSettingBtnType : MonoBehaviour
         cg.alpha = 0;
         cg.interactable = false;
         cg.blocksRaycasts = false;
+    }
+    public void OpenSoundMenu()
+    {
+        go_SoundMenu.SetActive(true);
+        CanvasGroupOff(mainGroup);
+        CanvasGroupOff(optionGroup);
+    }
+    public void CloseSoundMenu()
+    {
+        go_SoundMenu.SetActive(false);
+        CanvasGroupOn(optionGroup);
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SoundManager.inst.SFXPlay("TitleDrag");
     }
 }

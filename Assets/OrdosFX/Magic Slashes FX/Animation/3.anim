@@ -136613,6 +136613,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 2
     messageOptions: 0
+  - time: 0.6666667
+    functionName: AttackSound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 2
+    messageOptions: 0
   - time: 1.0333333
     functionName: OnAttackCollision
     data: 
@@ -136622,6 +136629,13 @@ AnimationClip:
     messageOptions: 0
   - time: 1.1333333
     functionName: InstantiateEffect
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 3
+    messageOptions: 0
+  - time: 2.2666667
+    functionName: AttackSound
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -85,6 +85,7 @@ public class QuestManager : MonoBehaviour
     }
     public void OpenQuestPopup()
     {
+        SoundManager.inst.SFXPlay("MenuPopup");
         go_QuestPanel.SetActive(true);
         ControlQuestPopup();
         isQuestPopup = true;

@@ -223,6 +223,7 @@ public class PlayerController : PlayerCharacterProperty
         {
             DecreaseStamina(15.0f);
             myAnim.SetTrigger("Rolling");
+            SoundManager.inst.SFXPlay("Rolling");
         }
         else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") 
             && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f && theEquipment.isEquipShield)
@@ -308,6 +309,16 @@ public class PlayerController : PlayerCharacterProperty
             {
                 myStat.HP -= damage;
                 myAnim.SetTrigger("OnHit");
+                int rndVoice = Random.Range(0, 2);
+                switch(rndVoice)
+                {
+                    case 0:
+                        SoundManager.inst.SFXPlay("Hurt1");
+                        break;
+                    case 1:
+                        SoundManager.inst.SFXPlay("Hurt2");
+                        break;
+                }
             }
             else
             {
@@ -320,6 +331,7 @@ public class PlayerController : PlayerCharacterProperty
         {
             myAnim.ResetTrigger("Blocking");
             myAnim.SetTrigger("Blocking");
+            SoundManager.inst.SFXPlay("Blocking");
         }
     }
     public void DeadPlayer()
@@ -329,6 +341,7 @@ public class PlayerController : PlayerCharacterProperty
         myAnim.SetBool("IsWalk", false);
         myAnim.SetBool("IsRun", false);
         myAnim.SetTrigger("Dead");
+        SoundManager.inst.SFXPlay("Death");
 
         StartCoroutine(ChangeResultState());
     }

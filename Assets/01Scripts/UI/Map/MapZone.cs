@@ -23,6 +23,7 @@ public class MapZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             go_Map.SetActive(true);
+            SoundManager.inst.SFXPlay("MapPopup");
             theCanvas.alpha = 0;
             isWatchingMap = true;
         }

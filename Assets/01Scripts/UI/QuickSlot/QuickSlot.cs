@@ -114,6 +114,7 @@ public class QuickSlot : MonoBehaviour, IPointerClickHandler, IDropHandler
 
             quickItemCount += _count;
             text_Count.text = quickItemCount.ToString();
+            SoundManager.inst.SFXPlay("Drink");
             Debug.Log("체력이 회복되었습니다.");
             if (quickItemCount <= 0)
             {

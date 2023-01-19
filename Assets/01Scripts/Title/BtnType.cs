@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
-public class BtnType : MonoBehaviour
+public class BtnType : MonoBehaviour, IPointerEnterHandler
 {
     public BTNtype currentType;
     public CanvasGroup mainGroup;
@@ -11,11 +13,13 @@ public class BtnType : MonoBehaviour
     private string sceneName = "MainScene";
     [SerializeField] private Title theTitle;
     [SerializeField] private SaveNLoad theSaveNLoad;
+    [SerializeField] private GameObject go_SoundPanel;
 
     bool isSound;
 
     public void OnBtnClick()
     {
+        SoundManager.inst.SFXPlay("TitleConfirm");
         switch (currentType)
         {
             case BTNtype.NEW:
@@ -29,7 +33,7 @@ public class BtnType : MonoBehaviour
                 CanvasGroupOff(mainGroup);
                 break;
             case BTNtype.SOUND:
-                Debug.Log("SOUND");
+                OpenSoundMenu();
                 break;
             case BTNtype.BACK:
                 CanvasGroupOn(mainGroup);
@@ -53,5 +57,18 @@ public class BtnType : MonoBehaviour
         cg.alpha = 0;
         cg.interactable = false;
         cg.blocksRaycasts = false;
+    }
+    public void OpenSoundMenu()
+    {
+        go_SoundPanel.SetActive(true);
+    }
+    public void CloseSoundMenu()
+    {
+        go_SoundPanel.SetActive(false);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SoundManager.inst.SFXPlay("TitleDrag");
     }
 }
