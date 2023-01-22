@@ -43,13 +43,11 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField] private Shop theShop;
     [SerializeField] private QuestNPC theQuest;
     [SerializeField] private ResultBgController myResultController;
-    private Collider myColider;
 
     private void Start()
     {
         isLive = true;
         theSprignArm = CameraArm.GetComponent<SpringArm>();
-        myColider = GetComponent<Collider>();
     }
 
     // Update is called once per frame

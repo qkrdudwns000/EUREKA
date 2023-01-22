@@ -74,6 +74,7 @@ public class MainSettingBtnType : MonoBehaviour, IPointerEnterHandler
     }
     public void CloseSoundMenu()
     {
+        SoundManager.inst.SFXPlay("MainCancel");
         go_SoundMenu.SetActive(false);
         CanvasGroupOn(optionGroup);
     }

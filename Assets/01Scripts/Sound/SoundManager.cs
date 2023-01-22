@@ -57,12 +57,7 @@ public class SoundManager : MonoBehaviour
 
                 Destroy(go, sfxList[i].length); // clip의 사운드끝나면 파괴.
             }
-            else
-            {
-                Debug.Log("해당 AudioClip이 List에 없습니다.");
-            }
         }
-        
     }
 
     public void BGMPlay(AudioClip clip)

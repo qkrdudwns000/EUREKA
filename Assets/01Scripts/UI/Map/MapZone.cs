@@ -42,11 +42,13 @@ public class MapZone : MonoBehaviour
     public void MapPopupOpen()
     {
         go_MapPopup.SetActive(true);
+        SoundManager.inst.SFXPlay("MainConfirm");
         mapGroup.blocksRaycasts = false;
     }
     public void MapPopupClose()
     {
         go_MapPopup.SetActive(false);
+        SoundManager.inst.SFXPlay("MainCancel");
         mapGroup.blocksRaycasts = true;
     }
 

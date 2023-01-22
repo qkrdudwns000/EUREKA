@@ -90,6 +90,28 @@ public class GameManager : MonoBehaviour
             if (!theCam.isTargetting)
             {
                 theCam.CameraTargeting(scanObject.transform);
+
+                if (scanObject.transform.GetComponent<ObjData>().id == 1000)
+                {
+                    int rndVoice = Random.Range(0, 3);
+                    switch (rndVoice)
+                    {
+                        case 0:
+                            SoundManager.inst.SFXPlay("QuestNpcVoice1");
+                            break;
+                        case 1:
+                            SoundManager.inst.SFXPlay("QuestNpcVoice2");
+                            break;
+                        case 2:
+                            SoundManager.inst.SFXPlay("QuestNpcVoice3");
+                            break;
+                    }
+                }
+                else if(scanObject.transform.GetComponent<ObjData>().id == 2000)
+                {
+                    SoundManager.inst.SFXPlay("StoreNpcVoice");
+                }
+
             }
 
             Talk(objData.id, objData.isNpc);
@@ -210,6 +232,7 @@ public class GameManager : MonoBehaviour
     {
         // 레벨 업데이트
         SetLevelNumber(levelSystem.GetLevelNumber());
+        SoundManager.inst.SFXPlay("LevelUp");
         Instantiate(levelUpEffect, thePlayer.transform.position, Quaternion.identity);
     }
 

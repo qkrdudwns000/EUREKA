@@ -85,15 +85,18 @@ public class SkillSetManager : MonoBehaviour
 
     public void OpenStudySkillPopup(int _skillID)
     {
+        SoundManager.inst.SFXPlay("MainConfirm");
         go_studySkillPopup.SetActive(true);
         skillID = _skillID;
     }
     public void CloseStudySkillPopup()
     {
+        SoundManager.inst.SFXPlay("MainCancel");
         go_studySkillPopup.SetActive(false);
     }
     public void CloseDontEnoughSkillPopup()
     {
+        SoundManager.inst.SFXPlay("MainCancel");
         go_dontEnoughStudySkill.SetActive(false);
     }
     public void SatisfyRequireSkillPoint()
@@ -118,12 +121,14 @@ public class SkillSetManager : MonoBehaviour
     {
         if (GameManager.Inst.SkillPoint - skillSlots[_skill].skill.requireSkillPoint > 0)
         {
+            SoundManager.inst.SFXPlay("MainOK");
             go_studySkillPopup.SetActive(false);
             GameManager.Inst.SkillPoint -= skillSlots[_skill].skill.requireSkillPoint;
             skillSlots[_skill].SkillActivity();
         }
         else
         {
+            SoundManager.inst.SFXPlay("MainCancelPopup");
             go_studySkillPopup.SetActive(false);
             text_dontEnoughPopup.text = "스킬포인트가 충분치 않습니다.";
             go_dontEnoughStudySkill.SetActive(true);
@@ -131,6 +136,7 @@ public class SkillSetManager : MonoBehaviour
     }
     public void DonEnoughStudyPrevSKill()
     {
+        SoundManager.inst.SFXPlay("MainCancelPopup");
         text_dontEnoughPopup.text = "선행스킬 습득이 필요합니다.";
         go_dontEnoughStudySkill.SetActive(true);
     }

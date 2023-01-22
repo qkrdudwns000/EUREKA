@@ -24227,6 +24227,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4e248112e43157842a965e4cab70d9d1, type: 3}
   - {fileID: 8300000, guid: 9c07e2b3a98fa3547967003c258e8010, type: 3}
   - {fileID: 8300000, guid: abaa7ab7cdbd70f4ca8704b1e5c0f4f3, type: 3}
+  - {fileID: 8300000, guid: 77ec878cd9950d943806693b70797d2d, type: 3}
+  - {fileID: 8300000, guid: 548ddd862641c6a4883588fd1c2db8ed, type: 3}
+  - {fileID: 8300000, guid: fd20b117f299db5438887de11f24d674, type: 3}
+  - {fileID: 8300000, guid: 2c48f6c14fcf7124c9ee84774f65a384, type: 3}
+  - {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  - {fileID: 8300000, guid: 56568295fa70b194fbc5cdf848f5d802, type: 3}
+  - {fileID: 8300000, guid: 7af2a94cb13c586428969cf0e5dfeb68, type: 3}
+  - {fileID: 8300000, guid: 226d844884220e1449dd8cb4ad6666d6, type: 3}
+  - {fileID: 8300000, guid: f3ec1fd0a36f5554baf7cc7bee20fbce, type: 3}
+  - {fileID: 8300000, guid: 7a42beb2108be574592e6c42011b32f5, type: 3}
   bgmList:
   - {fileID: 8300000, guid: 22be7b9986df204488629f1aa1e16536, type: 3}
   - {fileID: 8300000, guid: bfc594c7534ad5f4f9b6820bba803d66, type: 3}
@@ -24491,7 +24501,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &849021435
@@ -27708,7 +27718,6 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194229}
   - component: {fileID: 963194227}
-  - component: {fileID: 963194226}
   - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
@@ -27717,14 +27726,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &963194226
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -63822,6 +63823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   go_dontEnough: {fileID: 1981905053}
+  txt_DonEnough: {fileID: 2100399615}
   go_buyPopup: {fileID: 1346736004}
   go_sellPopup: {fileID: 1713837345}
 --- !u!1 &2032369059
@@ -70742,6 +70744,7 @@ GameObject:
   - component: {fileID: 1918585773215222760}
   - component: {fileID: 1918585773215222756}
   - component: {fileID: 1918585773215222757}
+  - component: {fileID: 1918585773215222761}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -70860,6 +70863,14 @@ MonoBehaviour:
   isEquipShield: 0
   EquipWeapon: {fileID: 1322377119}
   EquipShield: {fileID: 966371808}
+--- !u!81 &1918585773215222761
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918585773215222752}
+  m_Enabled: 1
 --- !u!1 &2085171111628338189
 GameObject:
   m_ObjectHideFlags: 0
@@ -93361,7 +93372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8639867437877325932}
-  m_LocalRotation: {x: -0, y: -0, z: 0.0000000027939675, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.000000004190951, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -134,6 +134,7 @@ public class EnemyController : EnemyMovement
             myStat.HP -= damage;
             if (!myAnim.GetBool("IsAttacking"))
             {
+                BossSM.inst.SFXPlay("Hit");
                 myAnim.SetTrigger("OnHit");
             }
         }
@@ -157,6 +158,7 @@ public class EnemyController : EnemyMovement
     public void DeadMonster()
     {
         StopAllCoroutines();
+        BossSM.inst.SFXPlay("Die");
         myAnim.SetBool("IsMoving", false);
         myAnim.SetTrigger("Dead");
         myTarget = null;

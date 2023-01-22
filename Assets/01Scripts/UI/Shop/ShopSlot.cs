@@ -25,6 +25,9 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler
     {
         if ((GameManager.Inst.Gold - item.itemPrice) < 0)
         {
+            SoundManager.inst.SFXPlay("MainCancelPopup");
+            StoreManager.Inst.go_dontEnough.SetActive(true);
+            StoreManager.Inst.txt_DonEnough.text = "구매할 골드가\n부족합니다.";
             return;
         }
         else
@@ -32,13 +35,16 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler
             theInven.AcquireItem(item, 1);
             if(Inventory.enoughSlot)
             {
+                SoundManager.inst.SFXPlay("Coins");
                 GameManager.Inst.Gold -= item.itemPrice;
             }
         }
         StoreManager.Inst.go_buyPopup.SetActive(false);
         if(!Inventory.enoughSlot)
         {
+            SoundManager.inst.SFXPlay("MainCancelPopup");
             StoreManager.Inst.go_dontEnough.SetActive(true);
+            StoreManager.Inst.txt_DonEnough.text = "배낭 공간이 충분하지 않습니다.";
         }
     }
 }
