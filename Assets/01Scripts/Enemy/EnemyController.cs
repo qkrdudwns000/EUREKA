@@ -25,9 +25,12 @@ public class EnemyController : EnemyMovement
     private QuestManager theQuestManager;
 
     public Item ingredientItem;
+    
 
     private float slowFactor = 0.05f;
     private float slowLength = 4f;
+    public Transform[] damagePos;
+    public GameObject damagePref;
 
     public enum STATE
     {
@@ -129,6 +132,7 @@ public class EnemyController : EnemyMovement
     public void TakeDamage(float damage)
     {
         Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
+        FloatingDamage(damage);
         if (myStat.HP - damage > 0.0f)
         {
             myStat.HP -= damage;
@@ -145,6 +149,19 @@ public class EnemyController : EnemyMovement
         }
 
         StartCoroutine("OnHitColor");
+    }
+
+    private void FloatingDamage(float damage)
+    {
+        GameObject damageText = Instantiate(damagePref);
+        int rndPos = Random.Range(0, 2);
+        if(rndPos == 0)
+            damageText.transform.position = damagePos[0].position;
+        else
+            damageText.transform.position = damagePos[1].position;
+
+
+        damageText.GetComponent<DamageText>().damageFlow = damage;
     }
 
     private IEnumerator OnHitColor()
