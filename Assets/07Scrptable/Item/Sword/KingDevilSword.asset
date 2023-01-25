@@ -21,4 +21,6 @@ MonoBehaviour:
   weaponType: 0
   itemImage: {fileID: -83026707, guid: 6f17dec212717e64880adceb68e0e395, type: 3}
   itemPrice: 1000
+  itemValue: 50
+  itemCoolTime: 0
   itemPrefab: {fileID: 1313695309672288235, guid: f51ac69a82780a94bbdbdf829ef70a9c, type: 3}

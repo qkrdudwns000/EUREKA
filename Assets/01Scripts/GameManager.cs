@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image portraitImg;
     [SerializeField] private TMPro.TMP_Text talkText;
     [SerializeField] private TMPro.TMP_Text nameText;
+    public GameObject[] go_nameText;
     private float textSpeed = 0.01f;
     private bool canSkip = false;
     public GameObject scanObject;
@@ -90,7 +91,10 @@ public class GameManager : MonoBehaviour
             if (!theCam.isTargetting)
             {
                 theCam.CameraTargeting(scanObject.transform);
-
+                for(int i = 0; i < go_nameText.Length; i++)
+                {
+                    go_nameText[i].SetActive(false);
+                }
                 if (scanObject.transform.GetComponent<ObjData>().id == 1000)
                 {
                     int rndVoice = Random.Range(0, 3);
@@ -130,6 +134,10 @@ public class GameManager : MonoBehaviour
         {
             isAction = false;
             theCanvas.alpha = 1;
+            for (int i = 0; i < go_nameText.Length; i++)
+            {
+                go_nameText[i].SetActive(true);
+            }
             talkIndex = 0;
             theCam.CameraTargeting(scanObject.transform);
             if(id == 2000)

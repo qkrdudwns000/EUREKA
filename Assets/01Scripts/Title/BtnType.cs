@@ -14,6 +14,7 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private Title theTitle;
     [SerializeField] private SaveNLoad theSaveNLoad;
     [SerializeField] private GameObject go_SoundPanel;
+    [SerializeField] private GameObject go_NoDataPopup;
 
     bool isSound;
 
@@ -26,7 +27,11 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler
                 LoadingSceneController.LoadScend(sceneName, false);
                 break;
             case BTNtype.CONTINUE:
-                LoadingSceneController.LoadScend(sceneName, true);
+                if (SaveNLoad.inst.DataConfirm())
+                    LoadingSceneController.LoadScend(sceneName, true);
+                else
+                    go_NoDataPopup.SetActive(true);
+
                 break;
             case BTNtype.OPTION:
                 CanvasGroupOn(optionGroup);
@@ -65,6 +70,12 @@ public class BtnType : MonoBehaviour, IPointerEnterHandler
     public void CloseSoundMenu()
     {
         go_SoundPanel.SetActive(false);
+    }
+
+    public void CloseNoDataPopup()
+    {
+        go_NoDataPopup.SetActive(false);
+        SoundManager.inst.SFXPlay("MainCancelPopup");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

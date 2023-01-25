@@ -20,8 +20,7 @@ public class PlayerAttackCollision : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && count == 0)
         {
-            Debug.Log("hi");
-            other.GetComponent<EnemyController>().TakeDamage(thePlayer.myStat.AP);
+            other.GetComponent<EnemyController>().TakeDamage(thePlayer.myStat.AP / 2);
             count++;
         }
     }

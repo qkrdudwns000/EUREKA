@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
     private GameObject go_InventoryBase;
     [SerializeField]
     private GameObject go_EquipBase;
+    [SerializeField]
+    private GameObject go_BaseUI;
 
     public GameObject go_SlotsParent;
     [SerializeField]
@@ -21,6 +23,8 @@ public class Inventory : MonoBehaviour
     private Equipment theShieldEquip;
     [SerializeField]
     private PlayerEquipment thePlayerEquipment;
+    [SerializeField]
+    private PlayerController thePlayer;
     [SerializeField]
     private SlotToolTip theSlotToolTip;
 
@@ -40,7 +44,10 @@ public class Inventory : MonoBehaviour
                 slots[_arrayNum].isEquip = _isEquip;
 
                 if (slots[_arrayNum].isEquip)
+                {
                     slots[_arrayNum].EquipCheck();
+                    CheckEquip();
+                }
             }
         }
     }
@@ -59,21 +66,10 @@ public class Inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Shop.isShopping)
+        if (inventoryActivated)
         {
-            if (Input.GetKeyDown(KeyCode.I))
-                TryOpenInventory();
-
-            if (inventoryActivated)
-            {
-                CheckEquip();
-                
-            }
+            CheckEquip();
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
-            CloseInventory();
-        
-        
     }
     public void ShowToolTip(Item _item, Vector3 _pos)
     {
@@ -98,8 +94,9 @@ public class Inventory : MonoBehaviour
         inventoryActivated = true;
         go_InventoryBase.SetActive(true);
         go_EquipBase.SetActive(true);
+        go_BaseUI.transform.SetSiblingIndex(7);
     }
-    private void CloseInventory()
+    public void CloseInventory()
     {
         inventoryActivated = false;
         go_InventoryBase.SetActive(false);
@@ -143,6 +140,14 @@ public class Inventory : MonoBehaviour
                 if (slots[i].isEquip)
                 {
                     slots[i].go_EquipImage.SetActive(true);
+                    if (slots[i].item.weaponType == Item.WeaponType.Weapon)
+                    {
+                        thePlayer.myStat.AP = slots[i].item.itemValue;
+                    }
+                    else
+                    {
+                        thePlayer.myStat.DP = slots[i].item.itemValue;
+                    }
                 }
                 else
                 {

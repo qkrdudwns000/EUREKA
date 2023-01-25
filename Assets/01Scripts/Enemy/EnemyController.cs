@@ -131,6 +131,9 @@ public class EnemyController : EnemyMovement
 
     public void TakeDamage(float damage)
     {
+        int rnd = Random.Range(-3, 4);
+        damage += rnd;
+
         Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
         FloatingDamage(damage);
         if (myStat.HP - damage > 0.0f)

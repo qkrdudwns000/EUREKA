@@ -12,6 +12,7 @@ public struct PlayerStat
     [SerializeField] float sp;
     [SerializeField] float maxSp;
     [SerializeField] float ap;
+    [SerializeField] float dp;
 
     public UnityAction<float> changeHp;
     public UnityAction<float> changeSp;
@@ -36,6 +37,12 @@ public struct PlayerStat
     public float AP
     {
         get => ap;
+        set => ap = value;
+    }
+    public float DP
+    {
+        get => dp;
+        set => dp = value;
     }
 
     public float maxHP

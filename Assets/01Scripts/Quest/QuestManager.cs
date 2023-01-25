@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class QuestManager : MonoBehaviour
 {
@@ -13,11 +14,12 @@ public class QuestManager : MonoBehaviour
 
     //퀘스트 UI
     public GameObject go_QuestPanel;
+    public GameObject go_BaseUI;
     public static bool isQuestPopup = false;
     public TMPro.TMP_Text text_Title;
     public TMPro.TMP_Text text_Detail;
     public TMPro.TMP_Text text_RewardGold;
-
+    public TMPro.TMP_Text text_CurrentMapName;
 
     Dictionary<int, QuestData> questList;
 
@@ -27,11 +29,11 @@ public class QuestManager : MonoBehaviour
         questList = new Dictionary<int, QuestData>();
         GenerateData();
     }
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-            TryOpenQuestPopup();
+        CurMapName();   
     }
+
 
     private void GenerateData()
     {
@@ -87,6 +89,7 @@ public class QuestManager : MonoBehaviour
     {
         SoundManager.inst.SFXPlay("MenuPopup");
         go_QuestPanel.SetActive(true);
+        go_BaseUI.transform.SetSiblingIndex(7);
         ControlQuestPopup();
         isQuestPopup = true;
     }
@@ -148,7 +151,7 @@ public class QuestManager : MonoBehaviour
                 else if (questPopupIndex == 1)
                 {
                     text_Title.text = "성난황소 사냥하기";
-                    text_Detail.text = "드디어 첫 임무다 !\n성 정문의 포탈을 탄 후 서쪽폐허의 성난황소 아카타우루스를 사냥하고오자";
+                    text_Detail.text = "드디어 첫 임무다 !\n성 정문의 포탈을 탄 후 붉은폐허의 성난황소 아카타우루스를 사냥하고오자";
                     text_RewardGold.text = "1000골드";
                 }
                 else if (questPopupIndex == 2)
@@ -169,7 +172,7 @@ public class QuestManager : MonoBehaviour
                 else if (questPopupIndex == 1)
                 {
                     text_Title.text = "검은사신 사냥하기";
-                    text_Detail.text = "두번째 임무다 !\n먼저출발한 토벌팀이 연락이 끊겼다고한다. 희생의 언덕으로 가서 검은사신 시니가미 토벌을 돕도록하자.";
+                    text_Detail.text = "두번째 임무다 !\n먼저출발한 토벌팀이 연락이 끊겼다고한다. 희생의 무덤으로 가서 검은사신 시니가미 토벌을 돕도록하자.";
                     text_RewardGold.text = "2000골드";
                 }
                 else if (questPopupIndex == 2)
@@ -189,5 +192,14 @@ public class QuestManager : MonoBehaviour
                 }
                 break;
         }
+    }
+    private void CurMapName()
+    {
+        if (SceneManager.GetActiveScene().name == "MainScene")
+            text_CurrentMapName.text = "태초마을";
+        else if (SceneManager.GetActiveScene().name == "BattleScene_1")
+            text_CurrentMapName.text = "붉은폐허";
+        else if (SceneManager.GetActiveScene().name == "BattleScene_2")
+            text_CurrentMapName.text = "희생의 무덤";
     }
 }

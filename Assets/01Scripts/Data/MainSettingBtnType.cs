@@ -13,13 +13,8 @@ public class MainSettingBtnType : MonoBehaviour, IPointerEnterHandler
 
     private string sceneName = "MainScene";
     [SerializeField] private PauseMenu thePaseMenu;
+    [SerializeField] private GameObject go_NoDataPopup;
     public Slider BgmSlider;
-
-    bool isSound;
-    private void Start()
-    {
-        
-    }
     public void OnBtnClick()
     {
         SoundManager.inst.SFXPlay("TitleConfirm");
@@ -32,7 +27,10 @@ public class MainSettingBtnType : MonoBehaviour, IPointerEnterHandler
                 break;
             case SetBTNtype.LOAD:
                 thePaseMenu.CloseMenu();
-                LoadingSceneController.LoadScend(sceneName, true);
+                if (SaveNLoad.inst.DataConfirm())
+                    LoadingSceneController.LoadScend(sceneName, true);
+                else
+                    go_NoDataPopup.SetActive(true);
                 break;
             case SetBTNtype.OPTION:
                 CanvasGroupOn(optionGroup);
@@ -77,6 +75,11 @@ public class MainSettingBtnType : MonoBehaviour, IPointerEnterHandler
         SoundManager.inst.SFXPlay("MainCancel");
         go_SoundMenu.SetActive(false);
         CanvasGroupOn(optionGroup);
+    }
+    public void CloseNoDataPopup()
+    {
+        SoundManager.inst.SFXPlay("MainCancel");
+        go_NoDataPopup.SetActive(false);
     }
     public void OnPointerEnter(PointerEventData eventData)
     {

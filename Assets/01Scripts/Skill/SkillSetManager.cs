@@ -17,6 +17,8 @@ public class SkillSetManager : MonoBehaviour
     [SerializeField]
     private GameObject go_dontEnoughStudySkill;
     [SerializeField]
+    private GameObject go_BaseUI;
+    [SerializeField]
     private TMPro.TMP_Text text_dontEnoughPopup;
     [SerializeField]
     private SkillSlotToolTip skillSlotTollTip;
@@ -38,16 +40,6 @@ public class SkillSetManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(!Shop.isShopping)
-            if (Input.GetKeyDown(KeyCode.K))
-                TryOpenSkillSet();
-
-        if (isSkillSetting && Input.GetKeyDown(KeyCode.Escape))
-            CloseSkillSet();
-    }
     private void Start()
     {
         isSkill = false;
@@ -66,6 +58,7 @@ public class SkillSetManager : MonoBehaviour
         SoundManager.inst.SFXPlay("MenuPopup");
         isSkillSetting = true;
         go_SkillSetBase.SetActive(true);
+        go_BaseUI.transform.SetSiblingIndex(7);
     }
     public void CloseSkillSet()
     {

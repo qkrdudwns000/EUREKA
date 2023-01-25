@@ -22,11 +22,13 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     private Equipment theWeaponEquip;
     [SerializeField]
     private Equipment theShieldEquip;
+    private PlayerController thePlayer;
     private Inventory theInven;
 
     private void Start()
     {
         theInven = FindObjectOfType<Inventory>();
+        thePlayer = FindObjectOfType<PlayerController>();
     }
     public void EquipCheck()
     {
@@ -132,7 +134,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
                 {
                     //소모.
                     Debug.Log(item.itemName + "을 사용했습니다.");
+                    thePlayer.myStat.HP += item.itemValue;
                     SoundManager.inst.SFXPlay("Drink");
+
                     SetSlotCount(-1);
                 }
             }

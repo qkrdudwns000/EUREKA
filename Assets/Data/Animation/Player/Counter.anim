@@ -62429,7 +62429,7 @@ AnimationClip:
     intParameter: 15
     messageOptions: 0
   - time: 0.8333333
-    functionName: OnAttackCollision
+    functionName: ConterAttackCollision
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

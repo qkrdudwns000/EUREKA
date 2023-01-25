@@ -7,6 +7,7 @@ public class AnimEvent : MonoBehaviour
 {
     public UnityEvent<bool> ComboCheck = default;
     [SerializeField] GameObject playerAttackCollision;
+    [SerializeField] GameObject CounterAttackCollision;
     private PlayerController thePlayer;
 
     [SerializeField] GameObject skill4AttackCollision;
@@ -39,6 +40,10 @@ public class AnimEvent : MonoBehaviour
     public void OnAttackCollision()
     {
         playerAttackCollision.SetActive(true);
+    }
+    public void ConterAttackCollision()
+    {
+        CounterAttackCollision.SetActive(true);
     }
 
     public void Skill_2_CollisionStart()

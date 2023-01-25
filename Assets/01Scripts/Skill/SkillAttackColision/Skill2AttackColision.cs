@@ -6,8 +6,13 @@ public class Skill2AttackColision : MonoBehaviour
 {
     [SerializeField]
     private Transform playerPos;
+    private PlayerController thePlayer;
     // Start is called before the first frame update
 
+    private void Start()
+    {
+        thePlayer = FindObjectOfType<PlayerController>();
+    }
     private void OnEnable()
     {
         this.transform.position = playerPos.position + Vector3.up + playerPos.forward * 2.0f;
@@ -18,7 +23,7 @@ public class Skill2AttackColision : MonoBehaviour
     {
         if (other.transform.tag == "Enemy")
         {
-            other.transform.GetComponent<EnemyController>().TakeDamage(30.0f);
+            other.transform.GetComponent<EnemyController>().TakeDamage(thePlayer.myStat.AP * 2);
         }
     }
 

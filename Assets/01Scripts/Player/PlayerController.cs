@@ -65,7 +65,7 @@ public class PlayerController : PlayerCharacterProperty
                     PlayerMovement();
                     RollingAndBlock();
                 }
-                if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill)
+                if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill && !MapZone.isWatchingMap)
                 {
                     ComboAttack();
                     CounterAttack();
@@ -221,7 +221,12 @@ public class PlayerController : PlayerCharacterProperty
         {
             DecreaseStamina(15.0f);
             myAnim.SetTrigger("Rolling");
-            SoundManager.inst.SFXPlay("Rolling");
+            int rndVoice = Random.Range(0, 2);
+            if(rndVoice == 0)
+                SoundManager.inst.SFXPlay("Rolling1");
+            else
+                SoundManager.inst.SFXPlay("Rolling2");
+
         }
         else if (Input.GetKeyDown(KeyCode.Tab) && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsRolling") 
             && !myAnim.GetBool("IsHiting") && myStat.SP > 0.0f && theEquipment.isEquipShield)
@@ -291,7 +296,7 @@ public class PlayerController : PlayerCharacterProperty
             for(int i = 0; i < _target.Length; i++)
             {
                 Debug.Log(_target[i]);
-                _target[i].GetComponent<EnemyController>().TakeDamage(20.0f);
+                _target[i].GetComponent<EnemyController>().TakeDamage(myStat.AP * 2);
             }
         }
     }
@@ -302,6 +307,8 @@ public class PlayerController : PlayerCharacterProperty
         if (!myAnim.GetBool("IsRolling") && !myAnim.GetBool("IsBlock") && !myAnim.GetBool("IsBlcoking") && !myAnim.GetBool("IsCounter")
             && !SkillSetManager.isSkill)
         {
+            damage -= myStat.DP;
+
             Debug.Log(transform.name + "가" + damage + "만큼 체력이 감소합니다.");
             if(myStat.HP - damage > 0.0f)
             {

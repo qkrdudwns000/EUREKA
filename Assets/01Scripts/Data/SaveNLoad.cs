@@ -219,7 +219,13 @@ public class SaveNLoad : MonoBehaviour
             GameObject title = GameObject.Find("Title");
             title.SetActive(false);
         }
-
+    }
+    public bool DataConfirm()
+    {
+        if (File.Exists(SAVE_DATA_DIRECTORY + SAVE_FILENAME))
+            return true;
+        else
+            return false;
     }
     public void ClearData()
     {
