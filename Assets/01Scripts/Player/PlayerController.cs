@@ -22,6 +22,7 @@ public class PlayerController : PlayerCharacterProperty
 
     private bool isRun = false;
     private float currentSpeed;
+    private bool isWall = false;
     public float smoothness = 10.0f;
     [SerializeField] private float runSpeed;
     [SerializeField] private float walkSpeed;
@@ -50,6 +51,10 @@ public class PlayerController : PlayerCharacterProperty
         theSprignArm = CameraArm.GetComponent<SpringArm>();
     }
 
+    private void FixedUpdate()
+    {
+        RayCastCheck();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -60,15 +65,18 @@ public class PlayerController : PlayerCharacterProperty
                 && !GameManager.isAction && !theSprignArm.isTargetting && !GameManager.isPause)
             {
                 LookAround();
-                if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
+                if (!myAnim.GetBool("WinMotion"))
                 {
-                    PlayerMovement();
-                    RollingAndBlock();
-                }
-                if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill && !MapZone.isWatchingMap)
-                {
-                    ComboAttack();
-                    CounterAttack();
+                    if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
+                    {
+                        PlayerMovement();
+                        RollingAndBlock();
+                    }
+                    if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill && !MapZone.isWatchingMap)
+                    {
+                        ComboAttack();
+                        CounterAttack();
+                    }
                 }
             }
             else
@@ -76,9 +84,10 @@ public class PlayerController : PlayerCharacterProperty
                 myAnim.SetBool("IsWalk", false);
                 myAnim.SetBool("IsRun", false);
             }
-            SPRechargeTime();
-            SPRecover();
         }
+        
+        SPRechargeTime();
+        SPRecover();
     }
     public void Targetting(Transform target)
     {
@@ -118,12 +127,14 @@ public class PlayerController : PlayerCharacterProperty
         {
             DecreaseStamina(0.5f);
             myAnim.SetBool("IsRun", true);
-            currentSpeed = runSpeed;
+            if(!isWall)
+                currentSpeed = runSpeed;
         }
         else
         {
             myAnim.SetBool("IsRun", false);
-            currentSpeed = walkSpeed;
+            if (!isWall)
+                currentSpeed = walkSpeed;
         }
 
 
@@ -334,6 +345,7 @@ public class PlayerController : PlayerCharacterProperty
         }
         else if ((myAnim.GetBool("IsBlock") || myAnim.GetBool("IsBlocking")) && !SkillSetManager.isSkill)
         {
+            AutoTargeting();
             myAnim.ResetTrigger("Blocking");
             myAnim.SetTrigger("Blocking");
             SoundManager.inst.SFXPlay("Blocking");
@@ -360,5 +372,21 @@ public class PlayerController : PlayerCharacterProperty
     {
         StopAllCoroutines();
         myResultController.OpenResult();
+    }
+    public void WinMotion()
+    {
+        myAnim.SetTrigger("Win");
+    }
+    private void RayCastCheck()
+    {
+        Debug.DrawRay(transform.position + transform.up, transform.forward, Color.red, Time.deltaTime * currentSpeed);
+        if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hitInfo, Time.deltaTime * currentSpeed, 1 << LayerMask.NameToLayer("Wall")))
+        {
+            //currentSpeed = hitInfo.poin
+            isWall = true;
+            Debug.Log("Ãæµ¹!");
+        }
+        else
+            isWall = false;
     }
 }

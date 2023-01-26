@@ -89,7 +89,7 @@ public class QuestManager : MonoBehaviour
     {
         SoundManager.inst.SFXPlay("MenuPopup");
         go_QuestPanel.SetActive(true);
-        go_BaseUI.transform.SetSiblingIndex(7);
+        go_BaseUI.transform.SetSiblingIndex(6);
         ControlQuestPopup();
         isQuestPopup = true;
     }

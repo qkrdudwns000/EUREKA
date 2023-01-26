@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ShopSlot : MonoBehaviour, IPointerClickHandler
+public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Inventory theInven;
 
@@ -46,5 +46,18 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler
             StoreManager.Inst.go_dontEnough.SetActive(true);
             StoreManager.Inst.txt_DonEnough.text = "배낭 공간이 충분하지 않습니다.";
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            theInven.ShowToolTip(item, transform.position);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        theInven.HideToolTip();
     }
 }

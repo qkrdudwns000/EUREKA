@@ -94,7 +94,7 @@ public class Inventory : MonoBehaviour
         inventoryActivated = true;
         go_InventoryBase.SetActive(true);
         go_EquipBase.SetActive(true);
-        go_BaseUI.transform.SetSiblingIndex(7);
+        go_BaseUI.transform.SetSiblingIndex(6);
     }
     public void CloseInventory()
     {

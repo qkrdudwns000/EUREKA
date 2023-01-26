@@ -208,6 +208,8 @@ public class EnemyController : EnemyMovement
     {
         GameManager.Inst.Gold += myStat.GetGold;
         GameManager.Inst.levelSystem.AddExperience(myStat.GetExperience);
+        PlayerController thePlayer = FindObjectOfType<PlayerController>();
+        thePlayer.WinMotion();
         if (bossID == theQuestManager.questId && !theQuestManager.questComplete)
         {
             theQuestManager.questActionIndex++;

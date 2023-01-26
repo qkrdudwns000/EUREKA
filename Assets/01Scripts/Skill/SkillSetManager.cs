@@ -58,7 +58,7 @@ public class SkillSetManager : MonoBehaviour
         SoundManager.inst.SFXPlay("MenuPopup");
         isSkillSetting = true;
         go_SkillSetBase.SetActive(true);
-        go_BaseUI.transform.SetSiblingIndex(7);
+        go_BaseUI.transform.SetSiblingIndex(6);
     }
     public void CloseSkillSet()
     {
