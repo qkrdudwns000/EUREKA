@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : PlayerCharacterProperty
 {
     private float currentSpRechargeTime = 0.0f;
     public float spRechargeTime = 0.0f;
-    public float spIncreaseSpeed = 1.0f;
+    public float spIncreaseSpeed = 3.0f;
 
     public Vector2 targetDir = Vector2.zero;
     public bool isAutoTarget = false;
@@ -17,13 +18,15 @@ public class PlayerController : PlayerCharacterProperty
     [SerializeField]
     private Animator StatusAnim;
     private Collider myColider;
+    private Rigidbody myRigid;
     
     [SerializeField]
     private Transform RealCam;
+    [SerializeField]
+    private Image bloodScreen;
 
     private bool isRun = false;
     private float currentSpeed;
-    private bool isWall = false;
     public float smoothness = 10.0f;
     [SerializeField] private float runSpeed;
     [SerializeField] private float walkSpeed;
@@ -51,16 +54,32 @@ public class PlayerController : PlayerCharacterProperty
         myColider = GetComponent<Collider>();
         isLive = true;
         theSprignArm = CameraArm.GetComponent<SpringArm>();
+        myRigid = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        RayCastCheck();
+        //RayCastCheck();
         if (isLive)
         {
             SPRechargeTime();
             SPRecover();
+
+            if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting
+                && !GameManager.isAction && !theSprignArm.isTargetting && !GameManager.isPause)
+            {
+                if (!myAnim.GetBool("WinMotion"))
+                {
+                    if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
+                    {
+                        PlayerMovement();
+                        //RollingAndBlock();
+                    }
+                    
+                }
+            }
         }
+        
     }
     // Update is called once per frame
     void Update()
@@ -76,7 +95,7 @@ public class PlayerController : PlayerCharacterProperty
                 {
                     if (!myAnim.GetBool("IsComboAttacking") && !myAnim.GetBool("IsHiting") && !SkillSetManager.isSkill)
                     {
-                        PlayerMovement();
+
                         RollingAndBlock();
                     }
                     if (theEquipment.isEquipWeapon && !SkillSetManager.isSkill && !MapZone.isWatchingMap)
@@ -95,9 +114,7 @@ public class PlayerController : PlayerCharacterProperty
                 myAnim.SetBool("IsWalk2", false);
                 myAnim.SetBool("IsRun2", false);
             }
-        }
-        
-        
+        }  
     }
     public void Targetting(Transform target)
     {
@@ -141,8 +158,8 @@ public class PlayerController : PlayerCharacterProperty
             else
                 myAnim.SetBool("IsRun2", true);
 
-            if (!isWall)
-                currentSpeed = runSpeed;
+
+            currentSpeed = runSpeed;
         }
         else
         {
@@ -151,9 +168,13 @@ public class PlayerController : PlayerCharacterProperty
             else
                 myAnim.SetBool("IsRun2", false);
 
-            if (!isWall)
-                currentSpeed = walkSpeed;
+            currentSpeed = walkSpeed;
         }
+        if (Physics.Raycast(transform.position + transform.up, transform.forward, myColider.bounds.extents.x + 0.1f, 1 << LayerMask.NameToLayer("Wall")))
+        {
+            currentSpeed = 0;
+        }
+
 
 
         Vector2 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -182,8 +203,11 @@ public class PlayerController : PlayerCharacterProperty
                     , Time.deltaTime * rotaeSpeed);
 
 
-            transform.position += moveDir * Time.deltaTime * currentSpeed;
-            if(theEquipment.isEquipWeapon)
+            //transform.position += moveDir.normalized * Time.deltaTime * currentSpeed;
+            Vector3 velocity = moveDir.normalized * currentSpeed;
+            myRigid.MovePosition(transform.position + velocity * Time.deltaTime);
+
+            if (theEquipment.isEquipWeapon)
                 myAnim.SetBool("IsWalk", true);
             else
                 myAnim.SetBool("IsWalk2", true);
@@ -258,6 +282,8 @@ public class PlayerController : PlayerCharacterProperty
         {
             DecreaseStamina(15.0f);
             myAnim.SetTrigger("Rolling");
+           
+
             int rndVoice = Random.Range(0, 2);
             if(rndVoice == 0)
                 SoundManager.inst.SFXPlay("Rolling1");
@@ -271,6 +297,7 @@ public class PlayerController : PlayerCharacterProperty
             myAnim.SetTrigger("Block");
         }
     }
+
     private void ComboAttack()
     {
 
@@ -351,6 +378,8 @@ public class PlayerController : PlayerCharacterProperty
             {
                 myStat.HP -= damage;
                 myAnim.SetTrigger("OnHit");
+                StopCoroutine(ShowBloodScreen());
+                StartCoroutine(ShowBloodScreen());
                 int rndVoice = Random.Range(0, 2);
                 switch(rndVoice)
                 {
@@ -407,16 +436,11 @@ public class PlayerController : PlayerCharacterProperty
     {
         myAnim.SetTrigger("Win");
     }
-    private void RayCastCheck()
+   
+    IEnumerator ShowBloodScreen()
     {
-        Debug.DrawRay(transform.position + transform.up, transform.forward, Color.red, Time.deltaTime * currentSpeed);
-        if (Physics.Raycast(transform.position + transform.up, transform.forward, myColider.bounds.extents.x + 0.2f, 1 << LayerMask.NameToLayer("Wall")))
-        {
-            currentSpeed = 0;
-            isWall = true;
-            Debug.Log("Ãæµ¹!");
-        }
-        else
-            isWall = false;
+        bloodScreen.color = new Color(1, 0, 0, Random.Range(0.4f, 0.5f));
+        yield return new WaitForSeconds(0.2f);
+        bloodScreen.color = Color.clear;
     }
 }

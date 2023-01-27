@@ -34,7 +34,7 @@ public class SlotToolTip : MonoBehaviour
         txt_ItemName.text = _item.itemName;
         txt_ItemDesc.text = _item.itemDesc;
         txt_Value.text = _item.itemValue.ToString();
-        txt_Price.text = _item.itemPrice.ToString();
+        txt_Price.text = (_item.itemPrice * 0.5f).ToString();
 
         if (_item.itemType == Item.ItemType.Equipment)
         {

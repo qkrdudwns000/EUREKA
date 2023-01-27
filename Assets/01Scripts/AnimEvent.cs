@@ -46,6 +46,7 @@ public class AnimEvent : MonoBehaviour
         CounterAttackCollision.SetActive(true);
     }
 
+
     public void Skill_2_CollisionStart()
     {
         skill2AttackCollision.SetActive(true);

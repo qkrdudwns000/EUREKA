@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ResultBgController : MonoBehaviour
 {
+    static public bool isResulting = false;
+
     public Sprite[] titlePortraits; // 0 == Victory , 1 == Defeat
     public Image resultTitleImage;
     public Image resultIngredientItem;
@@ -18,6 +20,7 @@ public class ResultBgController : MonoBehaviour
 
     public void OpenResult(int _gold, int _experience, Item _ingredientItem)
     {
+        isResulting = true;
         go_ResultScreen.SetActive(true);
         resultTitleImage.sprite = titlePortraits[VICTORY];
         text_Gold.text = _gold.ToString();
@@ -28,6 +31,8 @@ public class ResultBgController : MonoBehaviour
     }
     public void OpenResult()
     {
+        isResulting = true;
+
         go_ResultScreen.SetActive(true);
 
         resultTitleImage.sprite = titlePortraits[DEFEAT];
@@ -58,6 +63,8 @@ public class ResultBgController : MonoBehaviour
         SceneLoaded.Inst._questPopupIndex = theQuestManager.questPopupIndex;
         SceneLoaded.Inst._questComplete = theQuestManager.questComplete;
         SceneLoaded.Inst.SaveData();
+
+        isResulting = false;
 
 
         LoadingSceneController.LoadScend("MainScene", false);
