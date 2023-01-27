@@ -13,7 +13,7 @@ public class RootMotion : MonoBehaviour
     private void FixedUpdate()
     {
         if (DontMove) return;
-
+        //Debug.Log("hi");
         transform.parent.Translate(deltaPosition, Space.World);
         deltaPosition = Vector3.zero;
         transform.parent.rotation *= deltaRotation;

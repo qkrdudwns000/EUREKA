@@ -7,13 +7,9 @@ public class UIManager : MonoBehaviour
     public Inventory theInven;
     public QuestManager theQuest;
     public SkillSetManager theSkill;
+    public Shop theShop;
     public PauseMenu thePauseMenu;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -29,11 +25,14 @@ public class UIManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Inventory.inventoryActivated || QuestManager.isQuestPopup || SkillSetManager.isSkillSetting || GameManager.isPause)
+            if (Inventory.inventoryActivated || QuestManager.isQuestPopup || SkillSetManager.isSkillSetting || GameManager.isPause || Shop.isShopping)
             {
                 theInven.CloseInventory();
                 theQuest.CloseQuestPopup();
                 theSkill.CloseSkillSet();
+                if(theShop != null)
+                   theShop.CloseShopUI();
+
                 thePauseMenu.CloseMenu();
             }
             else

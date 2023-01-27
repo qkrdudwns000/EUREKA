@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: bcb6736dcd1a9824782dd63327e6179f, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -12706,7 +12706,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446603011}
-  m_LocalRotation: {x: 0.09350561, y: 0.8465062, z: -0.15843895, w: 0.4995809}
+  m_LocalRotation: {x: 0.09350563, y: 0.8465062, z: -0.15843897, w: 0.49958095}
   m_LocalPosition: {x: -22.99, y: 1.87, z: -46.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19855,6 +19855,7 @@ MonoBehaviour:
   theInven: {fileID: 1685896234}
   theQuest: {fileID: 367281888}
   theSkill: {fileID: 535704978}
+  theShop: {fileID: 0}
   thePauseMenu: {fileID: 977752995}
 --- !u!1 &687664728
 GameObject:
@@ -23193,7 +23194,8 @@ Animator:
     by Humanoid clips.\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
     'J_R_HairSide_00'\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
     'J_R_HairSide_00'\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
-    'J_R_HairSide_00'\n\tFrom animation clip 'WAIT00'\n\tFrom animation clip 'WAIT04'"
+    'J_R_HairSide_00'\n\tFrom animation clip 'WAIT00'\n\tFrom animation clip 'WAIT04'\n\tFrom
+    animation clip 'RUN00_F'\n\tFrom animation clip 'WALK00_F'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

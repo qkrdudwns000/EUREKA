@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: a8d2e7005b843c34a8c769c6b1ff69a2, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 434f4dc01c6d9e545aecc3009e68cc34, type: 2}
+  m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -60629,6 +60629,7 @@ MonoBehaviour:
   theInven: {fileID: 1263590256}
   theQuest: {fileID: 391436406}
   theSkill: {fileID: 1340430291}
+  theShop: {fileID: 1122882079}
   thePauseMenu: {fileID: 147691562}
 --- !u!1 &1864564767
 GameObject:
@@ -72934,8 +72935,8 @@ MonoBehaviour:
   StatusAnim: {fileID: 2007066090}
   RealCam: {fileID: 963194228}
   smoothness: 10
-  runSpeed: 6
-  walkSpeed: 3
+  runSpeed: 8
+  walkSpeed: 4
   rotaeSpeed: 10
   isForward: 0
   isLive: 1
@@ -74603,7 +74604,8 @@ Animator:
     by Humanoid clips.\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
     'J_R_HairSide_00'\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
     'J_R_HairSide_00'\n\tTransform 'J_L_HairFront_00'\n\tTransform 'J_L_HairSide_00'\n\tTransform
-    'J_R_HairSide_00'\n\tFrom animation clip 'WAIT00'\n\tFrom animation clip 'WAIT04'"
+    'J_R_HairSide_00'\n\tFrom animation clip 'WAIT00'\n\tFrom animation clip 'WAIT04'\n\tFrom
+    animation clip 'RUN00_F'\n\tFrom animation clip 'WALK00_F'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0

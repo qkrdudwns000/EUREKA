@@ -13,11 +13,7 @@ public class Shop : MonoBehaviour
 
     public bool isShop = false;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape)&&isShopping)
-            CloseShopUI();
-    }
+
     public void ZoneEnter()
     {
         anim.SetTrigger("Hello");
@@ -44,7 +40,7 @@ public class Shop : MonoBehaviour
         inventoryBase.SetActive(true);
         isShopping = true;
     }
-    private void CloseShopUI()
+    public void CloseShopUI()
     {
         theShop.SetActive(false);
         inventoryBase.SetActive(false);

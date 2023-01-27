@@ -16,6 +16,7 @@ public class PlayerController : PlayerCharacterProperty
     private SpringArm theSprignArm;
     [SerializeField]
     private Animator StatusAnim;
+    private Collider myColider;
     
     [SerializeField]
     private Transform RealCam;
@@ -47,6 +48,7 @@ public class PlayerController : PlayerCharacterProperty
 
     private void Start()
     {
+        myColider = GetComponent<Collider>();
         isLive = true;
         theSprignArm = CameraArm.GetComponent<SpringArm>();
     }
@@ -54,6 +56,11 @@ public class PlayerController : PlayerCharacterProperty
     private void FixedUpdate()
     {
         RayCastCheck();
+        if (isLive)
+        {
+            SPRechargeTime();
+            SPRecover();
+        }
     }
     // Update is called once per frame
     void Update()
@@ -81,13 +88,16 @@ public class PlayerController : PlayerCharacterProperty
             }
             else
             {
+
                 myAnim.SetBool("IsWalk", false);
                 myAnim.SetBool("IsRun", false);
+
+                myAnim.SetBool("IsWalk2", false);
+                myAnim.SetBool("IsRun2", false);
             }
         }
         
-        SPRechargeTime();
-        SPRecover();
+        
     }
     public void Targetting(Transform target)
     {
@@ -126,13 +136,21 @@ public class PlayerController : PlayerCharacterProperty
         if (isRun && myStat.SP > Mathf.Epsilon)
         {
             DecreaseStamina(0.5f);
-            myAnim.SetBool("IsRun", true);
-            if(!isWall)
+            if(theEquipment.isEquipWeapon)
+                myAnim.SetBool("IsRun", true);
+            else
+                myAnim.SetBool("IsRun2", true);
+
+            if (!isWall)
                 currentSpeed = runSpeed;
         }
         else
         {
-            myAnim.SetBool("IsRun", false);
+            if(theEquipment.isEquipWeapon)
+                myAnim.SetBool("IsRun", false);
+            else
+                myAnim.SetBool("IsRun2", false);
+
             if (!isWall)
                 currentSpeed = walkSpeed;
         }
@@ -165,11 +183,19 @@ public class PlayerController : PlayerCharacterProperty
 
 
             transform.position += moveDir * Time.deltaTime * currentSpeed;
-            myAnim.SetBool("IsWalk", true);
+            if(theEquipment.isEquipWeapon)
+                myAnim.SetBool("IsWalk", true);
+            else
+                myAnim.SetBool("IsWalk2", true);
         }
         else
         {
-            myAnim.SetBool("IsWalk", false);
+
+             myAnim.SetBool("IsWalk", false);
+             myAnim.SetBool("IsRun", false);
+
+             myAnim.SetBool("IsWalk2", false);
+             myAnim.SetBool("IsRun2", false);
         }  
     }
     private void LookAround()
@@ -355,8 +381,12 @@ public class PlayerController : PlayerCharacterProperty
     {
         StopAllCoroutines();
         isLive = false;
+
         myAnim.SetBool("IsWalk", false);
         myAnim.SetBool("IsRun", false);
+        myAnim.SetBool("IsWalk2", false);
+        myAnim.SetBool("IsRun2", false);
+
         myAnim.SetTrigger("Dead");
         SoundManager.inst.SFXPlay("Death");
 
@@ -380,9 +410,9 @@ public class PlayerController : PlayerCharacterProperty
     private void RayCastCheck()
     {
         Debug.DrawRay(transform.position + transform.up, transform.forward, Color.red, Time.deltaTime * currentSpeed);
-        if (Physics.Raycast(transform.position + transform.up, transform.forward, out RaycastHit hitInfo, Time.deltaTime * currentSpeed, 1 << LayerMask.NameToLayer("Wall")))
+        if (Physics.Raycast(transform.position + transform.up, transform.forward, myColider.bounds.extents.x + 0.2f, 1 << LayerMask.NameToLayer("Wall")))
         {
-            //currentSpeed = hitInfo.poin
+            currentSpeed = 0;
             isWall = true;
             Debug.Log("Ãæµ¹!");
         }
