@@ -393,8 +393,11 @@ public class PlayerController : PlayerCharacterProperty
             }
             else
             {
-                myStat.HP -= damage;
-                DeadPlayer();
+                if (isLive)
+                {
+                    myStat.HP -= damage;
+                    DeadPlayer();
+                }
             }
             StatusAnim.SetTrigger("Shake");   
         }
