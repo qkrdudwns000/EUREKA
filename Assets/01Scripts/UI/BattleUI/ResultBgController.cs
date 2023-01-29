@@ -26,6 +26,7 @@ public class ResultBgController : MonoBehaviour
         text_Gold.text = _gold.ToString();
         text_Experience.text = _experience.ToString();
         resultIngredientItem.sprite = _ingredientItem.itemImage;
+        theQuestManager.ControlQuestPopup();
         SetColor(VICTORY);
 
     }
