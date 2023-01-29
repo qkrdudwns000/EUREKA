@@ -27,7 +27,7 @@ public class MapButtonController : MonoBehaviour, IPointerEnterHandler,IPointerE
             case MapBtnType.Battle1:
                 theMap.MapPopupOpen();
                 theMap.mapNum = 1;
-                mapName.text = "서쪽폐허로\n이동하시겠습니까?";
+                mapName.text = "붉은폐허로\n이동하시겠습니까?";
                 break;
             case MapBtnType.Battle2:
                 theMap.MapPopupOpen();

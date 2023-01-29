@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShakeCamera : MonoBehaviour
 {
     static public ShakeCamera inst;
+    
     private void Awake()
     {
         inst = this;
@@ -12,12 +13,14 @@ public class ShakeCamera : MonoBehaviour
 
     private float shakeTime;
     private float shakeIntensity;
+    public bool isShake;
 
-    public void OnShakeCamera(float shakeTime = 1.0f, float shakeIntensity = 0.1f)
+    public void OnShakeCamera(float shakeTime = 0.2f, float shakeIntensity = 0.08f)
     {
         this.shakeTime = shakeTime;
         this.shakeIntensity = shakeIntensity;
 
+        isShake = false;
         StopCoroutine("ShakeByPosition");
         StartCoroutine("ShakeByPosition");   
     }
@@ -31,11 +34,13 @@ public class ShakeCamera : MonoBehaviour
             // 초기 위치로부터 구 범위(size 1) * shakeIntensity의 범위안에서 카메라 위치변동
             transform.position = startPosition + Random.insideUnitSphere * shakeIntensity;
 
+            isShake = true;
             // 시간 감소
             shakeTime -= Time.deltaTime;
 
             yield return null;
         }
+        isShake = false;
         // 다시 초기의 기억해둔 pos로 이동.
         transform.position = startPosition;
     }

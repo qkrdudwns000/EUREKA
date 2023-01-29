@@ -90,6 +90,7 @@ public class PlayerController : PlayerCharacterProperty
             if (!Inventory.inventoryActivated && !Shop.isShopping && !SkillSetManager.isSkillSetting
                 && !GameManager.isAction && !theSprignArm.isTargetting && !GameManager.isPause)
             {
+                if(!theSprignArm.isOnCusor)
                 LookAround();
                 if (!myAnim.GetBool("WinMotion"))
                 {
@@ -121,6 +122,7 @@ public class PlayerController : PlayerCharacterProperty
         autoTargetDir = (target.position - transform.position).normalized;
         isAutoTarget = true;
 
+        if(!ShakeCamera.inst.isShake)
         CameraArm.rotation = Quaternion.LookRotation(autoTargetDir);
         
     }
@@ -349,6 +351,7 @@ public class PlayerController : PlayerCharacterProperty
     public void SkillPlay(Skill _skill)
     {
         AutoTargeting();
+        DecreaseStamina(20.0f);
         myAnim.SetTrigger(_skill.animeName);
     }
     
@@ -403,6 +406,7 @@ public class PlayerController : PlayerCharacterProperty
         }
         else if ((myAnim.GetBool("IsBlock") || myAnim.GetBool("IsBlocking")) && !SkillSetManager.isSkill)
         {
+            ShakeCamera.inst.OnShakeCamera();
             AutoTargeting();
             myAnim.ResetTrigger("Blocking");
             myAnim.SetTrigger("Blocking");

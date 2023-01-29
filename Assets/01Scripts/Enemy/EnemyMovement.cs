@@ -151,18 +151,12 @@ public class EnemyMovement : EnemyCharacterProperty
     {
         yield return new WaitForSeconds(0.1f);
 
-        int rndAction = Random.Range(0, 3);
-        switch(rndAction)
-        {
-            case 0:
-                myAnim.SetTrigger("Attack1");
-                break;
-            case 1:
-                myAnim.SetTrigger("Attack2");
-                break;
-            case 2:
-                myAnim.SetTrigger("Attack3");
-                break;
-        }
+        int rndAction = Random.Range(0, 100);
+        if (rndAction >= 0 && rndAction < 40)
+            myAnim.SetTrigger("Attack1");
+        else if (rndAction >= 40 && rndAction < 80)
+            myAnim.SetTrigger("Attack2");
+        else if (rndAction >= 80)
+            myAnim.SetTrigger("Attack3");
     }
 }

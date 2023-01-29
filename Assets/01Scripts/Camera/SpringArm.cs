@@ -17,6 +17,8 @@ public class SpringArm : MonoBehaviour
     private Quaternion orgRot;
     [HideInInspector]
     public bool isTargetting = false;
+    [HideInInspector]
+    public bool isOnCusor = false;
 
     [SerializeField]
     private PlayerController theController;
@@ -62,10 +64,12 @@ public class SpringArm : MonoBehaviour
             || SkillSetManager.isSkillSetting || MapZone.isWatchingMap || GameManager.isPause || ResultBgController.isResulting)
         {
             Cursor.lockState = CursorLockMode.None;
+            isOnCusor = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
+            isOnCusor = false;
         }
     }
 

@@ -22,6 +22,8 @@ public class SkillSetManager : MonoBehaviour
     private TMPro.TMP_Text text_dontEnoughPopup;
     [SerializeField]
     private SkillSlotToolTip skillSlotTollTip;
+    [SerializeField]
+    private TMPro.TMP_Text text_requireSkillPoint;
 
     private int skillID;
     public const int Skill1 = 0, Skill2 = 1, Skill3 = 2, Skill4 = 3;
@@ -76,9 +78,10 @@ public class SkillSetManager : MonoBehaviour
         skillSlotTollTip.HideToolTip();
     }
 
-    public void OpenStudySkillPopup(int _skillID)
+    public void OpenStudySkillPopup(int _skillID, int _skillPoint)
     {
         SoundManager.inst.SFXPlay("MainConfirm");
+        text_requireSkillPoint.text = _skillPoint.ToString() + "포인트를 소비하여\n스킬을 배우시겠습니까?";
         go_studySkillPopup.SetActive(true);
         skillID = _skillID;
     }

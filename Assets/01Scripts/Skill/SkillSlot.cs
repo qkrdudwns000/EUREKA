@@ -41,7 +41,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 if(prevSkillSlot.activitySkill)
                 {
-                    theSkillSetManager.OpenStudySkillPopup(skill.skillID);
+                    theSkillSetManager.OpenStudySkillPopup(skill.skillID, skill.requireSkillPoint);
                 }
                 else
                 {
@@ -50,7 +50,7 @@ public class SkillSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             }
             else
             {
-                theSkillSetManager.OpenStudySkillPopup(skill.skillID);
+                theSkillSetManager.OpenStudySkillPopup(skill.skillID, skill.requireSkillPoint);
             }
         }
     }

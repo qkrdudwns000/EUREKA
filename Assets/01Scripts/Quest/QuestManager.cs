@@ -108,7 +108,7 @@ public class QuestManager : MonoBehaviour
         {
             case 10:
                 if (questActionIndex == 1)
-                    GameManager.Inst.Gold += 100;
+                    GameManager.Inst.Gold += 150;
                 break;
             case 20:
                 if (questActionIndex == 1)

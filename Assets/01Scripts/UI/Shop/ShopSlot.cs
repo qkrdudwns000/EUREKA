@@ -21,9 +21,9 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             StoreManager.Inst.BuyPopupOpen(this);
         }
     }
-    public void Buy()
+    public void Buy(int Num)
     {
-        if ((GameManager.Inst.Gold - item.itemPrice) < 0)
+        if ((GameManager.Inst.Gold - (item.itemPrice * Num)) < 0)
         {
             SoundManager.inst.SFXPlay("MainCancelPopup");
             StoreManager.Inst.go_dontEnough.SetActive(true);
@@ -32,14 +32,15 @@ public class ShopSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
         else
         {
-            theInven.AcquireItem(item, 1);
+            theInven.AcquireItem(item, Num);
             if(Inventory.enoughSlot)
             {
                 SoundManager.inst.SFXPlay("Coins");
-                GameManager.Inst.Gold -= item.itemPrice;
+                GameManager.Inst.Gold -= (item.itemPrice * Num);
             }
         }
         StoreManager.Inst.go_buyPopup.SetActive(false);
+        StoreManager.Inst.go_usedBuyPopup.SetActive(false);
         if(!Inventory.enoughSlot)
         {
             SoundManager.inst.SFXPlay("MainCancelPopup");

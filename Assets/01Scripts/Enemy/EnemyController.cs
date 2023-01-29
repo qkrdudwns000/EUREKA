@@ -131,6 +131,7 @@ public class EnemyController : EnemyMovement
 
     public void TakeDamage(float damage)
     {
+        ShakeCamera.inst.OnShakeCamera();
         int rnd = Random.Range(-3, 4);
         damage += rnd;
 

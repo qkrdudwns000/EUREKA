@@ -8,11 +8,15 @@ public class StoreManager : MonoBehaviour
 
     public GameObject go_dontEnough;
     public TMPro.TMP_Text txt_DonEnough;
+    public TMPro.TMP_Text txt_ObjectNumber;
     public GameObject go_buyPopup;
+    public GameObject go_usedBuyPopup;
     public GameObject go_sellPopup;
 
     private bool isBuyPopup = false;
     private bool isSellPopup = false;
+
+    private int buyCount = 1;
 
     ShopSlot shopSlot = null;
     Slot slot = null;
@@ -36,7 +40,14 @@ public class StoreManager : MonoBehaviour
     {
         SoundManager.inst.SFXPlay("MainConfirm");
         shopSlot = _shopslot;
-        go_buyPopup.SetActive(true);
+        buyCount = 1;
+        if (shopSlot.item.itemType == Item.ItemType.Equipment)
+            go_buyPopup.SetActive(true);
+        else
+        {
+            go_usedBuyPopup.SetActive(true);
+            txt_ObjectNumber.text = buyCount.ToString();
+        }
         isBuyPopup = true;
     }
     public void SellPopupOpen(Slot _slot)
@@ -48,7 +59,7 @@ public class StoreManager : MonoBehaviour
     }
     public void BuyYes()
     {
-        shopSlot.Buy();
+        shopSlot.Buy(buyCount);
         isBuyPopup = false;
         shopSlot = null;
     }
@@ -56,6 +67,7 @@ public class StoreManager : MonoBehaviour
     {
         SoundManager.inst.SFXPlay("MainCancel");
         go_buyPopup.SetActive(false);
+        go_usedBuyPopup.SetActive(false);
         isBuyPopup = false;
         shopSlot = null;
     }
@@ -78,5 +90,20 @@ public class StoreManager : MonoBehaviour
     {
         SoundManager.inst.SFXPlay("MainCancel");
         go_dontEnough.SetActive(false);
+    }
+    public void AddNumber()
+    {
+        SoundManager.inst.SFXPlay("MainConfirm");
+        if(shopSlot.item.itemPrice * (buyCount + 1) <= GameManager.Inst.Gold)
+           buyCount++;
+
+        txt_ObjectNumber.text = buyCount.ToString();
+    }
+    public void ReduceNumver()
+    {
+        SoundManager.inst.SFXPlay("MainCancel");
+        if(buyCount > 1)
+           buyCount--;
+        txt_ObjectNumber.text = buyCount.ToString();
     }
 }
