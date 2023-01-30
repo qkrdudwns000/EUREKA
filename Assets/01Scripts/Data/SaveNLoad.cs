@@ -145,13 +145,8 @@ public class SaveNLoad : MonoBehaviour
     }
     IEnumerator LoadDataCo()
     {
-        yield return null;
+        yield return new AsyncOperation();
         LoadData();
-        if(GameObject.Find("Title") != null)
-        {
-            GameObject title = GameObject.Find("Title");
-            title.gameObject.SetActive(false);
-        }
         
     }
     public void LoadData()
@@ -167,19 +162,22 @@ public class SaveNLoad : MonoBehaviour
             theQuickSlotController = FindObjectOfType<QuickSlotController>();
             theQuestManager = FindObjectOfType<QuestManager>();
 
-            thePlayer.transform.position = saveData._playerPos;
-            thePlayer.transform.eulerAngles = saveData._playerRot;
-            GameManager.Inst.Gold = saveData._gold;
-            GameManager.Inst.levelSystem.level = saveData._level;
-            GameManager.Inst.levelSystem.experience = saveData._experience;
-            GameManager.Inst.SkillPoint = saveData._skillPoint;
-            theQuestManager.questId = saveData._questId;
-            theQuestManager.questActionIndex = saveData._questActionIndex;
-            theQuestManager.questPopupIndex = saveData._questPopupIndex;
-            theQuestManager.questComplete = saveData._questComplete;
+            if (thePlayer != null)
+            {
+                thePlayer.transform.position = saveData._playerPos;
+                thePlayer.transform.eulerAngles = saveData._playerRot;
+                GameManager.Inst.Gold = saveData._gold;
+                GameManager.Inst.levelSystem.level = saveData._level;
+                GameManager.Inst.levelSystem.experience = saveData._experience;
+                GameManager.Inst.SkillPoint = saveData._skillPoint;
+                theQuestManager.questId = saveData._questId;
+                theQuestManager.questActionIndex = saveData._questActionIndex;
+                theQuestManager.questPopupIndex = saveData._questPopupIndex;
+                theQuestManager.questComplete = saveData._questComplete;
 
-            GameManager.Inst.SetLevelSystem(GameManager.Inst.levelSystem);
-                     
+
+                GameManager.Inst.SetLevelSystem(GameManager.Inst.levelSystem);
+            }
             //SceneLoaded.Inst._gold = saveData._gold;
             //SceneLoaded.Inst._level = saveData._level;
             //SceneLoaded.Inst._experience = saveData._experience;
@@ -189,36 +187,33 @@ public class SaveNLoad : MonoBehaviour
             //SceneLoaded.Inst._questPopupIndex = saveData._questPopupIndex;
             //SceneLoaded.Inst._questComplete = saveData._questComplete;
 
-            for (int i = 0; i < saveData.invenItemName.Count; i++)
+            if (theInven != null)
             {
-                theInven.LoadToInven(saveData.invenArrayNumber[i], saveData.invenItemName[i],
-                    saveData.invenItemNumber[i], saveData.invenItemIsEquip[i]);
+                for (int i = 0; i < saveData.invenItemName.Count; i++)
+                {
+                    theInven.LoadToInven(saveData.invenArrayNumber[i], saveData.invenItemName[i],
+                        saveData.invenItemNumber[i], saveData.invenItemIsEquip[i]);
+                }
+                theInven.CheckEquip();
+                for (int i = 0; i < saveData.skillSetSkillID.Count; i++)
+                {
+                    theSkillSetManager.LoadToSkillset(saveData.skillSetArrayNumber[i], saveData.skillSetSkillID[i], saveData.skillSetSkillActivity[i]);
+                }
+                for (int i = 0; i < saveData.quickUsedItemName.Count; i++)
+                {
+                    theQuickSlotController.LoadToQuickItem(saveData.quickItemArrayNumber[i], saveData.quickUsedItemName[i],
+                        saveData.quickUsedItemNumber[i]);
+                }
+                for (int i = 0; i < saveData.quickSkillID.Count; i++)
+                {
+                    theQuickSlotController.LoadToQuickSkill(saveData.quickSkillArrayNumber[i], saveData.quickSkillID[i]);
+                }
+                theQuestManager.ControlQuestPopup();
+                Debug.Log("로드 완료");
             }
-            theInven.CheckEquip();
-            for (int i = 0; i < saveData.skillSetSkillID.Count; i++)
-            {
-                theSkillSetManager.LoadToSkillset(saveData.skillSetArrayNumber[i], saveData.skillSetSkillID[i], saveData.skillSetSkillActivity[i]);
-            }
-            for (int i = 0; i < saveData.quickUsedItemName.Count; i++)
-            {
-                theQuickSlotController.LoadToQuickItem(saveData.quickItemArrayNumber[i], saveData.quickUsedItemName[i],
-                    saveData.quickUsedItemNumber[i]);
-            }
-            for (int i = 0; i < saveData.quickSkillID.Count; i++)
-            {
-                theQuickSlotController.LoadToQuickSkill(saveData.quickSkillArrayNumber[i], saveData.quickSkillID[i]);
-            }
-
-            Debug.Log("로드 완료");
         }
         else
             Debug.Log("로드할 파일이 없습니다.");
-
-        if(GameObject.Find("Title") != null)
-        {
-            GameObject title = GameObject.Find("Title");
-            title.SetActive(false);
-        }
     }
     public bool DataConfirm()
     {

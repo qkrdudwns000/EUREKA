@@ -33,6 +33,8 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         CurMapName();
+        Debug.Log(questId);
+        Debug.Log(questPopupIndex);
         ControlQuestPopup();
     }
 
@@ -108,7 +110,7 @@ public class QuestManager : MonoBehaviour
         {
             case 10:
                 if (questActionIndex == 1)
-                    GameManager.Inst.Gold += 150;
+                    GameManager.Inst.Gold += 200;
                 break;
             case 20:
                 if (questActionIndex == 1)
