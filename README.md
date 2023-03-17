@@ -12,3 +12,4 @@ Unity 엔진을 기반으로 제작된 3D ActionRPG 게임으로 포트폴리오
 
 #### 📺 영상 및 기술서
 - 동영상 : [youtube](https://www.youtube.com/watch?v=CK8OJzMM3Wg&t=375s&ab_channel=EUREKA)
+- 기술서 : [googledrive](https://drive.google.com/file/d/1Wxzma0EqItzN92wII4MPTKwISkUyZk-S/view?usp=share_link)
